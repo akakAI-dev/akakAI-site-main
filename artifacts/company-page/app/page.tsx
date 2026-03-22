@@ -84,6 +84,17 @@ function HiringCTA({ root }: { root: React.RefObject<HTMLDivElement | null> }) {
   );
 }
 
+/* ── Black pill section label ── */
+function SectionLabel({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+  return (
+    <div className={`mb-8 ${className}`}>
+      <span className="inline-flex items-center gap-1.5 bg-gray-900 text-white text-[11px] uppercase tracking-[0.18em] px-4 py-1.5 rounded-full">
+        {children}
+      </span>
+    </div>
+  );
+}
+
 /* ── Hover card ── */
 function Card({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return (
@@ -220,7 +231,7 @@ export default function CompanyPage() {
         {activeTab === "about" && (
           <div className="px-8">
             <Section first root={scrollRef}>
-              <p className="text-[14px] uppercase tracking-[0.18em] text-gray-400 mb-8">🏗️ What We Are</p>
+              <SectionLabel>🏗️ What We Are</SectionLabel>
               <div className="grid grid-cols-2 gap-12">
                 <div>
                   <h2 className="text-[32px] leading-tight text-gray-900 mb-6" style={{ fontWeight: 500 }}>
@@ -251,7 +262,7 @@ export default function CompanyPage() {
             </Section>
 
             <Section root={scrollRef} delay={60}>
-              <p className="text-[14px] uppercase tracking-[0.18em] text-gray-400 mb-8">⚙️ What Our Agents Do</p>
+              <SectionLabel>⚙️ What Our Agents Do</SectionLabel>
               <div className="grid grid-cols-2 gap-5">
                 {[
                   { emoji: "🧠", label: "Independent Thinking", desc: "Real reasoning — not pattern-matching. Our agents decompose goals, weigh options, and find the right path even when the instructions stop short of telling them how." },
@@ -273,7 +284,7 @@ export default function CompanyPage() {
             </Section>
 
             <Section root={scrollRef} delay={60}>
-              <p className="text-[14px] uppercase tracking-[0.18em] text-gray-400 mb-8">🔬 The Technology</p>
+              <SectionLabel>🔬 The Technology</SectionLabel>
               <div className="grid grid-cols-2 gap-12">
                 <div>
                   <h2 className="text-[28px] leading-tight text-gray-900 mb-6" style={{ fontWeight: 500 }}>
@@ -295,7 +306,7 @@ export default function CompanyPage() {
             </Section>
 
             <Section root={scrollRef} delay={60}>
-              <p className="text-[14px] uppercase tracking-[0.18em] text-gray-400 mb-8">💡 What We Believe</p>
+              <SectionLabel>💡 What We Believe</SectionLabel>
               <div className="flex flex-wrap gap-3">
                 {[
                   { emoji: "🚫", text: "AI shouldn't wait for direction" },
@@ -322,7 +333,7 @@ export default function CompanyPage() {
             <Section first root={scrollRef}>
               <div className="grid grid-cols-2 gap-12">
                 <div>
-                  <p className="text-[14px] uppercase tracking-[0.18em] text-gray-400 mb-8">🎯 The Mission</p>
+                  <SectionLabel>🎯 The Mission</SectionLabel>
                   <h2 className="text-[34px] leading-[1.2] text-gray-900 mb-7" style={{ fontWeight: 500 }}>
                     "Make action the default, not the exception."
                   </h2>
@@ -342,7 +353,7 @@ export default function CompanyPage() {
             </Section>
 
             <Section root={scrollRef} delay={60}>
-              <p className="text-[14px] uppercase tracking-[0.18em] text-gray-400 mb-8">💭 What We Believe</p>
+              <SectionLabel>💭 What We Believe</SectionLabel>
               <div className="grid grid-cols-2 gap-5">
                 {[
                   { emoji: "🌊", heading: "We are at an inflection point.", body: "Every decade, a new computing paradigm shifts what's possible. The internet connected information. Mobile connected people. AI is connecting intent to action — and we are at the very beginning of understanding what that means. akakAI exists to push that frontier forward, deliberately and without compromise." },
@@ -362,7 +373,7 @@ export default function CompanyPage() {
             </Section>
 
             <Section root={scrollRef} delay={60}>
-              <p className="text-[14px] uppercase tracking-[0.18em] text-gray-400 mb-8">🧭 Four Principles</p>
+              <SectionLabel>🧭 Four Principles</SectionLabel>
               <div className="grid grid-cols-2 gap-5">
                 {[
                   { emoji: "👁️", word: "Anticipate", desc: "The most powerful move isn't reacting — it's already being in motion before the problem is named. Our agents see what's coming and act before anyone asks." },
@@ -382,7 +393,7 @@ export default function CompanyPage() {
             </Section>
 
             <Section root={scrollRef} delay={60}>
-              <p className="text-[14px] uppercase tracking-[0.18em] text-gray-400 mb-8">🌊 The Next Wave</p>
+              <SectionLabel>🌊 The Next Wave</SectionLabel>
               <div className="grid grid-cols-2 gap-12">
                 <div>
                   <h2 className="text-[28px] leading-tight text-gray-900 mb-6" style={{ fontWeight: 500 }}>
@@ -401,7 +412,7 @@ export default function CompanyPage() {
             </Section>
 
             <Section root={scrollRef} delay={60}>
-              <p className="text-[14px] uppercase tracking-[0.18em] text-gray-400 mb-8">🚫 What akakAI Is Not</p>
+              <SectionLabel>🚫 What akakAI Is Not</SectionLabel>
               <div className="grid grid-cols-2 gap-5">
                 {[
                   { emoji: "💬", label: "A chatbot", desc: "Chatbots respond. Agents act. The architecture, the intent, and the outcome are entirely different." },
@@ -443,7 +454,7 @@ export default function CompanyPage() {
                   </p>
                   <p className="text-[13px] uppercase tracking-[0.15em] text-gray-400">The conviction that started it all</p>
                 </div>
-                <div className="flex flex-col justify-center">
+                <div className="flex flex-col justify-center border-l border-gray-200 pl-8">
                   <p className="text-[18px] text-gray-600 leading-[1.8] mb-6">
                     Zayd started akakAI with a simple but uncomfortable observation: the AI tools people were using were passive. They waited. They asked for input. They responded. They never moved first.
                   </p>
@@ -470,7 +481,7 @@ export default function CompanyPage() {
                   </p>
                   <p className="text-[13px] uppercase tracking-[0.15em] text-gray-400">The engineering behind the autonomy</p>
                 </div>
-                <div className="flex flex-col justify-center">
+                <div className="flex flex-col justify-center border-l border-gray-200 pl-8">
                   <p className="text-[18px] text-gray-600 leading-[1.8] mb-6">
                     Abhiram brings the technical depth to turn akakAI's vision into working systems. His focus is on the hardest problem in the space: building agents that don't just run through steps, but genuinely reason about what needs to happen next.
                   </p>
@@ -485,7 +496,7 @@ export default function CompanyPage() {
             <Section root={scrollRef} delay={60}>
               <div className="grid grid-cols-2 gap-12">
                 <div>
-                  <p className="text-[14px] uppercase tracking-[0.18em] text-gray-400 mb-8">🔬 The Approach</p>
+                  <SectionLabel>🔬 The Approach</SectionLabel>
                   <h2 className="text-[28px] leading-tight text-gray-900 mb-6" style={{ fontWeight: 500 }}>
                     Capability over complexity — always.
                   </h2>
@@ -505,7 +516,7 @@ export default function CompanyPage() {
             </Section>
 
             <Section root={scrollRef} delay={60}>
-              <p className="text-[14px] uppercase tracking-[0.18em] text-gray-400 mb-8">💡 What Drives This</p>
+              <SectionLabel>💡 What Drives This</SectionLabel>
               <div className="grid grid-cols-2 gap-5">
                 {[
                   { emoji: "🔍", title: "The Problem", text: "Passive tools, overhyped AI, systems that wait for input instead of taking initiative. The gap between what AI promised and what it delivered." },
@@ -525,7 +536,7 @@ export default function CompanyPage() {
             </Section>
 
             <Section root={scrollRef} delay={60}>
-              <p className="text-[14px] uppercase tracking-[0.18em] text-gray-400 mb-6">🏷️ The Team in Tags</p>
+              <SectionLabel className="mb-6">🏷️ The Team in Tags</SectionLabel>
               <div className="flex flex-wrap gap-3">
                 {[
                   { emoji: "🚫", text: "Anti-hype" },
@@ -552,7 +563,7 @@ export default function CompanyPage() {
             <Section first root={scrollRef}>
               <div className="grid grid-cols-2 gap-12">
                 <div>
-                  <p className="text-[14px] uppercase tracking-[0.18em] text-gray-400 mb-8">📬 Investment Inquiries</p>
+                  <SectionLabel>📬 Investment Inquiries</SectionLabel>
                   <h2 className="text-[32px] leading-tight text-gray-900 mb-6" style={{ fontWeight: 500 }}>
                     Interested in backing the next wave?
                   </h2>
@@ -573,7 +584,7 @@ export default function CompanyPage() {
             </Section>
 
             <Section root={scrollRef} delay={60}>
-              <p className="text-[14px] uppercase tracking-[0.18em] text-gray-400 mb-8">📰 Press</p>
+              <SectionLabel>📰 Press</SectionLabel>
               <div className="space-y-4">
                 <PressEntry
                   title="akakAI Secures Pre-Seed Funding, Valued at $1.5 Million"

@@ -556,6 +556,9 @@ video {
 .mt-6 {
   margin-top: 1.5rem;
 }
+.mt-1 {
+  margin-top: 0.25rem;
+}
 .flex {
   display: flex;
 }
@@ -968,6 +971,9 @@ video {
 }
 .leading-tight {
   line-height: 1.25;
+}
+.leading-\[1\.6\] {
+  line-height: 1.6;
 }
 .tracking-\[0\.12em\] {
   letter-spacing: 0.12em;

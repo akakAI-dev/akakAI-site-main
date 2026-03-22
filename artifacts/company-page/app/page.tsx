@@ -992,7 +992,7 @@ export default function CompanyPage() {
                     { label: "Timeline", value: "2025" },
                     { label: "Company", value: "akakAI" },
                     { label: "Type", value: "AI Email Agent" },
-                    { label: "Tech", value: "LLMs, Gmail API, Outlook API" },
+                    { label: "Tech", value: "LLMs, Gmail API, Outlook API, OAuth" },
                     { label: "Status", value: "Live — Early Access" },
                   ].map(({ label, value }) => (
                     <div key={label}>
@@ -1009,9 +1009,10 @@ export default function CompanyPage() {
               <SectionLabel>📋 Overview</SectionLabel>
               <div className="grid grid-cols-2 gap-12">
                 <div>
-                  <h3 className="text-[26px] text-gray-900 leading-tight mb-6" style={{ fontWeight: 500 }}>
-                    An email agent that replies before you even open the thread.
+                  <h3 className="text-[26px] text-gray-900 leading-tight mb-3" style={{ fontWeight: 500 }}>
+                    Zero Inbox. Zero Stress.
                   </h3>
+                  <p className="text-[14px] uppercase tracking-[0.12em] text-gray-400 mb-6">Intelligent Context Awareness + Cognitive Routing + Smart Response Filtering</p>
                   <p className="text-[17px] text-gray-600 leading-[1.85] mb-5">
                     akakAI Email is an autonomous AI agent that integrates directly with Gmail and Outlook. It reads incoming emails, understands context, and drafts replies autonomously — no prompts, no commands, no separate app.
                   </p>
@@ -1019,10 +1020,9 @@ export default function CompanyPage() {
                     The agent operates silently in the background, monitoring your inbox and composing context-aware replies based on your identity, communication style, and the substance of each thread.
                   </p>
                 </div>
-                <div className="flex flex-col justify-center border-l border-gray-200 pl-12">
-                  <p className="text-[17px] text-gray-600 leading-[1.85] mb-5">
-                    akakAI Email launched July 3, 2025, and was the first product released under the akakAI umbrella. It was built to prove the core thesis: AI can act on your behalf without being asked.
-                  </p>
+                <div className="flex flex-col justify-center border-l border-gray-200 pl-12 gap-6">
+                  <Image src="/email-hero.png" alt="akakAI Email" width={900} height={600}
+                    className="w-full rounded-xl border border-gray-100 object-cover" />
                   <a href="https://email.akakai.com" target="_blank" rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 text-[13px] text-gray-500 border border-gray-200 px-5 py-2.5 rounded-full hover:border-gray-400 hover:text-gray-900 transition-colors w-fit">
                     Visit Email <ArrowUpRight size={13} />
@@ -1031,44 +1031,79 @@ export default function CompanyPage() {
               </div>
             </Section>
 
-            {/* Core features */}
+            {/* Three Pillars */}
             <Section root={scrollRef} delay={60}>
-              <SectionLabel>⚡ Core Capabilities</SectionLabel>
-              <div className="grid grid-cols-2 gap-5">
+              <SectionLabel>🧠 How It Works</SectionLabel>
+              <div className="grid grid-cols-3 gap-5 mb-10">
                 {[
-                  { emoji: "📬", label: "Inbox Monitoring", desc: "The agent watches your inbox continuously. The moment a new email arrives, it reads, classifies, and begins drafting — without any input from you." },
-                  { emoji: "🧠", label: "Context Awareness", desc: "It understands thread history, sender relationships, and the content of each email. Replies are relevant, personalized, and match your communication style." },
-                  { emoji: "✍️", label: "Autonomous Drafting", desc: "Full email replies are drafted automatically, ready for review or send. No prompting required — the agent figures out what to say and how to say it." },
-                  { emoji: "🔌", label: "Native Integration", desc: "Connects directly to Gmail and Outlook via OAuth. No new app, no new interface — the agent lives inside the tools you already use every day." },
+                  { label: "Intelligent Context Awareness", desc: "The agent uses information from your calendar and previous emails to craft personalized, contextually appropriate responses — not generic templates." },
+                  { label: "Cognitive Routing", desc: "Incoming emails are intelligently analyzed and routed to the most suitable language model based on message type, complexity, and intent." },
+                  { label: "Smart Response Filtering", desc: "Promotional emails are automatically ignored, ensuring auto-responses are only sent to relevant, meaningful messages — no unwanted noise." },
                 ].map((c, i) => (
                   <Reveal key={i} root={scrollRef} delay={i * 40}>
                     <Card className="bg-gray-50 rounded-xl p-7 cursor-default">
-                      <div className="text-2xl mb-4">{c.emoji}</div>
                       <p className="text-[16px] text-gray-900 mb-3" style={{ fontWeight: 500 }}>{c.label}</p>
-                      <p className="text-[15px] text-gray-500 leading-[1.8]">{c.desc}</p>
+                      <p className="text-[14px] text-gray-500 leading-[1.8]">{c.desc}</p>
                     </Card>
                   </Reveal>
                 ))}
               </div>
             </Section>
 
-            {/* Context */}
+            {/* Stat callout */}
             <Section root={scrollRef} delay={60}>
-              <SectionLabel>💡 Why It Matters</SectionLabel>
-              <div className="grid grid-cols-2 gap-12">
+              <SectionLabel>📊 Why It Matters</SectionLabel>
+              <div className="grid grid-cols-2 gap-12 mb-10">
                 <div>
-                  <h3 className="text-[24px] text-gray-900 leading-tight mb-6" style={{ fontWeight: 500 }}>
-                    Email is where passive AI is most visible — and most painful.
+                  <h3 className="text-[24px] text-gray-900 leading-tight mb-5" style={{ fontWeight: 500 }}>
+                    Americans spend the equivalent of nearly 4 months a year just on email — more than they get for vacation.
                   </h3>
                   <p className="text-[17px] text-gray-600 leading-[1.85]">
-                    Most people spend hours a day in their inbox. Every tool designed to help — summarizers, smart replies, AI assistants — still requires you to ask. akakAI Email is different. It acts first. It drafts first. It removes the bottleneck entirely.
+                    Stop worrying about hundreds of unread emails. akakAI Email is a personal email assistant that handles responses for you, so you can focus on what matters.
                   </p>
                 </div>
                 <div className="flex flex-col justify-center border-l border-gray-200 pl-12">
-                  <p className="text-[17px] text-gray-600 leading-[1.85]">
-                    This wasn't built as a feature. It was built as a proof of concept for the larger akakAI thesis: that AI should be proactive, not reactive. Email was the first domain to prove that thesis in production.
-                  </p>
+                  <div className="grid grid-cols-2 gap-4">
+                    {[
+                      "Automatic response drafting",
+                      "Stay focused, not buried",
+                      "Eliminate repetitive work",
+                      "Stress-free inbox",
+                      "Calendar contextual awareness",
+                      "Unlimited inboxes (500 email cap)",
+                    ].map((item) => (
+                      <div key={item} className="flex items-start gap-2">
+                        <span className="text-gray-300 mt-1 flex-none">—</span>
+                        <p className="text-[14px] text-gray-600 leading-[1.6]">{item}</p>
+                      </div>
+                    ))}
+                  </div>
                 </div>
+              </div>
+            </Section>
+
+            {/* Core Features */}
+            <Section root={scrollRef} delay={60}>
+              <SectionLabel>⚡ Core Features</SectionLabel>
+              <div className="mb-6">
+                <h3 className="text-[22px] text-gray-900 leading-tight" style={{ fontWeight: 500 }}>Focus on the things that matter.</h3>
+              </div>
+              <div className="grid grid-cols-3 gap-5">
+                {[
+                  { label: "Real-Time Response Generation", desc: "Instantly produces high-quality email drafts tailored to the incoming message — no delays, no templates, just fast, accurate replies." },
+                  { label: "Multi-Language Support", desc: "Generate responses in multiple languages with native-level fluency, so your team can handle global communication without breaking a sweat." },
+                  { label: "Calendar Integration", desc: "Uses information from your calendar to understand availability and context, ensuring responses are timely and relevant." },
+                  { label: "Easy Human Editing", desc: "Every AI-generated draft is editable — review, tweak, or add a human touch before sending. You're always in control." },
+                  { label: "Email Thread Awareness", desc: "Remembers the context of ongoing threads, so responses stay coherent, avoid repetition, and feel like part of a natural conversation." },
+                  { label: "Lightweight, No-Code Integration", desc: "No engineering headache — get started in minutes with simple setup and seamless compatibility with your existing tools." },
+                ].map((c, i) => (
+                  <Reveal key={i} root={scrollRef} delay={i * 30}>
+                    <Card className="bg-gray-50 rounded-xl p-6 cursor-default">
+                      <p className="text-[15px] text-gray-900 mb-2" style={{ fontWeight: 500 }}>{c.label}</p>
+                      <p className="text-[14px] text-gray-500 leading-[1.75]">{c.desc}</p>
+                    </Card>
+                  </Reveal>
+                ))}
               </div>
             </Section>
           </div>

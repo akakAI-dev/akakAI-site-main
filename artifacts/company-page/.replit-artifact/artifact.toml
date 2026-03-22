@@ -1,0 +1,26 @@
+kind = "web"
+previewPath = "/"
+title = "Company Page"
+version = "1.0.0"
+id = "company-page-akakai"
+
+[[services]]
+localPort = 3000
+name = "web"
+paths = ["/"]
+
+[services.env]
+PORT = "3000"
+
+[services.development]
+run = "PORT=3000 pnpm --filter @workspace/company-page run dev"
+
+[services.production.build]
+args = ["pnpm", "--filter", "@workspace/company-page", "run", "build"]
+
+[services.production.run]
+args = ["pnpm", "--filter", "@workspace/company-page", "run", "start"]
+
+[services.production.run.env]
+PORT = "3000"
+NODE_ENV = "production"

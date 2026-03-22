@@ -936,6 +936,14 @@ video {
 .text-\[62px\] {
   font-size: 62px;
 }
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+.text-lg {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
 .uppercase {
   text-transform: uppercase;
 }

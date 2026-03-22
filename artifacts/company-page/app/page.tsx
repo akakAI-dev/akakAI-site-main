@@ -801,13 +801,14 @@ export default function CompanyPage() {
               </div>
               <div className="grid grid-cols-2 gap-5">
                 {[
-                  { label: "Diverse event sources", desc: "Agents needed to listen to emails, schedules, and webhooks — not just chat inputs." },
-                  { label: "Full observability", desc: "Every run needed step-by-step traces, integration call logs, success evaluation, and key learnings." },
-                  { label: "Open integration ecosystem", desc: "Integrations had to be community-contributed and shareable, not locked to one vendor." },
-                  { label: "No-code complexity", desc: "Non-technical users needed to configure listeners, scripts, memory, and escalation without code." },
+                  { emoji: "🌐", label: "Diverse event sources", desc: "Agents needed to listen to emails, schedules, and webhooks — not just chat inputs." },
+                  { emoji: "🔍", label: "Full observability", desc: "Every run needed step-by-step traces, integration call logs, success evaluation, and key learnings." },
+                  { emoji: "🤝", label: "Open integration ecosystem", desc: "Integrations had to be community-contributed and shareable, not locked to one vendor." },
+                  { emoji: "🧩", label: "No-code complexity", desc: "Non-technical users needed to configure listeners, scripts, memory, and escalation without code." },
                 ].map((c, i) => (
                   <Reveal key={i} root={scrollRef} delay={i * 40}>
                     <Card className="bg-gray-50 rounded-xl p-6 cursor-default">
+                      <div className="text-xl mb-3">{c.emoji}</div>
                       <p className="text-[15px] text-gray-900 mb-2" style={{ fontWeight: 500 }}>{c.label}</p>
                       <p className="text-[14px] text-gray-500 leading-[1.75]">{c.desc}</p>
                     </Card>
@@ -846,14 +847,15 @@ export default function CompanyPage() {
                     Listeners
                   </h3>
                   <p className="text-[17px] text-gray-600 leading-[1.85] mb-4">
-                    Listeners are the trigger layer — they define when an agent runs. Aegent supports two core listener types that cover the majority of real-world automation use cases.
+                    Listeners are the trigger layer — they define when an agent runs. Aegent's listener architecture is extensible — you can code and connect an infinite number of listener types to any agent.
                   </p>
                   <div className="flex flex-col gap-4 mt-6">
                     {[
-                      { label: "Email Inbox (IMAP)", desc: "Monitors an email inbox via IMAP polling. When a new email arrives, it triggers the agent with the full message context. Configurable poll interval, SMTP credentials, and active/inactive toggle." },
-                      { label: "Cron Job", desc: "Triggers the agent on a schedule defined by a cron expression. Unlike polling listeners, cron jobs only fire when the schedule matches — saving API calls for time-sensitive recurring tasks." },
+                      { emoji: "📬", label: "Email Inbox (IMAP)", desc: "Monitors an email inbox via IMAP polling. When a new email arrives, it triggers the agent with the full message context. Configurable poll interval, SMTP credentials, and active/inactive toggle." },
+                      { emoji: "⏰", label: "Cron Job", desc: "Triggers the agent on a schedule defined by a cron expression. Unlike polling listeners, cron jobs only fire when the schedule matches — saving API calls for time-sensitive recurring tasks." },
                     ].map((item) => (
                       <Card key={item.label} className="bg-gray-50 rounded-xl p-5 cursor-default">
+                        <div className="text-lg mb-2">{item.emoji}</div>
                         <p className="text-[14px] text-gray-900 mb-1.5" style={{ fontWeight: 500 }}>{item.label}</p>
                         <p className="text-[14px] text-gray-500 leading-[1.75]">{item.desc}</p>
                       </Card>
@@ -916,18 +918,19 @@ export default function CompanyPage() {
               <SectionLabel>⚡ Key Features</SectionLabel>
               <div className="grid grid-cols-3 gap-5">
                 {[
-                  { label: "No-Code Agent Builder", desc: "Full agent configuration — identity, behavior, memory, escalation — without writing code." },
-                  { label: "Email Inbox Listener", desc: "IMAP-based inbox monitoring that triggers agents on new messages with configurable polling." },
-                  { label: "Cron Job Listener", desc: "Schedule-based triggers using cron expressions for recurring autonomous tasks." },
-                  { label: "Community Integration Library", desc: "Shared, versioned integrations (Email, Slack, SQL, Twilio, PayPal, Teams, Calendar) addable to any agent." },
-                  { label: "Live Thread Monitoring", desc: "Full step-by-step traces of every agent run with timestamps and integration call results." },
-                  { label: "Automatic Evaluation", desc: "Per-run success scoring, keyword tagging, step pattern analysis, conversation summaries, and key learnings." },
-                  { label: "Master Memory & Knowledge Base", desc: "Persistent agent memory and a structured knowledge base for context-aware responses." },
-                  { label: "Escalation System", desc: "Configurable escalation rules and logs for when agents need human review." },
-                  { label: "Open API", desc: "Developer access to agent internals for programmatic control and custom integrations." },
+                  { emoji: "🏗️", label: "No-Code Agent Builder", desc: "Full agent configuration — identity, behavior, memory, escalation — without writing code." },
+                  { emoji: "📬", label: "Email Inbox Listener", desc: "IMAP-based inbox monitoring that triggers agents on new messages with configurable polling." },
+                  { emoji: "⏰", label: "Cron Job Listener", desc: "Schedule-based triggers using cron expressions for recurring autonomous tasks." },
+                  { emoji: "🔗", label: "Community Integration Library", desc: "Shared, versioned integrations (Email, Slack, SQL, Twilio, PayPal, Teams, Calendar) addable to any agent." },
+                  { emoji: "🧵", label: "Live Thread Monitoring", desc: "Full step-by-step traces of every agent run with timestamps and integration call results." },
+                  { emoji: "📊", label: "Automatic Evaluation", desc: "Per-run success scoring, keyword tagging, step pattern analysis, conversation summaries, and key learnings." },
+                  { emoji: "🧠", label: "Master Memory & Knowledge Base", desc: "Persistent agent memory and a structured knowledge base for context-aware responses." },
+                  { emoji: "🚨", label: "Escalation System", desc: "Configurable escalation rules and logs for when agents need human review." },
+                  { emoji: "🔓", label: "Open API", desc: "Developer access to agent internals for programmatic control and custom integrations." },
                 ].map((c, i) => (
                   <Reveal key={i} root={scrollRef} delay={i * 30}>
                     <Card className="bg-gray-50 rounded-xl p-6 cursor-default">
+                      <div className="text-xl mb-3">{c.emoji}</div>
                       <p className="text-[15px] text-gray-900 mb-2" style={{ fontWeight: 500 }}>{c.label}</p>
                       <p className="text-[14px] text-gray-500 leading-[1.75]">{c.desc}</p>
                     </Card>
@@ -956,13 +959,14 @@ export default function CompanyPage() {
               </div>
               <div className="grid grid-cols-2 gap-5">
                 {[
-                  { label: "$1.5M Pre-Seed Closed", desc: "akakAI closed $1.5M in pre-seed funding on the strength of Aegent's architecture and vision." },
-                  { label: "End-to-End Platform", desc: "Built the entire platform — from agent runtime and LLM orchestration to the community integration library and evaluation framework." },
-                  { label: "Scalable Integration Model", desc: "Community integration library model enables the platform to scale capabilities without central engineering bottlenecks." },
-                  { label: "Observable Agent Behavior", desc: "Evaluation framework transforms opaque agent behavior into observable, improvable workflows." },
+                  { emoji: "💰", label: "$1.5M Pre-Seed Closed", desc: "akakAI closed $1.5M in pre-seed funding on the strength of Aegent's architecture and vision." },
+                  { emoji: "🏛️", label: "End-to-End Platform", desc: "Built the entire platform — from agent runtime and LLM orchestration to the community integration library and evaluation framework." },
+                  { emoji: "📈", label: "Scalable Integration Model", desc: "Community integration library model enables the platform to scale capabilities without central engineering bottlenecks." },
+                  { emoji: "🔭", label: "Observable Agent Behavior", desc: "Evaluation framework transforms opaque agent behavior into observable, improvable workflows." },
                 ].map((c, i) => (
                   <Reveal key={i} root={scrollRef} delay={i * 40}>
                     <Card className="border border-gray-100 rounded-xl p-6 cursor-default">
+                      <div className="text-xl mb-3">{c.emoji}</div>
                       <p className="text-[15px] text-gray-900 mb-2" style={{ fontWeight: 500 }}>{c.label}</p>
                       <p className="text-[14px] text-gray-500 leading-[1.75]">{c.desc}</p>
                     </Card>
@@ -1036,12 +1040,13 @@ export default function CompanyPage() {
               <SectionLabel>🧠 How It Works</SectionLabel>
               <div className="grid grid-cols-3 gap-5 mb-10">
                 {[
-                  { label: "Intelligent Context Awareness", desc: "The agent uses information from your calendar and previous emails to craft personalized, contextually appropriate responses — not generic templates." },
-                  { label: "Cognitive Routing", desc: "Incoming emails are intelligently analyzed and routed to the most suitable language model based on message type, complexity, and intent." },
-                  { label: "Smart Response Filtering", desc: "Promotional emails are automatically ignored, ensuring auto-responses are only sent to relevant, meaningful messages — no unwanted noise." },
+                  { emoji: "🗓️", label: "Intelligent Context Awareness", desc: "The agent uses information from your calendar and previous emails to craft personalized, contextually appropriate responses — not generic templates." },
+                  { emoji: "🧭", label: "Cognitive Routing", desc: "Incoming emails are intelligently analyzed and routed to the most suitable language model based on message type, complexity, and intent." },
+                  { emoji: "🛡️", label: "Smart Response Filtering", desc: "Promotional emails are automatically ignored, ensuring auto-responses are only sent to relevant, meaningful messages — no unwanted noise." },
                 ].map((c, i) => (
                   <Reveal key={i} root={scrollRef} delay={i * 40}>
                     <Card className="bg-gray-50 rounded-xl p-7 cursor-default">
+                      <div className="text-xl mb-3">{c.emoji}</div>
                       <p className="text-[16px] text-gray-900 mb-3" style={{ fontWeight: 500 }}>{c.label}</p>
                       <p className="text-[14px] text-gray-500 leading-[1.8]">{c.desc}</p>
                     </Card>
@@ -1090,15 +1095,16 @@ export default function CompanyPage() {
               </div>
               <div className="grid grid-cols-3 gap-5">
                 {[
-                  { label: "Real-Time Response Generation", desc: "Instantly produces high-quality email drafts tailored to the incoming message — no delays, no templates, just fast, accurate replies." },
-                  { label: "Multi-Language Support", desc: "Generate responses in multiple languages with native-level fluency, so your team can handle global communication without breaking a sweat." },
-                  { label: "Calendar Integration", desc: "Uses information from your calendar to understand availability and context, ensuring responses are timely and relevant." },
-                  { label: "Easy Human Editing", desc: "Every AI-generated draft is editable — review, tweak, or add a human touch before sending. You're always in control." },
-                  { label: "Email Thread Awareness", desc: "Remembers the context of ongoing threads, so responses stay coherent, avoid repetition, and feel like part of a natural conversation." },
-                  { label: "Lightweight, No-Code Integration", desc: "No engineering headache — get started in minutes with simple setup and seamless compatibility with your existing tools." },
+                  { emoji: "⚡", label: "Real-Time Response Generation", desc: "Instantly produces high-quality email drafts tailored to the incoming message — no delays, no templates, just fast, accurate replies." },
+                  { emoji: "🌍", label: "Multi-Language Support", desc: "Generate responses in multiple languages with native-level fluency, so your team can handle global communication without breaking a sweat." },
+                  { emoji: "🗓️", label: "Calendar Integration", desc: "Uses information from your calendar to understand availability and context, ensuring responses are timely and relevant." },
+                  { emoji: "✏️", label: "Easy Human Editing", desc: "Every AI-generated draft is editable — review, tweak, or add a human touch before sending. You're always in control." },
+                  { emoji: "🧵", label: "Email Thread Awareness", desc: "Remembers the context of ongoing threads, so responses stay coherent, avoid repetition, and feel like part of a natural conversation." },
+                  { emoji: "🔌", label: "Lightweight, No-Code Integration", desc: "No engineering headache — get started in minutes with simple setup and seamless compatibility with your existing tools." },
                 ].map((c, i) => (
                   <Reveal key={i} root={scrollRef} delay={i * 30}>
                     <Card className="bg-gray-50 rounded-xl p-6 cursor-default">
+                      <div className="text-xl mb-3">{c.emoji}</div>
                       <p className="text-[15px] text-gray-900 mb-2" style={{ fontWeight: 500 }}>{c.label}</p>
                       <p className="text-[14px] text-gray-500 leading-[1.75]">{c.desc}</p>
                     </Card>

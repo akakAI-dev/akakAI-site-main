@@ -47,26 +47,42 @@ function Reveal({
 type Tab = "about" | "mission" | "team";
 
 const capabilities = [
-  { emoji: "🧠", label: "Independent Thinking", desc: "Agents that reason through goals without being told every step. They figure it out." },
-  { emoji: "⚡", label: "Initiative", desc: "Moves first. Identifies what needs to happen and starts — without waiting for a prompt." },
-  { emoji: "🎯", label: "Goal Execution", desc: "End-to-end task completion from objective to real-world outcome, start to finish." },
-  { emoji: "🌐", label: "Cross-System Coordination", desc: "Operates across tools, platforms, and APIs simultaneously to get things done." },
-  { emoji: "🛡️", label: "Judgment Under Uncertainty", desc: "Makes informed decisions even when the path forward isn't perfectly clear." },
-  { emoji: "📈", label: "Natural Scaling", desc: "Intelligence that compounds as the complexity of the work grows over time." },
+  { emoji: "🧠", label: "Independent Thinking", desc: "Real reasoning — not pattern-matching dressed up as intelligence. Our agents decompose goals, weigh options, and identify the right path even when the instructions stop short of telling them how." },
+  { emoji: "⚡", label: "Initiative", desc: "They move first. When there's work to be done, the agent doesn't wait for a prompt or a signal. It identifies what's needed, builds a plan, and starts — without needing permission." },
+  { emoji: "🎯", label: "Goal Execution", desc: "The distance between a stated objective and a real-world outcome is where most AI falls apart. Our agents bridge it — end-to-end, from the first step to the final delivery." },
+  { emoji: "🌐", label: "Cross-System Coordination", desc: "The work of the world spans dozens of tools, APIs, and platforms. Our agents don't operate in silos — they coordinate across every system they need to, simultaneously, with purpose." },
+  { emoji: "🛡️", label: "Judgment Under Uncertainty", desc: "Plans break. Conditions change. APIs fail. The real test of an intelligent system is what it does when the world doesn't cooperate — and ours make the right call without escalating to a human." },
+  { emoji: "📈", label: "Natural Scaling", desc: "More complexity doesn't mean more humans. Our agents compound in capability as the scope grows — handling more, coordinating more, deciding more, without the overhead that comes with scaling teams." },
 ];
 
 const principles = [
-  { emoji: "👁️", word: "Anticipate", desc: "See what's next, not just what's now. Agents that look ahead and act before being asked." },
-  { emoji: "🔄", word: "Adapt", desc: "Real-time decision-making under real-world uncertainty and changing conditions." },
-  { emoji: "✅", word: "Act", desc: "From instruction to outcome, without hand-holding, micromanagement, or delay." },
-  { emoji: "📡", word: "Scale", desc: "Intelligence that compounds naturally as the scope and complexity of work grows." },
+  { emoji: "👁️", word: "Anticipate", desc: "The most powerful move isn't reacting — it's already being in motion before the problem is named. Our agents see what's coming and act before anyone asks." },
+  { emoji: "🔄", word: "Adapt", desc: "The world doesn't hold still. Conditions change, systems fail, goals shift. Agents that can only follow scripts break the moment reality deviates from the plan. Ours don't." },
+  { emoji: "✅", word: "Act", desc: "Thinking without doing is just noise. Our agents close the loop — from high-level intent to real-world outcome, without waiting for permission, clarification, or a next step." },
+  { emoji: "📡", word: "Scale", desc: "Human attention is finite. Intelligent action shouldn't be. As the complexity grows, the agents grow with it — compounding capability without compounding cost or headcount." },
 ];
 
-const missionStats = [
-  { emoji: "⏱️", value: "0ms", label: "Spent waiting for a prompt" },
-  { emoji: "♾️", value: "∞", label: "Tasks that can run in parallel" },
-  { emoji: "👤", value: "0", label: "Micromanagers required" },
-  { emoji: "🚀", value: "2026", label: "Year agents go to work" },
+const missionBeliefs = [
+  {
+    emoji: "🌊",
+    heading: "We are at an inflection point.",
+    body: "Every decade or so, a new computing paradigm shifts what's possible. The internet connected information. Mobile connected people. AI is connecting intent to action — and we are at the very beginning of understanding what that means. akakAI exists to push that frontier forward, deliberately and without compromise.",
+  },
+  {
+    emoji: "⚡",
+    heading: "Passivity is a design choice — and the wrong one.",
+    body: "The dominant model of AI today is reactive: you ask, it answers. You prompt, it generates. You iterate endlessly until the output is close enough to what you wanted. This is not intelligence — this is sophisticated autocomplete with a better interface. We chose differently. Our agents are designed to own objectives, not just respond to them.",
+  },
+  {
+    emoji: "🔭",
+    heading: "The gap between intention and execution is where potential dies.",
+    body: "Most organizations have more good ideas than they have capacity to execute. Not because people aren't capable — but because the translation layer between knowing what needs to be done and actually doing it is slow, lossy, and human-bottlenecked. akakAI's mission is to eliminate that bottleneck entirely. Not reduce it. Eliminate it.",
+  },
+  {
+    emoji: "🏗️",
+    heading: "Autonomy is not a feature. It's the foundation.",
+    body: "You can't bolt autonomy onto a system built for passivity. It requires rethinking the architecture from first principles — how an agent understands goals, how it reasons about context, how it decides when to act and when to pause. This is what we've built from the ground up. Every layer is designed for independent, purposeful execution.",
+  },
 ];
 
 export default function CompanyPage() {
@@ -140,27 +156,27 @@ export default function CompanyPage() {
 
             {/* What we are — black callout */}
             <Reveal root={scrollRef}>
-              <div className="bg-gray-900 rounded-2xl p-8 text-white">
+              <div className="bg-gray-900 rounded-2xl p-10 text-white">
                 <p className="text-[11px] font-bold uppercase tracking-[0.15em] text-gray-500 mb-4">🏗️ What We Are</p>
-                <h2 className="text-[30px] font-black leading-tight tracking-tight mb-5">
+                <h2 className="text-[32px] font-black leading-tight tracking-tight mb-6">
                   A new class of intelligent systems.
                 </h2>
-                <p className="text-[15px] text-gray-300 leading-[1.85] font-medium mb-4">
-                  akakAI is building AI agents that don&apos;t just respond to instructions — they think independently, take initiative, and execute tasks with purpose. These are not passive models reacting to inputs.
+                <p className="text-[16px] text-gray-300 leading-[1.85] font-medium mb-5">
+                  akakAI is building AI agents that don&apos;t just respond to instructions — they think independently, take initiative, and execute tasks with purpose. Not assistants. Not autocomplete. Not interfaces. These are agents: entities that understand what needs to happen, decide how to make it happen, and then do it.
                 </p>
-                <p className="text-[15px] text-gray-300 leading-[1.85] font-medium">
-                  They are fully capable agents built to navigate complexity, make informed decisions in real time, and carry out objectives from start to finish with minimal oversight.
+                <p className="text-[16px] text-gray-300 leading-[1.85] font-medium">
+                  They are fully capable systems built to navigate real-world complexity, make informed decisions without hand-holding, and carry out objectives from start to finish — operating at a level of autonomy that changes what&apos;s possible for the people and organizations that use them.
                 </p>
               </div>
             </Reveal>
 
             {/* Core belief — inline black quote */}
             <Reveal root={scrollRef} delay={60}>
-              <div className="border-l-4 border-gray-900 pl-6 py-2">
-                <p className="text-[22px] font-black text-gray-900 leading-snug mb-2">
+              <div className="border-l-4 border-gray-900 pl-7 py-3">
+                <p className="text-[24px] font-black text-gray-900 leading-snug mb-3">
                   "AI shouldn&apos;t wait for direction — it should anticipate, adapt, and act."
                 </p>
-                <p className="text-[12px] text-gray-400 font-bold uppercase tracking-widest">The core belief driving akakAI</p>
+                <p className="text-[12px] text-gray-400 font-bold uppercase tracking-widest">The core belief driving everything we build</p>
               </div>
             </Reveal>
 
@@ -182,18 +198,28 @@ export default function CompanyPage() {
 
             {/* Technology — black callout */}
             <Reveal root={scrollRef} delay={60}>
-              <div className="bg-gray-900 rounded-2xl p-8 text-white">
+              <div className="bg-gray-900 rounded-2xl p-10 text-white">
                 <p className="text-[11px] font-bold uppercase tracking-[0.15em] text-gray-500 mb-4">🔬 The Technology</p>
-                <h2 className="text-[28px] font-black leading-tight tracking-tight mb-5">
-                  Closing the gap between intention and execution.
+                <h2 className="text-[28px] font-black leading-tight tracking-tight mb-6">
+                  Built from first principles for autonomous execution.
                 </h2>
-                <div className="grid grid-cols-2 gap-6">
-                  <p className="text-[15px] text-gray-300 leading-[1.85] font-medium">
-                    akakAI&apos;s technology translates high-level goals into real-world impact. These agents become active contributors in workflows, driving momentum without constant human intervention.
-                  </p>
-                  <p className="text-[15px] text-gray-300 leading-[1.85] font-medium">
-                    Whether managing multi-step operations, coordinating across systems, or making judgment calls under uncertainty — they act with autonomy and purpose.
-                  </p>
+                <div className="grid grid-cols-2 gap-8">
+                  <div>
+                    <p className="text-[15px] text-gray-300 leading-[1.85] font-medium mb-4">
+                      akakAI&apos;s technology is not a chatbot with extra steps. It&apos;s a purpose-built architecture for agentic execution — designed from the ground up around a single question: what does a system need in order to act, not just respond?
+                    </p>
+                    <p className="text-[15px] text-gray-300 leading-[1.85] font-medium">
+                      The answer is more demanding than it sounds. Goal comprehension. Dynamic planning. Real-time adaptation. Multi-system coordination. Uncertainty handling. We&apos;ve built each of these layers deliberately — not as features bolted on top, but as the core of what these agents are.
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-[15px] text-gray-300 leading-[1.85] font-medium mb-4">
+                      The result is agents that become active participants in how work gets done — not tools you pick up and put down, but collaborators that understand the goal, track the progress, and push through to completion without constant direction.
+                    </p>
+                    <p className="text-[15px] text-gray-300 leading-[1.85] font-medium">
+                      Whether managing multi-step operations across dozens of systems, navigating edge cases that no one anticipated, or making judgment calls under real uncertainty — they act with coherence, autonomy, and purpose.
+                    </p>
+                  </div>
                 </div>
               </div>
             </Reveal>
@@ -223,28 +249,36 @@ export default function CompanyPage() {
         {activeTab === "mission" && (
           <div className="px-6 py-10 space-y-10">
 
-            {/* Core statement — black */}
+            {/* Opening declaration — black */}
             <Reveal root={scrollRef}>
-              <div className="bg-gray-900 rounded-2xl p-8 text-white">
+              <div className="bg-gray-900 rounded-2xl p-10 text-white">
                 <p className="text-[11px] font-bold uppercase tracking-[0.15em] text-gray-500 mb-6">🎯 The Mission</p>
-                <p className="text-[32px] font-black text-white leading-tight mb-6">
+                <p className="text-[36px] font-black text-white leading-[1.1] mb-8">
                   "Make action the default,<br />not the exception."
                 </p>
-                <p className="text-[15px] text-gray-300 leading-[1.85] font-medium">
-                  Every product decision, every line of code, every system we ship is in service of one thing: closing the gap between what you want done and what actually gets done. No intermediary. No endless iteration. Just outcomes.
+                <p className="text-[16px] text-gray-300 leading-[1.85] font-medium mb-4">
+                  We exist at the intersection of ambition and execution — building the systems that let ideas become outcomes without the human bottleneck that kills most of them. Every product decision, every line of code, every system we ship is in service of one thing: closing the gap between what you want done and what actually gets done.
+                </p>
+                <p className="text-[16px] text-gray-300 leading-[1.85] font-medium">
+                  No intermediary. No endless iteration. No prompting. Just outcomes — delivered by agents that understand what matters and move without being told twice.
                 </p>
               </div>
             </Reveal>
 
-            {/* Stats — 2 column */}
+            {/* The four big beliefs — alternating black/white 2-col */}
             <Reveal root={scrollRef} delay={60}>
-              <p className="text-[11px] font-bold uppercase tracking-[0.15em] text-gray-400 mb-6">📊 By the numbers</p>
+              <p className="text-[11px] font-bold uppercase tracking-[0.15em] text-gray-400 mb-6">💭 What we believe</p>
               <div className="grid grid-cols-2 gap-4">
-                {missionStats.map((s, i) => (
-                  <Reveal key={i} delay={i * 60} root={scrollRef} className="bg-gray-50 border border-gray-100 rounded-xl p-7">
-                    <div className="text-3xl mb-4">{s.emoji}</div>
-                    <div className="text-[40px] font-black text-gray-900 leading-none mb-2">{s.value}</div>
-                    <div className="text-[14px] text-gray-400 font-medium leading-tight">{s.label}</div>
+                {missionBeliefs.map((b, i) => (
+                  <Reveal key={i} delay={i * 60} root={scrollRef}
+                    className={`rounded-2xl p-8 ${i % 2 === 0 ? "bg-gray-900 text-white" : "bg-gray-50 border border-gray-100"}`}>
+                    <div className="text-3xl mb-5">{b.emoji}</div>
+                    <h3 className={`text-[18px] font-black leading-snug mb-4 ${i % 2 === 0 ? "text-white" : "text-gray-900"}`}>
+                      {b.heading}
+                    </h3>
+                    <p className={`text-[14px] leading-[1.85] font-medium ${i % 2 === 0 ? "text-gray-300" : "text-gray-500"}`}>
+                      {b.body}
+                    </p>
                   </Reveal>
                 ))}
               </div>
@@ -252,15 +286,34 @@ export default function CompanyPage() {
 
             {/* Principles — 2 column */}
             <Reveal root={scrollRef} delay={60}>
-              <p className="text-[11px] font-bold uppercase tracking-[0.15em] text-gray-400 mb-6">🧭 Four principles</p>
+              <p className="text-[11px] font-bold uppercase tracking-[0.15em] text-gray-400 mb-6">🧭 Four principles we build toward</p>
               <div className="grid grid-cols-2 gap-4">
                 {principles.map((p, i) => (
-                  <Reveal key={i} delay={i * 50} root={scrollRef} className={`rounded-xl p-7 ${i % 2 === 0 ? "bg-gray-900 text-white" : "border border-gray-100 bg-gray-50"}`}>
+                  <Reveal key={i} delay={i * 50} root={scrollRef}
+                    className={`rounded-xl p-7 ${i % 2 === 0 ? "bg-gray-900" : "border border-gray-100 bg-gray-50"}`}>
                     <div className="text-3xl mb-4">{p.emoji}</div>
-                    <div className={`text-[22px] font-black mb-2 ${i % 2 === 0 ? "text-white" : "text-gray-900"}`}>{p.word}</div>
-                    <div className={`text-[14px] leading-relaxed font-medium ${i % 2 === 0 ? "text-gray-300" : "text-gray-500"}`}>{p.desc}</div>
+                    <div className={`text-[22px] font-black mb-3 ${i % 2 === 0 ? "text-white" : "text-gray-900"}`}>{p.word}</div>
+                    <div className={`text-[14px] leading-[1.8] font-medium ${i % 2 === 0 ? "text-gray-300" : "text-gray-500"}`}>{p.desc}</div>
                   </Reveal>
                 ))}
+              </div>
+            </Reveal>
+
+            {/* The next wave — full-width black */}
+            <Reveal root={scrollRef} delay={60}>
+              <div className="bg-gray-900 rounded-2xl p-10 text-white">
+                <p className="text-[11px] font-bold uppercase tracking-[0.15em] text-gray-500 mb-6">🌊 The Next Wave</p>
+                <h3 className="text-[28px] font-black text-white leading-tight mb-6">
+                  This is what the next generation of AI looks like.
+                </h3>
+                <div className="grid grid-cols-2 gap-8">
+                  <p className="text-[15px] text-gray-300 leading-[1.85] font-medium">
+                    The first wave of AI gave us better search, smarter recommendations, and generated content. Useful — but fundamentally reactive. The second wave brought conversational interfaces. Still reactive. You had to ask. You had to prompt. You had to check.
+                  </p>
+                  <p className="text-[15px] text-gray-300 leading-[1.85] font-medium">
+                    The third wave — the one akakAI is building into — is agentic. It doesn&apos;t wait to be asked. It understands what needs to happen, builds the plan, executes the steps, and reports back when it&apos;s done. This is the wave that changes how organizations operate at a fundamental level.
+                  </p>
+                </div>
               </div>
             </Reveal>
 
@@ -269,15 +322,15 @@ export default function CompanyPage() {
               <p className="text-[11px] font-bold uppercase tracking-[0.15em] text-gray-400 mb-6">🚫 What akakAI is not</p>
               <div className="grid grid-cols-2 gap-4">
                 {[
-                  { emoji: "💬", label: "A chatbot", desc: "Chatbots respond. Agents act. The difference is everything." },
-                  { emoji: "📝", label: "A workflow tool", desc: "We don't need pre-built workflows. Agents figure out the steps themselves." },
-                  { emoji: "🎠", label: "An AI wrapper", desc: "Purpose-built for autonomous execution, not another layer on top of an LLM." },
-                  { emoji: "🤹", label: "A hype product", desc: "No trends, no noise. Just capability that actually delivers in the real world." },
+                  { emoji: "💬", label: "A chatbot", desc: "Chatbots respond. Agents act. Chatbots wait. Agents move. The architecture, the intent, and the outcome are entirely different." },
+                  { emoji: "📝", label: "A workflow tool", desc: "We don't need pre-built workflows. The agent figures out the steps, adapts when they fail, and finds a way to the outcome regardless." },
+                  { emoji: "🎠", label: "An AI wrapper", desc: "Purpose-built for autonomous execution from the ground up. Not a UI layer, not a prompt manager, not another chatbot with a new coat of paint." },
+                  { emoji: "🎪", label: "A hype product", desc: "No buzzwords, no fundraising theater, no impossible promises. Just agents that work — reliably, independently, in the real world with real stakes." },
                 ].map((item, i) => (
-                  <div key={i} className="border border-gray-100 rounded-xl p-6">
+                  <div key={i} className="border border-gray-100 rounded-xl p-7">
                     <div className="text-3xl mb-4">{item.emoji}</div>
-                    <div className="text-[16px] font-black text-gray-300 line-through decoration-gray-400 mb-2">{item.label}</div>
-                    <div className="text-[14px] text-gray-500 leading-relaxed font-medium">{item.desc}</div>
+                    <div className="text-[16px] font-black text-gray-300 line-through decoration-gray-400 mb-3">{item.label}</div>
+                    <div className="text-[14px] text-gray-500 leading-[1.8] font-medium">{item.desc}</div>
                   </div>
                 ))}
               </div>

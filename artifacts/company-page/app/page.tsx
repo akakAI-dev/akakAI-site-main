@@ -431,7 +431,11 @@ export default function CompanyPage() {
             <Section first root={scrollRef}>
               <div className="grid grid-cols-2 gap-12">
                 <div>
-                  <p className="text-[14px] uppercase tracking-[0.18em] text-gray-400 mb-8">👤 Co-founder & CEO</p>
+                  <div className="mb-8">
+                    <Image src="/zayd.png" alt="Zayd Malik" width={96} height={96}
+                      className="w-24 h-24 rounded-full object-cover object-top grayscale" />
+                  </div>
+                  <p className="text-[14px] uppercase tracking-[0.18em] text-gray-400 mb-4">Co-founder & CEO</p>
                   <h2 className="text-[42px] leading-none text-gray-900 mb-3" style={{ fontWeight: 500 }}>Zayd Malik</h2>
                   <p className="text-[14px] text-gray-400 mb-8 uppercase tracking-[0.12em]">akakAI</p>
                   <p className="text-[22px] text-gray-900 leading-[1.4] mb-8" style={{ fontWeight: 400 }}>
@@ -454,7 +458,11 @@ export default function CompanyPage() {
             <Section root={scrollRef} delay={60}>
               <div className="grid grid-cols-2 gap-12">
                 <div>
-                  <p className="text-[14px] uppercase tracking-[0.18em] text-gray-400 mb-8">👤 Co-founder & Agent Developer</p>
+                  <div className="mb-8">
+                    <Image src="/abhi.jpg" alt="Abhiram Vishnubhotla" width={96} height={96}
+                      className="w-24 h-24 rounded-full object-cover object-top grayscale" />
+                  </div>
+                  <p className="text-[14px] uppercase tracking-[0.18em] text-gray-400 mb-4">Co-founder & Agent Developer</p>
                   <h2 className="text-[42px] leading-none text-gray-900 mb-3" style={{ fontWeight: 500 }}>Abhiram Vishnubhotla</h2>
                   <p className="text-[14px] text-gray-400 mb-8 uppercase tracking-[0.12em]">akakAI</p>
                   <p className="text-[22px] text-gray-900 leading-[1.4] mb-8" style={{ fontWeight: 400 }}>

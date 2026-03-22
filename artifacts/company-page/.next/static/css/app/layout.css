@@ -595,6 +595,10 @@ video {
 .w-24 {
   width: 6rem;
 }
+.w-fit {
+  width: -moz-fit-content;
+  width: fit-content;
+}
 .max-w-2xl {
   max-width: 42rem;
 }

@@ -307,6 +307,9 @@ export default function CompanyPage() {
 
             <Section root={scrollRef} delay={60}>
               <SectionLabel>💡 What We Believe</SectionLabel>
+              <p className="text-[17px] text-gray-500 leading-[1.75] mb-8 max-w-2xl">
+                Six ideas that cut through the noise. Not mission statements — operating principles that shape every decision we make.
+              </p>
               <div className="flex flex-wrap gap-3">
                 {[
                   { emoji: "🚫", text: "AI shouldn't wait for direction" },
@@ -479,7 +482,15 @@ export default function CompanyPage() {
                   <p className="text-[22px] text-gray-900 leading-[1.4] mb-8" style={{ fontWeight: 400 }}>
                     "Agents that don't just execute — they understand."
                   </p>
-                  <p className="text-[13px] uppercase tracking-[0.15em] text-gray-400">The engineering behind the autonomy</p>
+                  <p className="text-[13px] uppercase tracking-[0.15em] text-gray-400 mb-6">The engineering behind the autonomy</p>
+                  <a
+                    href="https://abhiramv09.replit.app/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-[13px] text-gray-500 border border-gray-200 px-4 py-1.5 rounded-full hover:border-gray-400 hover:text-gray-900 transition-colors duration-150 w-fit"
+                  >
+                    🌐 abhiramv09.replit.app <ArrowUpRight size={12} />
+                  </a>
                 </div>
                 <div className="flex flex-col justify-center border-l border-gray-200 pl-8">
                   <p className="text-[18px] text-gray-600 leading-[1.8] mb-6">

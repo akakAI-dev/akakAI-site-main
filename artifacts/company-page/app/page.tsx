@@ -69,12 +69,12 @@ function Section({
 function HiringCTA({ root }: { root: React.RefObject<HTMLDivElement | null> }) {
   return (
     <Reveal root={root} delay={60} className="border-t border-gray-100 py-14">
-      <div className="border border-gray-200 rounded-xl p-10">
+      <div className="border border-gray-200 rounded-xl p-6 sm:p-10">
         <p className="text-[14px] uppercase tracking-[0.18em] text-gray-400 mb-5">🚀 We're Hiring</p>
-        <h3 className="text-[34px] text-gray-900 leading-tight mb-4" style={{ fontWeight: 500 }}>
+        <h3 className="text-[24px] sm:text-[34px] text-gray-900 leading-tight mb-4" style={{ fontWeight: 500 }}>
           Build what comes after passive AI.
         </h3>
-        <p className="text-[18px] text-gray-500 leading-[1.75] mb-8 max-w-lg">
+        <p className="text-[16px] sm:text-[18px] text-gray-500 leading-[1.75] mb-8 max-w-lg">
           If you believe AI should move first, think independently, and deliver without hand-holding — we want to talk.
         </p>
         <a href="#" className="inline-flex items-center gap-2 bg-gray-900 text-white px-6 py-3 rounded-full text-[14px] hover:bg-gray-700 transition-colors">
@@ -182,26 +182,49 @@ export default function CompanyPage() {
   ];
 
   return (
-    <div className="fixed inset-[10px] rounded-2xl bg-white border border-gray-200 shadow-sm overflow-hidden flex flex-col">
+    <div className="fixed inset-[4px] sm:inset-[10px] rounded-xl sm:rounded-2xl bg-white border border-gray-200 shadow-sm overflow-hidden flex flex-col">
 
       {/* NAV */}
-      <nav className="flex-none flex items-center justify-between px-8 h-[56px] border-b border-gray-100">
-        <Image src="/logo-horizontal.png" alt="akakAI" width={120} height={30}
-          style={{ filter: "invert(1) brightness(0)" }} className="h-6 w-auto" priority />
-        <div className="flex items-center gap-8 text-[14px] text-gray-500">
+      <nav className="flex-none border-b border-gray-100 shrink-0">
+        {/* Main row */}
+        <div className="flex items-center justify-between px-4 sm:px-8 h-[48px] sm:h-[56px]">
+          <Image src="/logo-horizontal.png" alt="akakAI" width={120} height={30}
+            style={{ filter: "invert(1) brightness(0)" }} className="h-5 sm:h-6 w-auto" priority />
+          {/* Desktop: all tabs + socials */}
+          <div className="hidden sm:flex items-center gap-8 text-[14px] text-gray-500">
+            {tabs.map((t) => (
+              <button key={t.id}
+                onClick={() => switchTab(t.id)}
+                className={`transition-colors duration-150 ${activeTab === t.id ? "text-gray-900" : "hover:text-gray-700"}`}>
+                {t.label}
+              </button>
+            ))}
+            <span className="text-gray-200">|</span>
+            {socials.map((s) => (
+              <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer"
+                className="text-gray-400 hover:text-gray-800 transition-colors duration-150" aria-label={s.label}>
+                {s.icon}
+              </a>
+            ))}
+          </div>
+          {/* Mobile: only socials */}
+          <div className="sm:hidden flex items-center gap-4 text-gray-400">
+            {socials.map((s) => (
+              <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer"
+                className="hover:text-gray-800 transition-colors duration-150" aria-label={s.label}>
+                {s.icon}
+              </a>
+            ))}
+          </div>
+        </div>
+        {/* Mobile-only tab row */}
+        <div className="sm:hidden flex overflow-x-auto gap-5 px-4 pb-2 text-[13px] text-gray-500" style={{ scrollbarWidth: "none" }}>
           {tabs.map((t) => (
             <button key={t.id}
               onClick={() => switchTab(t.id)}
-              className={`transition-colors duration-150 ${activeTab === t.id ? "text-gray-900" : "hover:text-gray-700"}`}>
+              className={`whitespace-nowrap transition-colors duration-150 pb-0.5 ${activeTab === t.id ? "text-gray-900 border-b border-gray-900" : "hover:text-gray-700"}`}>
               {t.label}
             </button>
-          ))}
-          <span className="text-gray-200">|</span>
-          {socials.map((s) => (
-            <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer"
-              className="text-gray-400 hover:text-gray-800 transition-colors duration-150" aria-label={s.label}>
-              {s.icon}
-            </a>
           ))}
         </div>
       </nav>
@@ -210,25 +233,25 @@ export default function CompanyPage() {
       <div ref={scrollRef} className="flex-1 overflow-y-auto page-scroll" style={{ scrollbarGutter: "stable" }}>
 
         {/* HERO — hidden when inside a case study */}
-        {projectView === null && <div className="px-8 border-b border-gray-100 flex items-stretch min-h-[220px]">
-          {/* Badge logo — with right border */}
-          <div className="flex-none flex items-center pr-10 py-10 border-r border-gray-100 mr-10">
+        {projectView === null && <div className="px-4 sm:px-8 border-b border-gray-100 flex items-stretch min-h-[140px] sm:min-h-[220px]">
+          {/* Badge logo — hidden on mobile */}
+          <div className="hidden sm:flex flex-none items-center pr-10 py-10 border-r border-gray-100 mr-10">
             <Image src="/logo-badge.png" alt="akakAI badge" width={240} height={240}
               style={{ filter: "invert(1)" }} className="w-[200px] h-[200px] object-contain" />
           </div>
           {/* Hero text */}
-          <div className="flex-1 flex flex-col justify-center py-10">
-            <p className="text-[14px] uppercase tracking-[0.18em] text-gray-400 mb-5">
+          <div className="flex-1 flex flex-col justify-center py-7 sm:py-10">
+            <p className="text-[11px] sm:text-[14px] uppercase tracking-[0.18em] text-gray-400 mb-3 sm:mb-5">
               {activeTab === "about" ? "Company Overview" : activeTab === "mission" ? "Our Mission" : activeTab === "team" ? "The Team" : activeTab === "investments" ? "Investments" : "Our Projects"}
             </p>
-            <h1 className="text-[62px] leading-[1.0] tracking-tight text-gray-900 mb-6" style={{ fontWeight: 500 }}>
+            <h1 className="text-[30px] sm:text-[62px] leading-[1.05] sm:leading-[1.0] tracking-tight text-gray-900 mb-3 sm:mb-6" style={{ fontWeight: 500 }}>
               {activeTab === "about" && <>AI that acts,<br /><span className="text-gray-300">not just reacts.</span></>}
               {activeTab === "mission" && <>Action is the<br /><span className="text-gray-300">default.</span></>}
               {activeTab === "team" && <>The people<br /><span className="text-gray-300">building it.</span></>}
               {activeTab === "investments" && <>Backing the<br /><span className="text-gray-300">next wave.</span></>}
               {activeTab === "projects" && <>What we've<br /><span className="text-gray-300">built.</span></>}
             </h1>
-            <p className="text-[19px] text-gray-500 leading-[1.7] max-w-2xl">
+            <p className="text-[15px] sm:text-[19px] text-gray-500 leading-[1.6] sm:leading-[1.7] max-w-2xl">
               {activeTab === "about" && "Autonomous agents built to navigate complexity, make decisions, and deliver outcomes — with minimal human intervention."}
               {activeTab === "mission" && "Close the gap between intention and execution. Every system we build pushes toward one thing: AI that makes action the rule, not the exception."}
               {activeTab === "team" && "akakAI was started with a simple conviction. Here's the team putting in the work to prove it."}
@@ -240,10 +263,10 @@ export default function CompanyPage() {
 
         {/* ═══ ABOUT ═══ */}
         {activeTab === "about" && (
-          <div className="px-8">
+          <div className="px-4 sm:px-8">
             <Section first root={scrollRef}>
               <SectionLabel>🏗️ What We Are</SectionLabel>
-              <div className="grid grid-cols-2 gap-12">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-12">
                 <div>
                   <h2 className="text-[32px] leading-tight text-gray-900 mb-6" style={{ fontWeight: 500 }}>
                     A new class of intelligent systems.
@@ -274,7 +297,7 @@ export default function CompanyPage() {
 
             <Section root={scrollRef} delay={60}>
               <SectionLabel>⚙️ What Our Agents Do</SectionLabel>
-              <div className="grid grid-cols-2 gap-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 {[
                   { emoji: "🧠", label: "Independent Thinking", desc: "Real reasoning — not pattern-matching. Our agents decompose goals, weigh options, and find the right path even when the instructions stop short of telling them how." },
                   { emoji: "⚡", label: "Initiative", desc: "They move first. When there's work to be done, the agent doesn't wait for a signal. It identifies what's needed, builds a plan, and starts — without asking for permission." },
@@ -296,7 +319,7 @@ export default function CompanyPage() {
 
             <Section root={scrollRef} delay={60}>
               <SectionLabel>🔬 The Technology</SectionLabel>
-              <div className="grid grid-cols-2 gap-12">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-12">
                 <div>
                   <h2 className="text-[28px] leading-tight text-gray-900 mb-6" style={{ fontWeight: 500 }}>
                     Built from first principles for autonomous execution.
@@ -343,9 +366,9 @@ export default function CompanyPage() {
 
         {/* ═══ MISSION ═══ */}
         {activeTab === "mission" && (
-          <div className="px-8">
+          <div className="px-4 sm:px-8">
             <Section first root={scrollRef}>
-              <div className="grid grid-cols-2 gap-12">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-12">
                 <div>
                   <SectionLabel>🎯 The Mission</SectionLabel>
                   <h2 className="text-[34px] leading-[1.2] text-gray-900 mb-7" style={{ fontWeight: 500 }}>
@@ -355,7 +378,7 @@ export default function CompanyPage() {
                     We exist at the intersection of ambition and execution — building the systems that let ideas become outcomes without the human bottleneck that kills most of them.
                   </p>
                 </div>
-                <div className="pt-14">
+                <div className="sm:pt-14">
                   <p className="text-[18px] text-gray-600 leading-[1.8] mb-6">
                     Every product decision, every line of code, every system we ship is in service of one thing: closing the gap between what you want done and what actually gets done.
                   </p>
@@ -368,7 +391,7 @@ export default function CompanyPage() {
 
             <Section root={scrollRef} delay={60}>
               <SectionLabel>💭 What We Believe</SectionLabel>
-              <div className="grid grid-cols-2 gap-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 {[
                   { emoji: "🌊", heading: "We are at an inflection point.", body: "Every decade, a new computing paradigm shifts what's possible. The internet connected information. Mobile connected people. AI is connecting intent to action — and we are at the very beginning of understanding what that means. akakAI exists to push that frontier forward, deliberately and without compromise." },
                   { emoji: "⚡", heading: "Passivity is a design choice — and the wrong one.", body: "The dominant model of AI today is reactive: you ask, it answers. You prompt, it generates. You iterate endlessly until the output is close enough. This is not intelligence — this is sophisticated autocomplete with a better interface. We chose differently. Our agents own objectives, not just respond to them." },
@@ -388,7 +411,7 @@ export default function CompanyPage() {
 
             <Section root={scrollRef} delay={60}>
               <SectionLabel>🧭 Four Principles</SectionLabel>
-              <div className="grid grid-cols-2 gap-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 {[
                   { emoji: "👁️", word: "Anticipate", desc: "The most powerful move isn't reacting — it's already being in motion before the problem is named. Our agents see what's coming and act before anyone asks." },
                   { emoji: "🔄", word: "Adapt", desc: "The world doesn't hold still. Conditions change, systems fail, goals shift. Agents that can only follow scripts break the moment reality deviates from the plan. Ours don't." },
@@ -408,7 +431,7 @@ export default function CompanyPage() {
 
             <Section root={scrollRef} delay={60}>
               <SectionLabel>🌊 The Next Wave</SectionLabel>
-              <div className="grid grid-cols-2 gap-12">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-12">
                 <div>
                   <h2 className="text-[28px] leading-tight text-gray-900 mb-6" style={{ fontWeight: 500 }}>
                     This is what the next generation of AI looks like.
@@ -417,7 +440,7 @@ export default function CompanyPage() {
                     The first wave of AI gave us better search, smarter recommendations, and generated content. Useful — but fundamentally reactive. The second wave brought conversational interfaces. Still reactive. You had to ask. You had to prompt.
                   </p>
                 </div>
-                <div className="pt-14">
+                <div className="sm:pt-14">
                   <p className="text-[18px] text-gray-600 leading-[1.8]">
                     The third wave — the one akakAI is building into — is agentic. It doesn't wait to be asked. It understands what needs to happen, builds the plan, executes the steps, and reports back when it's done. This is the wave that changes how organizations operate at a fundamental level.
                   </p>
@@ -427,7 +450,7 @@ export default function CompanyPage() {
 
             <Section root={scrollRef} delay={60}>
               <SectionLabel>🚫 What akakAI Is Not</SectionLabel>
-              <div className="grid grid-cols-2 gap-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 {[
                   { emoji: "💬", label: "A chatbot", desc: "Chatbots respond. Agents act. The architecture, the intent, and the outcome are entirely different." },
                   { emoji: "📝", label: "A workflow tool", desc: "We don't need pre-built workflows. The agent figures out the steps, adapts when they fail, and finds a way regardless." },
@@ -451,24 +474,24 @@ export default function CompanyPage() {
 
         {/* ═══ TEAM ═══ */}
         {activeTab === "team" && (
-          <div className="px-8">
+          <div className="px-4 sm:px-8">
             {/* Zayd */}
             <Section first root={scrollRef}>
-              <div className="grid grid-cols-[2fr_3fr] gap-8">
+              <div className="grid grid-cols-1 sm:grid-cols-[2fr_3fr] gap-8">
                 <div>
                   <div className="mb-8">
                     <Image src="/zayd.png" alt="Zayd Malik" width={96} height={96}
                       className="w-24 h-24 rounded-full object-cover object-top" />
                   </div>
                   <p className="text-[14px] uppercase tracking-[0.18em] text-gray-400 mb-4">Co-founder & CEO</p>
-                  <h2 className="text-[42px] leading-none text-gray-900 mb-3" style={{ fontWeight: 500 }}>Zayd Malik</h2>
+                  <h2 className="text-[26px] sm:text-[42px] leading-none text-gray-900 mb-3" style={{ fontWeight: 500 }}>Zayd Malik</h2>
                   <p className="text-[14px] text-gray-400 mb-8 uppercase tracking-[0.12em]">akakAI</p>
                   <p className="text-[22px] text-gray-900 leading-[1.4] mb-8" style={{ fontWeight: 400 }}>
                     "AI should act, not just react."
                   </p>
                   <p className="text-[13px] uppercase tracking-[0.15em] text-gray-400">The conviction that started it all</p>
                 </div>
-                <div className="flex flex-col justify-center border-l border-gray-200 pl-8">
+                <div className="flex flex-col justify-center sm:border-l sm:border-gray-200 sm:pl-8">
                   <p className="text-[18px] text-gray-600 leading-[1.8] mb-6">
                     Zayd started akakAI with a simple but uncomfortable observation: the AI tools people were using were passive. They waited. They asked for input. They responded. They never moved first.
                   </p>
@@ -481,14 +504,14 @@ export default function CompanyPage() {
 
             {/* Abhiram */}
             <Section root={scrollRef} delay={60}>
-              <div className="grid grid-cols-[2fr_3fr] gap-8">
+              <div className="grid grid-cols-1 sm:grid-cols-[2fr_3fr] gap-8">
                 <div>
                   <div className="mb-8">
                     <Image src="/abhi.jpg" alt="Abhiram Vishnubhotla" width={96} height={96}
                       className="w-24 h-24 rounded-full object-cover object-top" />
                   </div>
                   <p className="text-[14px] uppercase tracking-[0.18em] text-gray-400 mb-4">Co-founder & Agent Developer</p>
-                  <h2 className="text-[42px] leading-none text-gray-900 mb-3" style={{ fontWeight: 500 }}>Abhiram Vishnubhotla</h2>
+                  <h2 className="text-[26px] sm:text-[42px] leading-none text-gray-900 mb-3" style={{ fontWeight: 500 }}>Abhiram Vishnubhotla</h2>
                   <p className="text-[14px] text-gray-400 mb-8 uppercase tracking-[0.12em]">akakAI</p>
                   <p className="text-[22px] text-gray-900 leading-[1.4] mb-8" style={{ fontWeight: 400 }}>
                     "Agents that don't just execute — they understand."
@@ -503,7 +526,7 @@ export default function CompanyPage() {
                     🌐 abhiramv09.replit.app <ArrowUpRight size={12} />
                   </a>
                 </div>
-                <div className="flex flex-col justify-center border-l border-gray-200 pl-8">
+                <div className="flex flex-col justify-center sm:border-l sm:border-gray-200 sm:pl-8">
                   <p className="text-[18px] text-gray-600 leading-[1.8] mb-6">
                     Abhiram brings the technical depth to turn akakAI's vision into working systems. His focus is on the hardest problem in the space: building agents that don't just run through steps, but genuinely reason about what needs to happen next.
                   </p>
@@ -516,7 +539,7 @@ export default function CompanyPage() {
 
             {/* Approach */}
             <Section root={scrollRef} delay={60}>
-              <div className="grid grid-cols-2 gap-12">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-12">
                 <div>
                   <SectionLabel>🔬 The Approach</SectionLabel>
                   <h2 className="text-[28px] leading-tight text-gray-900 mb-6" style={{ fontWeight: 500 }}>
@@ -526,7 +549,7 @@ export default function CompanyPage() {
                     Strip away the gimmicks. Focus on core functionality. Build agents that understand goals, take action without micromanagement, and deliver real results in dynamic environments.
                   </p>
                 </div>
-                <div className="pt-14">
+                <div className="sm:pt-14">
                   <p className="text-[18px] text-gray-600 leading-[1.8] mb-6">
                     No trends, no noise. Just AI that works with you and for you — reliably, autonomously, at the level of complexity that real work actually demands.
                   </p>
@@ -539,7 +562,7 @@ export default function CompanyPage() {
 
             <Section root={scrollRef} delay={60}>
               <SectionLabel>💡 What Drives This</SectionLabel>
-              <div className="grid grid-cols-2 gap-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 {[
                   { emoji: "🔍", title: "The Problem", text: "Passive tools, overhyped AI, systems that wait for input instead of taking initiative. The gap between what AI promised and what it delivered." },
                   { emoji: "🔭", title: "The Vision", text: "Agents that take initiative, understand context, and follow through from start to finish. AI that makes action the default, not the exception." },
@@ -581,9 +604,9 @@ export default function CompanyPage() {
 
         {/* ═══ INVESTMENTS ═══ */}
         {activeTab === "investments" && (
-          <div className="px-8">
+          <div className="px-4 sm:px-8">
             <Section first root={scrollRef}>
-              <div className="grid grid-cols-2 gap-12">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-12">
                 <div>
                   <SectionLabel>📬 Investment Inquiries</SectionLabel>
                   <h2 className="text-[32px] leading-tight text-gray-900 mb-6" style={{ fontWeight: 500 }}>
@@ -593,7 +616,7 @@ export default function CompanyPage() {
                     akakAI is building the infrastructure for autonomous AI action — agents that think independently, take initiative, and deliver outcomes without hand-holding.
                   </p>
                 </div>
-                <div className="pt-14">
+                <div className="sm:pt-14">
                   <p className="text-[18px] text-gray-600 leading-[1.8] mb-8">
                     We're early, intentional, and moving fast. If you're interested in partnering with us on this mission, we'd love to connect.
                   </p>
@@ -629,7 +652,7 @@ export default function CompanyPage() {
                     <p className="text-[17px] text-gray-600 leading-[1.85]">
                       akakAI officially launched on July 3, 2025, and is currently onboarding early users.
                     </p>
-                    <div className="grid grid-cols-2 gap-8 border-t border-gray-100 pt-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 border-t border-gray-100 pt-6">
                       <div>
                         <p className="text-[13px] uppercase tracking-[0.15em] text-gray-400 mb-2">Website</p>
                         <a href="https://akakai.com" className="text-[15px] text-gray-700 hover:text-gray-900 transition-colors">akakai.com</a>
@@ -650,16 +673,16 @@ export default function CompanyPage() {
 
         {/* ═══ PROJECTS ═══ */}
         {activeTab === "projects" && projectView === null && (
-          <div className="px-8">
+          <div className="px-4 sm:px-8">
             <Section first root={scrollRef}>
               <SectionLabel>🛠️ Products</SectionLabel>
-              <div className="grid grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
 
                 {/* Aegent Card */}
                 <Card className="border border-gray-100 rounded-2xl overflow-hidden">
                   <div className="bg-white px-8 py-10 border-b border-gray-100">
                     <p className="text-[11px] uppercase tracking-[0.2em] text-gray-400 mb-3">01 — Autonomous Agent Platform</p>
-                    <h2 className="text-[38px] text-gray-900 leading-none mb-2" style={{ fontWeight: 500, fontStyle: "italic" }}>Aegent.</h2>
+                    <h2 className="text-[26px] sm:text-[38px] text-gray-900 leading-none mb-2" style={{ fontWeight: 500, fontStyle: "italic" }}>Aegent.</h2>
                     <p className="text-[14px] text-gray-400">by akakAI</p>
                   </div>
                   <div className="px-8 py-8">
@@ -690,7 +713,7 @@ export default function CompanyPage() {
                 <Card className="border border-gray-100 rounded-2xl overflow-hidden">
                   <div className="bg-white px-8 py-10 border-b border-gray-100">
                     <p className="text-[11px] uppercase tracking-[0.2em] text-gray-400 mb-3">02 — Autonomous Email Agent</p>
-                    <h2 className="text-[38px] text-gray-900 leading-none mb-2" style={{ fontWeight: 500, fontStyle: "italic" }}>Email.</h2>
+                    <h2 className="text-[26px] sm:text-[38px] text-gray-900 leading-none mb-2" style={{ fontWeight: 500, fontStyle: "italic" }}>Email.</h2>
                     <p className="text-[14px] text-gray-400">by akakAI</p>
                   </div>
                   <div className="px-8 py-8">
@@ -725,16 +748,16 @@ export default function CompanyPage() {
 
         {/* ═══ AEGENT CASE STUDY ═══ */}
         {activeTab === "projects" && projectView === "aegent" && (
-          <div className="px-8">
+          <div className="px-4 sm:px-8">
             {/* Back + meta header */}
             <div className="py-10 border-b border-gray-100">
               <button onClick={() => { setProjectView(null); scrollRef.current?.scrollTo({ top: 0, behavior: "smooth" }); }}
                 className="inline-flex items-center gap-2 text-[13px] text-gray-400 hover:text-gray-900 transition-colors mb-10">
                 ← Back to Projects
               </button>
-              <div className="grid grid-cols-[2fr_1fr] gap-12 items-start">
+              <div className="grid grid-cols-1 sm:grid-cols-[2fr_1fr] gap-6 sm:gap-12 items-start">
                 <div>
-                  <h2 className="text-[56px] text-gray-900 leading-none mb-3" style={{ fontWeight: 500, fontStyle: "italic" }}>Aegent.</h2>
+                  <h2 className="text-[28px] sm:text-[56px] text-gray-900 leading-none mb-3" style={{ fontWeight: 500, fontStyle: "italic" }}>Aegent.</h2>
                   <p className="text-[18px] text-gray-400">Autonomous AI Agent Platform</p>
                 </div>
                 <div className="grid grid-cols-2 gap-x-6 gap-y-4">
@@ -757,7 +780,7 @@ export default function CompanyPage() {
             {/* Overview */}
             <Section first root={scrollRef}>
               <SectionLabel>📋 Overview</SectionLabel>
-              <div className="grid grid-cols-2 gap-12">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-12">
                 <div>
                   <h3 className="text-[26px] text-gray-900 leading-tight mb-6" style={{ fontWeight: 500 }}>
                     A no-code platform for building agents that act on real-world events.
@@ -784,7 +807,7 @@ export default function CompanyPage() {
             {/* Challenge */}
             <Section root={scrollRef} delay={60}>
               <SectionLabel>🧩 The Challenge</SectionLabel>
-              <div className="grid grid-cols-2 gap-12 mb-10">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-12 mb-10">
                 <div>
                   <h3 className="text-[24px] text-gray-900 leading-tight mb-5" style={{ fontWeight: 500 }}>
                     Building AI agents today requires significant engineering.
@@ -793,13 +816,13 @@ export default function CompanyPage() {
                     LLM orchestration, tool calling, event listeners, integration management, and evaluation all need to be wired together manually. No platform made this accessible without code while still being powerful enough for production workflows.
                   </p>
                 </div>
-                <div className="flex flex-col justify-center border-l border-gray-200 pl-12">
+                <div className="flex flex-col justify-center sm:border-l sm:border-gray-200 sm:pl-12">
                   <p className="text-[17px] text-gray-600 leading-[1.85]">
                     Non-technical users needed to configure complex agentic behavior — listeners, scripts, memory, escalation — without touching code. And every agent run needed to be fully observable, not a black box.
                   </p>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 {[
                   { emoji: "🌐", label: "Diverse event sources", desc: "Agents needed to listen to emails, schedules, and webhooks — not just chat inputs." },
                   { emoji: "🔍", label: "Full observability", desc: "Every run needed step-by-step traces, integration call logs, success evaluation, and key learnings." },
@@ -820,7 +843,7 @@ export default function CompanyPage() {
             {/* Solution — Agent Builder */}
             <Section root={scrollRef} delay={60}>
               <SectionLabel>🛠️ Solution</SectionLabel>
-              <div className="grid grid-cols-2 gap-12 mb-10">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-12 mb-10">
                 <div>
                   <h3 className="text-[24px] text-gray-900 leading-tight mb-5" style={{ fontWeight: 500 }}>
                     Agent Builder
@@ -832,7 +855,7 @@ export default function CompanyPage() {
                     The agent builder is fully no-code and persists all configuration to a per-agent database, giving users complete control over how their agent behaves without writing a line of code.
                   </p>
                 </div>
-                <div className="flex flex-col justify-center border-l border-gray-200 pl-12">
+                <div className="flex flex-col justify-center sm:border-l sm:border-gray-200 sm:pl-12">
                   <Image src="/aegent-thread.png" alt="Aegent thread monitoring" width={900} height={600}
                     className="w-full rounded-xl border border-gray-100 object-cover" />
                 </div>
@@ -841,7 +864,7 @@ export default function CompanyPage() {
 
             {/* Solution — Listeners */}
             <Section root={scrollRef} delay={60}>
-              <div className="grid grid-cols-2 gap-12 mb-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-12 mb-8">
                 <div>
                   <h3 className="text-[24px] text-gray-900 leading-tight mb-5" style={{ fontWeight: 500 }}>
                     Listeners
@@ -874,7 +897,7 @@ export default function CompanyPage() {
 
             {/* Solution — Integration Library */}
             <Section root={scrollRef} delay={60}>
-              <div className="grid grid-cols-2 gap-12">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-12">
                 <div>
                   <h3 className="text-[24px] text-gray-900 leading-tight mb-5" style={{ fontWeight: 500 }}>
                     Community Integration Library
@@ -886,7 +909,7 @@ export default function CompanyPage() {
                     Each integration has a structured parameter schema and can be added to any agent with one click. The community model enables the platform to scale capabilities without central engineering bottlenecks.
                   </p>
                 </div>
-                <div className="flex flex-col justify-center border-l border-gray-200 pl-12">
+                <div className="flex flex-col justify-center sm:border-l sm:border-gray-200 sm:pl-12">
                   <Image src="/aegent-integrations.png" alt="Community integration library" width={900} height={600}
                     className="w-full rounded-xl border border-gray-100 object-cover" />
                 </div>
@@ -895,7 +918,7 @@ export default function CompanyPage() {
 
             {/* Solution — Thread Monitoring & Evaluation */}
             <Section root={scrollRef} delay={60}>
-              <div className="grid grid-cols-2 gap-12">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-12">
                 <div>
                   <h3 className="text-[24px] text-gray-900 leading-tight mb-5" style={{ fontWeight: 500 }}>
                     Thread Monitoring & Evaluation
@@ -907,7 +930,7 @@ export default function CompanyPage() {
                     Each thread is evaluated automatically — the agent receives a success score, keyword tags, a step pattern summary, conversation summary, and key learnings. This makes every run observable, auditable, and improvable over time.
                   </p>
                 </div>
-                <div className="flex flex-col justify-center border-l border-gray-200 pl-12">
+                <div className="flex flex-col justify-center sm:border-l sm:border-gray-200 sm:pl-12">
                   <Image src="/aegent-evaluation.png" alt="Thread evaluation" width={900} height={700}
                     className="w-full rounded-xl border border-gray-100 object-cover" />
                 </div>
@@ -917,7 +940,7 @@ export default function CompanyPage() {
             {/* Key Features */}
             <Section root={scrollRef} delay={60}>
               <SectionLabel>⚡ Key Features</SectionLabel>
-              <div className="grid grid-cols-3 gap-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                 {[
                   { emoji: "🏗️", label: "No-Code Agent Builder", desc: "Full agent configuration — identity, behavior, memory, escalation — without writing code." },
                   { emoji: "📬", label: "Email Inbox Listener", desc: "IMAP-based inbox monitoring that triggers agents on new messages with configurable polling." },
@@ -943,7 +966,7 @@ export default function CompanyPage() {
             {/* Impact */}
             <Section root={scrollRef} delay={60}>
               <SectionLabel>📈 Impact</SectionLabel>
-              <div className="grid grid-cols-2 gap-12 mb-10">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-12 mb-10">
                 <div>
                   <h3 className="text-[24px] text-gray-900 leading-tight mb-5" style={{ fontWeight: 500 }}>
                     Aegent proves that autonomous AI doesn't require a team of engineers.
@@ -952,13 +975,13 @@ export default function CompanyPage() {
                     By separating listeners, integrations, and evaluation into composable primitives, Aegent makes production-grade AI agents accessible to anyone. The right abstraction layer is all it takes.
                   </p>
                 </div>
-                <div className="flex flex-col justify-center border-l border-gray-200 pl-12">
+                <div className="flex flex-col justify-center sm:border-l sm:border-gray-200 sm:pl-12">
                   <p className="text-[17px] text-gray-600 leading-[1.85]">
                     The evaluation framework transforms opaque agent behavior into observable, improvable workflows — and the community integration model means the platform scales capabilities without central engineering bottlenecks.
                   </p>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 {[
                   { emoji: "💰", label: "$1.5M Pre-Seed Closed", desc: "akakAI closed $1.5M in pre-seed funding on the strength of Aegent's architecture and vision." },
                   { emoji: "🏛️", label: "End-to-End Platform", desc: "Built the entire platform — from agent runtime and LLM orchestration to the community integration library and evaluation framework." },
@@ -980,16 +1003,16 @@ export default function CompanyPage() {
 
         {/* ═══ EMAIL CASE STUDY ═══ */}
         {activeTab === "projects" && projectView === "email" && (
-          <div className="px-8">
+          <div className="px-4 sm:px-8">
             {/* Back + meta header */}
             <div className="py-10 border-b border-gray-100">
               <button onClick={() => { setProjectView(null); scrollRef.current?.scrollTo({ top: 0, behavior: "smooth" }); }}
                 className="inline-flex items-center gap-2 text-[13px] text-gray-400 hover:text-gray-900 transition-colors mb-10">
                 ← Back to Projects
               </button>
-              <div className="grid grid-cols-[2fr_1fr] gap-12 items-start">
+              <div className="grid grid-cols-1 sm:grid-cols-[2fr_1fr] gap-6 sm:gap-12 items-start">
                 <div>
-                  <h2 className="text-[56px] text-gray-900 leading-none mb-3" style={{ fontWeight: 500, fontStyle: "italic" }}>Email.</h2>
+                  <h2 className="text-[28px] sm:text-[56px] text-gray-900 leading-none mb-3" style={{ fontWeight: 500, fontStyle: "italic" }}>Email.</h2>
                   <p className="text-[18px] text-gray-400">Autonomous AI Email Agent</p>
                 </div>
                 <div className="grid grid-cols-2 gap-x-6 gap-y-4">
@@ -1012,7 +1035,7 @@ export default function CompanyPage() {
             {/* Overview */}
             <Section first root={scrollRef}>
               <SectionLabel>📋 Overview</SectionLabel>
-              <div className="grid grid-cols-2 gap-12">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-12">
                 <div>
                   <h3 className="text-[26px] text-gray-900 leading-tight mb-3" style={{ fontWeight: 500 }}>
                     Zero Inbox. Zero Stress.
@@ -1039,7 +1062,7 @@ export default function CompanyPage() {
             {/* Three Pillars */}
             <Section root={scrollRef} delay={60}>
               <SectionLabel>🧠 How It Works</SectionLabel>
-              <div className="grid grid-cols-3 gap-5 mb-10">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">
                 {[
                   { emoji: "🗓️", label: "Intelligent Context Awareness", desc: "The agent uses information from your calendar and previous emails to craft personalized, contextually appropriate responses — not generic templates." },
                   { emoji: "🧭", label: "Cognitive Routing", desc: "Incoming emails are intelligently analyzed and routed to the most suitable language model based on message type, complexity, and intent." },
@@ -1059,7 +1082,7 @@ export default function CompanyPage() {
             {/* Stat callout */}
             <Section root={scrollRef} delay={60}>
               <SectionLabel>📊 Why It Matters</SectionLabel>
-              <div className="grid grid-cols-2 gap-12 mb-10">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-12 mb-10">
                 <div>
                   <h3 className="text-[24px] text-gray-900 leading-tight mb-5" style={{ fontWeight: 500 }}>
                     Americans spend the equivalent of nearly 4 months a year just on email — more than they get for vacation.
@@ -1068,7 +1091,7 @@ export default function CompanyPage() {
                     Stop worrying about hundreds of unread emails. akakAI Email is a personal email assistant that handles responses for you, so you can focus on what matters.
                   </p>
                 </div>
-                <div className="flex flex-col justify-center border-l border-gray-200 pl-12">
+                <div className="flex flex-col justify-center sm:border-l sm:border-gray-200 sm:pl-12">
                   <div className="grid grid-cols-2 gap-4">
                     {[
                       "Automatic response drafting",
@@ -1094,7 +1117,7 @@ export default function CompanyPage() {
               <div className="mb-6">
                 <h3 className="text-[22px] text-gray-900 leading-tight" style={{ fontWeight: 500 }}>Focus on the things that matter.</h3>
               </div>
-              <div className="grid grid-cols-3 gap-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                 {[
                   { emoji: "⚡", label: "Real-Time Response Generation", desc: "Instantly produces high-quality email drafts tailored to the incoming message — no delays, no templates, just fast, accurate replies." },
                   { emoji: "🌍", label: "Multi-Language Support", desc: "Generate responses in multiple languages with native-level fluency, so your team can handle global communication without breaking a sweat." },
@@ -1117,7 +1140,7 @@ export default function CompanyPage() {
         )}
 
         {/* FOOTER */}
-        <div className="border-t border-gray-100 px-8 py-6 flex items-center justify-between">
+        <div className="border-t border-gray-100 px-4 sm:px-8 py-4 sm:py-6 flex items-center justify-between gap-4 flex-wrap">
           <Image src="/logo-horizontal.png" alt="akakAI" width={80} height={20}
             style={{ filter: "invert(1) brightness(0)" }} className="h-5 w-auto opacity-20" />
           <div className="flex items-center gap-7 text-[13px] text-gray-400">

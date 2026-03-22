@@ -23,9 +23,18 @@ html, body {
   -webkit-font-smoothing: antialiased;
 }
 
+@media (max-width: 639px) {
+  html, body {
+    height: auto;
+    min-height: 100%;
+    overflow: visible;
+  }
+}
+
 .page-scroll {
   scrollbar-width: thin;
   scrollbar-color: #d1d5db transparent;
+  -webkit-overflow-scrolling: touch;
 }
 
 .page-scroll::-webkit-scrollbar {

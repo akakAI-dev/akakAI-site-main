@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
-import { ArrowUpRight, Youtube, Instagram, Twitter, ChevronDown } from "lucide-react";
+import { ArrowUpRight, Youtube, Instagram, Twitter, ChevronDown, Menu, X } from "lucide-react";
 
 type Tab = "about" | "mission" | "team" | "investments" | "projects" | "contact";
 type ProjectView = null | "aegent" | "email";
@@ -159,12 +159,18 @@ function PressEntry({
 export default function CompanyPage() {
   const [activeTab, setActiveTab] = useState<Tab>("about");
   const [projectView, setProjectView] = useState<ProjectView>(null);
+  const [navOpen, setNavOpen] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   function switchTab(tab: Tab) {
     setActiveTab(tab);
     setProjectView(null);
+    setNavOpen(false);
     scrollRef.current?.scrollTo({ top: 0, behavior: "smooth" });
+    // mobile: scroll outer container to top
+    if (typeof window !== "undefined" && window.innerWidth < 640) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
   }
 
   const tabs: { id: Tab; label: string }[] = [
@@ -183,10 +189,10 @@ export default function CompanyPage() {
   ];
 
   return (
-    <div className="fixed inset-[4px] sm:inset-[10px] rounded-xl sm:rounded-2xl bg-white border border-gray-200 shadow-sm overflow-hidden flex flex-col">
+    <div className="fixed inset-[4px] sm:inset-[10px] rounded-xl sm:rounded-2xl bg-white border border-gray-200 shadow-sm sm:overflow-hidden flex flex-col overflow-y-auto">
 
       {/* NAV */}
-      <nav className="flex-none border-b border-gray-100 shrink-0">
+      <nav className="sticky top-0 z-20 bg-white flex-none border-b border-gray-100 shrink-0">
         {/* Main row */}
         <div className="flex items-center justify-between px-4 sm:px-8 h-[48px] sm:h-[56px]">
           <Image src="/logo-horizontal.png" alt="akakAI" width={120} height={30}
@@ -208,30 +214,38 @@ export default function CompanyPage() {
               </a>
             ))}
           </div>
-          {/* Mobile: only socials */}
-          <div className="sm:hidden flex items-center gap-4 text-gray-400">
-            {socials.map((s) => (
-              <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer"
-                className="hover:text-gray-800 transition-colors duration-150" aria-label={s.label}>
-                {s.icon}
-              </a>
+          {/* Mobile: hamburger */}
+          <button
+            className="sm:hidden p-1 text-gray-500 hover:text-gray-900 transition-colors"
+            onClick={() => setNavOpen(o => !o)}
+            aria-label="Menu">
+            {navOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        </div>
+        {/* Mobile dropdown */}
+        {navOpen && (
+          <div className="sm:hidden border-t border-gray-100 bg-white">
+            {tabs.map((t) => (
+              <button key={t.id}
+                onClick={() => switchTab(t.id)}
+                className={`w-full text-left px-5 py-3.5 text-[15px] border-b border-gray-50 transition-colors ${activeTab === t.id ? "text-gray-900 font-medium" : "text-gray-500"}`}>
+                {t.label}
+              </button>
             ))}
+            <div className="flex items-center gap-5 px-5 py-4">
+              {socials.map((s) => (
+                <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer"
+                  className="text-gray-400 hover:text-gray-800 transition-colors" aria-label={s.label}>
+                  {s.icon}
+                </a>
+              ))}
+            </div>
           </div>
-        </div>
-        {/* Mobile-only tab row */}
-        <div className="sm:hidden flex overflow-x-auto gap-5 px-4 pb-2 text-[13px] text-gray-500" style={{ scrollbarWidth: "none" }}>
-          {tabs.map((t) => (
-            <button key={t.id}
-              onClick={() => switchTab(t.id)}
-              className={`whitespace-nowrap transition-colors duration-150 pb-0.5 ${activeTab === t.id ? "text-gray-900 border-b border-gray-900" : "hover:text-gray-700"}`}>
-              {t.label}
-            </button>
-          ))}
-        </div>
+        )}
       </nav>
 
-      {/* SCROLLABLE BODY */}
-      <div ref={scrollRef} className="flex-1 overflow-y-auto page-scroll" style={{ scrollbarGutter: "stable" }}>
+      {/* SCROLLABLE BODY — desktop only inner scroll; mobile scrolls the outer container */}
+      <div ref={scrollRef} className="sm:flex-1 sm:overflow-y-auto page-scroll" style={{ scrollbarGutter: "stable" }}>
 
         {/* HERO — hidden when inside a case study */}
         {projectView === null && <div className="px-4 sm:px-8 border-b border-gray-100 flex items-stretch min-h-[140px] sm:min-h-[220px]">

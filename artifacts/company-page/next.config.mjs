@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
   allowedDevOrigins: [
     "*.replit.dev",
     "*.worf.replit.dev",

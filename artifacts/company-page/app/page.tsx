@@ -4,7 +4,8 @@ import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { ArrowUpRight, Youtube, Instagram, Twitter, ChevronDown } from "lucide-react";
 
-type Tab = "about" | "mission" | "team" | "investments";
+type Tab = "about" | "mission" | "team" | "investments" | "projects";
+type ProjectView = null | "aegent" | "email";
 
 /* ── Scroll-reveal ── */
 function Reveal({
@@ -157,13 +158,21 @@ function PressEntry({
 
 export default function CompanyPage() {
   const [activeTab, setActiveTab] = useState<Tab>("about");
+  const [projectView, setProjectView] = useState<ProjectView>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
+
+  function switchTab(tab: Tab) {
+    setActiveTab(tab);
+    setProjectView(null);
+    scrollRef.current?.scrollTo({ top: 0, behavior: "smooth" });
+  }
 
   const tabs: { id: Tab; label: string }[] = [
     { id: "about", label: "About" },
     { id: "mission", label: "Mission" },
     { id: "team", label: "Team" },
     { id: "investments", label: "Investments" },
+    { id: "projects", label: "Projects" },
   ];
 
   const socials = [
@@ -182,7 +191,7 @@ export default function CompanyPage() {
         <div className="flex items-center gap-8 text-[14px] text-gray-500">
           {tabs.map((t) => (
             <button key={t.id}
-              onClick={() => { setActiveTab(t.id); scrollRef.current?.scrollTo({ top: 0, behavior: "smooth" }); }}
+              onClick={() => switchTab(t.id)}
               className={`transition-colors duration-150 ${activeTab === t.id ? "text-gray-900" : "hover:text-gray-700"}`}>
               {t.label}
             </button>
@@ -210,19 +219,21 @@ export default function CompanyPage() {
           {/* Hero text */}
           <div className="flex-1 flex flex-col justify-center py-10">
             <p className="text-[14px] uppercase tracking-[0.18em] text-gray-400 mb-5">
-              {activeTab === "about" ? "Company Overview" : activeTab === "mission" ? "Our Mission" : activeTab === "team" ? "The Team" : "Investments"}
+              {activeTab === "about" ? "Company Overview" : activeTab === "mission" ? "Our Mission" : activeTab === "team" ? "The Team" : activeTab === "investments" ? "Investments" : "Our Projects"}
             </p>
             <h1 className="text-[62px] leading-[1.0] tracking-tight text-gray-900 mb-6" style={{ fontWeight: 500 }}>
               {activeTab === "about" && <>AI that acts,<br /><span className="text-gray-300">not just reacts.</span></>}
               {activeTab === "mission" && <>Action is the<br /><span className="text-gray-300">default.</span></>}
               {activeTab === "team" && <>The people<br /><span className="text-gray-300">building it.</span></>}
               {activeTab === "investments" && <>Backing the<br /><span className="text-gray-300">next wave.</span></>}
+              {activeTab === "projects" && <>What we've<br /><span className="text-gray-300">built.</span></>}
             </h1>
             <p className="text-[19px] text-gray-500 leading-[1.7] max-w-2xl">
               {activeTab === "about" && "Autonomous agents built to navigate complexity, make decisions, and deliver outcomes — with minimal human intervention."}
               {activeTab === "mission" && "Close the gap between intention and execution. Every system we build pushes toward one thing: AI that makes action the rule, not the exception."}
               {activeTab === "team" && "akakAI was started with a simple conviction. Here's the team putting in the work to prove it."}
               {activeTab === "investments" && "akakAI is building the infrastructure for autonomous AI action. For investment inquiries, reach us at investments@akakai.com."}
+              {activeTab === "projects" && "Two products. One conviction. Agents that don't wait to be asked — they understand, decide, and act."}
             </p>
           </div>
         </div>
@@ -634,6 +645,285 @@ export default function CompanyPage() {
             </Section>
 
             <HiringCTA root={scrollRef} />
+          </div>
+        )}
+
+        {/* ═══ PROJECTS ═══ */}
+        {activeTab === "projects" && projectView === null && (
+          <div className="px-8">
+            <Section first root={scrollRef}>
+              <SectionLabel>🛠️ Products</SectionLabel>
+              <div className="grid grid-cols-2 gap-6">
+
+                {/* Aegent Card */}
+                <Card className="border border-gray-100 rounded-2xl overflow-hidden">
+                  <div className="bg-gray-900 px-8 py-10">
+                    <p className="text-[11px] uppercase tracking-[0.2em] text-gray-500 mb-3">01 — Autonomous Agent Platform</p>
+                    <h2 className="text-[38px] text-white leading-none mb-2" style={{ fontWeight: 500, fontStyle: "italic" }}>Aegent.</h2>
+                    <p className="text-[14px] text-gray-400">by akakAI</p>
+                  </div>
+                  <div className="px-8 py-8">
+                    <p className="text-[16px] text-gray-600 leading-[1.8] mb-6">
+                      A no-code platform for building autonomous AI agents that listen to real-world triggers — email, Slack, cron schedules — and act through a community-built integration library. No code. No prompting. Just outcomes.
+                    </p>
+                    <div className="flex flex-wrap gap-2 mb-8">
+                      {["Node.js", "React", "PostgreSQL", "LLMs"].map(t => (
+                        <span key={t} className="text-[12px] text-gray-500 border border-gray-200 px-3 py-1 rounded-full">{t}</span>
+                      ))}
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <button
+                        onClick={() => { setProjectView("aegent"); scrollRef.current?.scrollTo({ top: 0, behavior: "smooth" }); }}
+                        className="inline-flex items-center gap-2 bg-gray-900 text-white px-5 py-2.5 rounded-full text-[13px] hover:bg-gray-700 transition-colors"
+                      >
+                        Case Study <ArrowUpRight size={13} />
+                      </button>
+                      <a href="https://aegent.akakai.com" target="_blank" rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 text-[13px] text-gray-500 border border-gray-200 px-5 py-2.5 rounded-full hover:border-gray-400 hover:text-gray-900 transition-colors">
+                        aegent.akakai.com <ArrowUpRight size={13} />
+                      </a>
+                    </div>
+                  </div>
+                </Card>
+
+                {/* Email Card */}
+                <Card className="border border-gray-100 rounded-2xl overflow-hidden">
+                  <div className="bg-gray-50 px-8 py-10 border-b border-gray-100">
+                    <p className="text-[11px] uppercase tracking-[0.2em] text-gray-400 mb-3">02 — Autonomous Email Agent</p>
+                    <h2 className="text-[38px] text-gray-900 leading-none mb-2" style={{ fontWeight: 500, fontStyle: "italic" }}>Email.</h2>
+                    <p className="text-[14px] text-gray-400">by akakAI</p>
+                  </div>
+                  <div className="px-8 py-8">
+                    <p className="text-[16px] text-gray-600 leading-[1.8] mb-6">
+                      An AI agent that integrates directly with Gmail and Outlook, drafting autonomous email replies without prompts, commands, or a separate app. It reads your inbox, understands context, and responds — before you even open the thread.
+                    </p>
+                    <div className="flex flex-wrap gap-2 mb-8">
+                      {["LLMs", "Gmail API", "Outlook API", "OAuth"].map(t => (
+                        <span key={t} className="text-[12px] text-gray-500 border border-gray-200 px-3 py-1 rounded-full">{t}</span>
+                      ))}
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <button
+                        onClick={() => { setProjectView("email"); scrollRef.current?.scrollTo({ top: 0, behavior: "smooth" }); }}
+                        className="inline-flex items-center gap-2 bg-gray-900 text-white px-5 py-2.5 rounded-full text-[13px] hover:bg-gray-700 transition-colors"
+                      >
+                        Case Study <ArrowUpRight size={13} />
+                      </button>
+                      <a href="https://email.akakai.com" target="_blank" rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 text-[13px] text-gray-500 border border-gray-200 px-5 py-2.5 rounded-full hover:border-gray-400 hover:text-gray-900 transition-colors">
+                        email.akakai.com <ArrowUpRight size={13} />
+                      </a>
+                    </div>
+                  </div>
+                </Card>
+
+              </div>
+            </Section>
+            <HiringCTA root={scrollRef} />
+          </div>
+        )}
+
+        {/* ═══ AEGENT CASE STUDY ═══ */}
+        {activeTab === "projects" && projectView === "aegent" && (
+          <div className="px-8">
+            {/* Back + meta header */}
+            <div className="py-10 border-b border-gray-100">
+              <button onClick={() => { setProjectView(null); scrollRef.current?.scrollTo({ top: 0, behavior: "smooth" }); }}
+                className="inline-flex items-center gap-2 text-[13px] text-gray-400 hover:text-gray-900 transition-colors mb-10">
+                ← Back to Projects
+              </button>
+              <div className="grid grid-cols-[2fr_1fr] gap-12 items-start">
+                <div>
+                  <h2 className="text-[56px] text-gray-900 leading-none mb-3" style={{ fontWeight: 500, fontStyle: "italic" }}>Aegent.</h2>
+                  <p className="text-[18px] text-gray-400">Autonomous AI Agent Platform</p>
+                </div>
+                <div className="grid grid-cols-2 gap-x-6 gap-y-4">
+                  {[
+                    { label: "Timeline", value: "2025 – 2026" },
+                    { label: "Role", value: "Co-Founder & Developer" },
+                    { label: "Company", value: "akakAI — $1.5M Pre-Seed" },
+                    { label: "Type", value: "Full-Stack AI Platform" },
+                    { label: "Tech", value: "Node.js, React, PostgreSQL, LLMs" },
+                    { label: "Status", value: "Live — Early Access" },
+                  ].map(({ label, value }) => (
+                    <div key={label}>
+                      <p className="text-[11px] uppercase tracking-[0.15em] text-gray-400 mb-1">{label}</p>
+                      <p className="text-[14px] text-gray-700">{value}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Overview */}
+            <Section first root={scrollRef}>
+              <SectionLabel>📋 Overview</SectionLabel>
+              <div className="grid grid-cols-2 gap-12">
+                <div>
+                  <h3 className="text-[26px] text-gray-900 leading-tight mb-6" style={{ fontWeight: 500 }}>
+                    A no-code platform for building agents that act on real-world events.
+                  </h3>
+                  <p className="text-[17px] text-gray-600 leading-[1.85] mb-5">
+                    Aegent is a no-code autonomous AI agent platform built by akakAI — a startup that closed $1.5M in pre-seed funding. Aegent lets anyone build agents that listen to real-world triggers and act autonomously through integrations, without writing a single line of code.
+                  </p>
+                  <p className="text-[17px] text-gray-600 leading-[1.85]">
+                    Agents on Aegent are driven by listeners — event sources like email inboxes, cron schedules, Slack channels, and more — and respond by executing tools from a community-built integration library. Every agent run is evaluated, summarized, and stored for monitoring and improvement.
+                  </p>
+                </div>
+                <div className="flex flex-col justify-center border-l border-gray-200 pl-12">
+                  <p className="text-[17px] text-gray-600 leading-[1.85] mb-5">
+                    akakAI closed $1.5M in pre-seed funding. Aegent features a community integration library, cron and email listeners, live thread monitoring, and a full evaluation framework for agent runs.
+                  </p>
+                  <a href="https://aegent.akakai.com" target="_blank" rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-[13px] text-gray-500 border border-gray-200 px-5 py-2.5 rounded-full hover:border-gray-400 hover:text-gray-900 transition-colors w-fit">
+                    Visit Aegent <ArrowUpRight size={13} />
+                  </a>
+                </div>
+              </div>
+            </Section>
+
+            {/* What It Does */}
+            <Section root={scrollRef} delay={60}>
+              <SectionLabel>⚡ Core Capabilities</SectionLabel>
+              <div className="grid grid-cols-2 gap-5">
+                {[
+                  { emoji: "👂", label: "Event Listeners", desc: "Agents are always on, monitoring email inboxes, Slack channels, cron schedules, and webhooks. When something happens, the agent wakes up and acts — no manual trigger needed." },
+                  { emoji: "🔗", label: "Integration Library", desc: "A community-built library of pre-built integrations — databases, email, Slack, APIs — that agents can call as tools during their runs. Anyone can contribute." },
+                  { emoji: "🧵", label: "Live Thread Monitoring", desc: "Every agent run is a live, inspectable thread. See every decision, every tool call, every output in real time. No black boxes." },
+                  { emoji: "📊", label: "Evaluation Framework", desc: "Every run is evaluated, scored, and summarized. Agents improve over time as their performance is tracked and analyzed across runs." },
+                ].map((c, i) => (
+                  <Reveal key={i} root={scrollRef} delay={i * 40}>
+                    <Card className="bg-gray-50 rounded-xl p-7 cursor-default">
+                      <div className="text-2xl mb-4">{c.emoji}</div>
+                      <p className="text-[16px] text-gray-900 mb-3" style={{ fontWeight: 500 }}>{c.label}</p>
+                      <p className="text-[15px] text-gray-500 leading-[1.8]">{c.desc}</p>
+                    </Card>
+                  </Reveal>
+                ))}
+              </div>
+            </Section>
+
+            {/* Context */}
+            <Section root={scrollRef} delay={60}>
+              <SectionLabel>💡 The Problem It Solves</SectionLabel>
+              <div className="grid grid-cols-2 gap-12">
+                <div>
+                  <h3 className="text-[24px] text-gray-900 leading-tight mb-6" style={{ fontWeight: 500 }}>
+                    Most AI requires constant human prompting. Aegent doesn't.
+                  </h3>
+                  <p className="text-[17px] text-gray-600 leading-[1.85]">
+                    Every existing AI tool is reactive: you ask, it answers. Aegent is built around the opposite model — agents that watch, decide, and act without waiting. You define the agent's identity, connect its listeners, and let it run.
+                  </p>
+                </div>
+                <div className="flex flex-col justify-center border-l border-gray-200 pl-12">
+                  <p className="text-[17px] text-gray-600 leading-[1.85]">
+                    The result is a platform where non-technical users can deploy genuinely autonomous agents in minutes — agents that handle real business workflows across email, databases, scheduling, and external APIs.
+                  </p>
+                </div>
+              </div>
+            </Section>
+          </div>
+        )}
+
+        {/* ═══ EMAIL CASE STUDY ═══ */}
+        {activeTab === "projects" && projectView === "email" && (
+          <div className="px-8">
+            {/* Back + meta header */}
+            <div className="py-10 border-b border-gray-100">
+              <button onClick={() => { setProjectView(null); scrollRef.current?.scrollTo({ top: 0, behavior: "smooth" }); }}
+                className="inline-flex items-center gap-2 text-[13px] text-gray-400 hover:text-gray-900 transition-colors mb-10">
+                ← Back to Projects
+              </button>
+              <div className="grid grid-cols-[2fr_1fr] gap-12 items-start">
+                <div>
+                  <h2 className="text-[56px] text-gray-900 leading-none mb-3" style={{ fontWeight: 500, fontStyle: "italic" }}>Email.</h2>
+                  <p className="text-[18px] text-gray-400">Autonomous AI Email Agent</p>
+                </div>
+                <div className="grid grid-cols-2 gap-x-6 gap-y-4">
+                  {[
+                    { label: "Timeline", value: "2025" },
+                    { label: "Role", value: "Co-Founder" },
+                    { label: "Company", value: "akakAI" },
+                    { label: "Type", value: "AI Email Agent" },
+                    { label: "Tech", value: "LLMs, Gmail API, Outlook API" },
+                    { label: "Status", value: "Live — Early Access" },
+                  ].map(({ label, value }) => (
+                    <div key={label}>
+                      <p className="text-[11px] uppercase tracking-[0.15em] text-gray-400 mb-1">{label}</p>
+                      <p className="text-[14px] text-gray-700">{value}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Overview */}
+            <Section first root={scrollRef}>
+              <SectionLabel>📋 Overview</SectionLabel>
+              <div className="grid grid-cols-2 gap-12">
+                <div>
+                  <h3 className="text-[26px] text-gray-900 leading-tight mb-6" style={{ fontWeight: 500 }}>
+                    An email agent that replies before you even open the thread.
+                  </h3>
+                  <p className="text-[17px] text-gray-600 leading-[1.85] mb-5">
+                    akakAI Email is an autonomous AI agent that integrates directly with Gmail and Outlook. It reads incoming emails, understands context, and drafts replies autonomously — no prompts, no commands, no separate app.
+                  </p>
+                  <p className="text-[17px] text-gray-600 leading-[1.85]">
+                    The agent operates silently in the background, monitoring your inbox and composing context-aware replies based on your identity, communication style, and the substance of each thread.
+                  </p>
+                </div>
+                <div className="flex flex-col justify-center border-l border-gray-200 pl-12">
+                  <p className="text-[17px] text-gray-600 leading-[1.85] mb-5">
+                    akakAI Email launched July 3, 2025, and was the first product released under the akakAI umbrella. It was built to prove the core thesis: AI can act on your behalf without being asked.
+                  </p>
+                  <a href="https://email.akakai.com" target="_blank" rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-[13px] text-gray-500 border border-gray-200 px-5 py-2.5 rounded-full hover:border-gray-400 hover:text-gray-900 transition-colors w-fit">
+                    Visit Email <ArrowUpRight size={13} />
+                  </a>
+                </div>
+              </div>
+            </Section>
+
+            {/* Core features */}
+            <Section root={scrollRef} delay={60}>
+              <SectionLabel>⚡ Core Capabilities</SectionLabel>
+              <div className="grid grid-cols-2 gap-5">
+                {[
+                  { emoji: "📬", label: "Inbox Monitoring", desc: "The agent watches your inbox continuously. The moment a new email arrives, it reads, classifies, and begins drafting — without any input from you." },
+                  { emoji: "🧠", label: "Context Awareness", desc: "It understands thread history, sender relationships, and the content of each email. Replies are relevant, personalized, and match your communication style." },
+                  { emoji: "✍️", label: "Autonomous Drafting", desc: "Full email replies are drafted automatically, ready for review or send. No prompting required — the agent figures out what to say and how to say it." },
+                  { emoji: "🔌", label: "Native Integration", desc: "Connects directly to Gmail and Outlook via OAuth. No new app, no new interface — the agent lives inside the tools you already use every day." },
+                ].map((c, i) => (
+                  <Reveal key={i} root={scrollRef} delay={i * 40}>
+                    <Card className="bg-gray-50 rounded-xl p-7 cursor-default">
+                      <div className="text-2xl mb-4">{c.emoji}</div>
+                      <p className="text-[16px] text-gray-900 mb-3" style={{ fontWeight: 500 }}>{c.label}</p>
+                      <p className="text-[15px] text-gray-500 leading-[1.8]">{c.desc}</p>
+                    </Card>
+                  </Reveal>
+                ))}
+              </div>
+            </Section>
+
+            {/* Context */}
+            <Section root={scrollRef} delay={60}>
+              <SectionLabel>💡 Why It Matters</SectionLabel>
+              <div className="grid grid-cols-2 gap-12">
+                <div>
+                  <h3 className="text-[24px] text-gray-900 leading-tight mb-6" style={{ fontWeight: 500 }}>
+                    Email is where passive AI is most visible — and most painful.
+                  </h3>
+                  <p className="text-[17px] text-gray-600 leading-[1.85]">
+                    Most people spend hours a day in their inbox. Every tool designed to help — summarizers, smart replies, AI assistants — still requires you to ask. akakAI Email is different. It acts first. It drafts first. It removes the bottleneck entirely.
+                  </p>
+                </div>
+                <div className="flex flex-col justify-center border-l border-gray-200 pl-12">
+                  <p className="text-[17px] text-gray-600 leading-[1.85]">
+                    This wasn't built as a feature. It was built as a proof of concept for the larger akakAI thesis: that AI should be proactive, not reactive. Email was the first domain to prove that thesis in production.
+                  </p>
+                </div>
+              </div>
+            </Section>
           </div>
         )}
 

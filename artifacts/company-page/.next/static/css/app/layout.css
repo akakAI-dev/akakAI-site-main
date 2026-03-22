@@ -495,6 +495,9 @@ video {
 .inline-block{
   display: inline-block;
 }
+.inline{
+  display: inline;
+}
 .flex{
   display: flex;
 }
@@ -666,6 +669,11 @@ video {
   margin-top: calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(0.75rem * var(--tw-space-y-reverse));
 }
+.space-y-8 > :not([hidden]) ~ :not([hidden]){
+  --tw-space-y-reverse: 0;
+  margin-top: calc(2rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(2rem * var(--tw-space-y-reverse));
+}
 .divide-x > :not([hidden]) ~ :not([hidden]){
   --tw-divide-x-reverse: 0;
   border-right-width: calc(1px * var(--tw-divide-x-reverse));
@@ -720,6 +728,10 @@ video {
   --tw-border-opacity: 1;
   border-color: rgb(17 24 39 / var(--tw-border-opacity, 1));
 }
+.border-gray-500{
+  --tw-border-opacity: 1;
+  border-color: rgb(107 114 128 / var(--tw-border-opacity, 1));
+}
 .bg-gray-200{
   --tw-bg-opacity: 1;
   background-color: rgb(229 231 235 / var(--tw-bg-opacity, 1));
@@ -739,6 +751,10 @@ video {
 .bg-gray-100{
   --tw-bg-opacity: 1;
   background-color: rgb(243 244 246 / var(--tw-bg-opacity, 1));
+}
+.bg-gray-700{
+  --tw-bg-opacity: 1;
+  background-color: rgb(55 65 81 / var(--tw-bg-opacity, 1));
 }
 .p-5{
   padding: 1.25rem;
@@ -810,6 +826,14 @@ video {
 .py-10{
   padding-top: 2.5rem;
   padding-bottom: 2.5rem;
+}
+.px-6{
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+.py-3{
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
 }
 .pb-10{
   padding-bottom: 2.5rem;
@@ -933,6 +957,21 @@ video {
 .text-\[50px\]{
   font-size: 50px;
 }
+.text-\[16px\]{
+  font-size: 16px;
+}
+.text-\[21px\]{
+  font-size: 21px;
+}
+.text-\[30px\]{
+  font-size: 30px;
+}
+.text-\[40px\]{
+  font-size: 40px;
+}
+.text-\[58px\]{
+  font-size: 58px;
+}
 .font-black{
   font-weight: 900;
 }
@@ -974,6 +1013,9 @@ video {
 }
 .leading-none{
   line-height: 1;
+}
+.leading-\[1\.02\]{
+  line-height: 1.02;
 }
 .tracking-\[0\.12em\]{
   letter-spacing: 0.12em;
@@ -1031,6 +1073,9 @@ video {
 }
 .decoration-gray-300{
   text-decoration-color: #d1d5db;
+}
+.decoration-gray-400{
+  text-decoration-color: #9ca3af;
 }
 .antialiased{
   -webkit-font-smoothing: antialiased;
@@ -1119,6 +1164,11 @@ html, body {
 .hover\:bg-gray-700:hover{
   --tw-bg-opacity: 1;
   background-color: rgb(55 65 81 / var(--tw-bg-opacity, 1));
+}
+
+.hover\:bg-gray-50:hover{
+  --tw-bg-opacity: 1;
+  background-color: rgb(249 250 251 / var(--tw-bg-opacity, 1));
 }
 
 .hover\:text-gray-500:hover{

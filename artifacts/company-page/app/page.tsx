@@ -1,36 +1,26 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import { ArrowRight, Zap, Brain, Target, Rocket, Users, Globe } from "lucide-react";
+import { ArrowUpRight, ChevronDown } from "lucide-react";
 
-function useInView(threshold = 0.1) {
+function useInView(threshold = 0.15) {
   const ref = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
-
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setInView(true);
-      },
-      { threshold }
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) setInView(true); },
+      { threshold, root: el.closest(".inset-scroll") }
     );
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
+    obs.observe(el);
+    return () => obs.disconnect();
   }, [threshold]);
-
   return { ref, inView };
 }
 
-function AnimatedSection({
-  children,
-  delay = 0,
-  className = "",
-}: {
-  children: React.ReactNode;
-  delay?: number;
-  className?: string;
-}) {
+function Reveal({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
   const { ref, inView } = useInView();
   return (
     <div
@@ -38,8 +28,8 @@ function AnimatedSection({
       className={className}
       style={{
         opacity: inView ? 1 : 0,
-        transform: inView ? "translateY(0)" : "translateY(24px)",
-        transition: `opacity 0.6s ease ${delay}ms, transform 0.6s ease ${delay}ms`,
+        transform: inView ? "translateY(0)" : "translateY(16px)",
+        transition: `opacity 0.55s ease ${delay}ms, transform 0.55s ease ${delay}ms`,
       }}
     >
       {children}
@@ -47,391 +37,252 @@ function AnimatedSection({
   );
 }
 
-const beliefs = [
+const sections = [
   {
-    icon: <Zap size={20} />,
-    label: "Act First",
-    desc: "AI shouldn't wait for direction — it should move first",
-    color: "from-yellow-50 to-orange-50",
-    border: "border-orange-100",
-    iconBg: "bg-orange-100 text-orange-500",
+    label: "01 — What We Are",
+    heading: "A new class of\nintelligent systems.",
+    body: [
+      "akakAI is building AI agents that don't just respond to instructions — they think independently, take initiative, and execute tasks with purpose.",
+      "These are not passive models reacting to inputs. They are fully capable agents built to navigate complexity, make informed decisions in real time, and carry out objectives from start to finish with minimal oversight.",
+    ],
   },
   {
-    icon: <Brain size={20} />,
-    label: "Think Independently",
-    desc: "Navigate complexity and make real decisions in real time",
-    color: "from-pink-50 to-rose-50",
-    border: "border-pink-100",
-    iconBg: "bg-pink-100 text-pink-500",
+    label: "02 — The Core Belief",
+    heading: "AI shouldn't wait\nfor direction.",
+    body: [
+      "The conviction driving akakAI is simple but transformative: AI should anticipate, adapt, and act. Not wait for a prompt. Not ask for clarification. Move.",
+      "Intelligence that doesn't sit still. It moves first, scales naturally, and transforms organizations by making action the default — not the exception.",
+    ],
   },
   {
-    icon: <Target size={20} />,
-    label: "Execute with Purpose",
-    desc: "From high-level goals to real-world outcomes, start to finish",
-    color: "from-purple-50 to-indigo-50",
-    border: "border-purple-100",
-    iconBg: "bg-purple-100 text-purple-500",
-  },
-  {
-    icon: <Rocket size={20} />,
-    label: "Scale Naturally",
-    desc: "Intelligence that compounds — zero micromanagement required",
-    color: "from-blue-50 to-cyan-50",
-    border: "border-blue-100",
-    iconBg: "bg-blue-100 text-blue-500",
+    label: "03 — The Technology",
+    heading: "Closing the gap between\nintention and execution.",
+    body: [
+      "akakAI's technology translates high-level goals into real-world impact. These agents become active contributors in workflows, driving momentum without constant human intervention.",
+      "Whether managing multi-step operations, coordinating across systems, or making judgment calls under uncertainty — they act with autonomy and purpose.",
+    ],
   },
 ];
 
-const stats = [
-  { value: "0→1", label: "Built from conviction, not trends" },
-  { value: "∞", label: "Tasks handled autonomously" },
-  { value: "2026", label: "The year agents go to work" },
-];
-
-const missionPills = [
-  "Close the gap between intention & execution",
-  "Translate goals into real-world impact",
-  "Make action the default, not the exception",
-  "Intelligence that doesn't sit still",
-  "Capability over complexity",
-  "Minimal oversight, maximum output",
-];
-
-const zaydTraits = [
-  "Anti-hype",
-  "Action-first",
-  "Systems thinker",
-  "Goal-driven",
-  "No fluff",
-  "Builder",
+const principles = [
+  ["Anticipate", "Agents that see what's next, not just what's now."],
+  ["Adapt", "Real-time decision-making under real-world uncertainty."],
+  ["Act", "From instruction to outcome, without hand-holding."],
+  ["Scale", "Intelligence that compounds as the work grows."],
 ];
 
 export default function CompanyPage() {
   const [activeTab, setActiveTab] = useState<"about" | "team">("about");
-  const [hoveredBelief, setHoveredBelief] = useState<number | null>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* Nav */}
-      <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
-        <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-          <Image
-            src="/logo-horizontal.png"
-            alt="akakAI"
-            width={140}
-            height={36}
-            style={{ filter: "invert(1) brightness(0)" }}
-            className="h-8 w-auto"
-          />
-          <div className="flex items-center gap-6 text-sm font-medium text-gray-500">
-            <button
-              onClick={() => setActiveTab("about")}
-              className={`transition-colors ${activeTab === "about" ? "text-gray-900" : "hover:text-gray-900"}`}
-            >
-              About
-            </button>
-            <button
-              onClick={() => setActiveTab("team")}
-              className={`transition-colors ${activeTab === "team" ? "text-gray-900" : "hover:text-gray-900"}`}
-            >
-              Team
-            </button>
-            <a
-              href="#"
-              className="flex items-center gap-1.5 bg-gray-900 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-gray-700 transition-colors"
-            >
-              Get Started <ArrowRight size={14} />
-            </a>
-          </div>
+    <div className="h-screen flex flex-col bg-white overflow-hidden">
+      {/* NAV */}
+      <nav className="flex-none flex items-center justify-between px-8 h-14 border-b border-gray-100">
+        <Image
+          src="/logo-horizontal.png"
+          alt="akakAI"
+          width={120}
+          height={30}
+          style={{ filter: "invert(1) brightness(0)" }}
+          className="h-7 w-auto"
+          priority
+        />
+        <div className="flex items-center gap-8 text-sm font-medium text-gray-400">
+          <button onClick={() => setActiveTab("about")} className={`transition-colors ${activeTab === "about" ? "text-gray-900" : "hover:text-gray-700"}`}>About</button>
+          <button onClick={() => setActiveTab("team")} className={`transition-colors ${activeTab === "team" ? "text-gray-900" : "hover:text-gray-700"}`}>Team</button>
+          <span className="text-gray-200">|</span>
+          <a href="#" className="text-gray-400 hover:text-gray-700 transition-colors">Sign In</a>
+          <a href="#" className="bg-gray-900 text-white text-sm px-4 py-2 rounded-full font-semibold hover:bg-gray-700 transition-colors">
+            Get Started
+          </a>
         </div>
       </nav>
 
-      <main className="max-w-6xl mx-auto px-6 py-16">
-        {/* HERO */}
-        <AnimatedSection className="text-center mb-6">
-          <span className="inline-flex items-center gap-2 bg-gray-100 text-gray-500 text-xs font-semibold uppercase tracking-widest px-4 py-2 rounded-full mb-8">
-            <span className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-pink-500 to-orange-400 animate-pulse" />
-            akakAI · Company
+      {/* HERO — fixed outside the inset */}
+      <div className="flex-none px-10 pt-10 pb-6">
+        <div className="mb-5">
+          <span className="inline-flex items-center gap-2 border border-gray-200 text-gray-500 text-xs font-semibold uppercase tracking-[0.12em] px-3 py-1.5 rounded-full">
+            <span className="w-1.5 h-1.5 rounded-full bg-gray-900 inline-block" />
+            Company Overview
           </span>
-        </AnimatedSection>
+        </div>
+        <h1 className="text-[56px] leading-[1.05] font-black tracking-tight text-gray-900 mb-4">
+          {activeTab === "about" ? (
+            <>
+              AI that acts,<br />
+              <span className="text-gray-300">not just reacts.</span>
+            </>
+          ) : (
+            <>
+              The people<br />
+              <span className="text-gray-300">building it.</span>
+            </>
+          )}
+        </h1>
+        <p className="text-base text-gray-400 font-medium max-w-xl leading-relaxed">
+          {activeTab === "about"
+            ? "Autonomous agents built to navigate complexity, make decisions, and deliver outcomes — with minimal human intervention."
+            : "akakAI was started with a simple conviction. Here's the team putting in the work to prove it."}
+        </p>
+        {activeTab === "about" && (
+          <div className="flex items-center gap-1.5 mt-5 text-xs text-gray-400 font-medium">
+            <ChevronDown size={13} />
+            Scroll to read
+          </div>
+        )}
+      </div>
 
-        <AnimatedSection delay={100} className="text-center mb-4">
-          <h1 className="text-6xl md:text-8xl font-black tracking-tight leading-none">
-            AI that{" "}
-            <span className="gradient-text">moves</span>
-            <br />
-            <span className="gradient-text">first.</span>
-          </h1>
-        </AnimatedSection>
-
-        <AnimatedSection delay={200} className="text-center mb-16">
-          <p className="text-lg text-gray-400 max-w-xl mx-auto font-medium">
-            Not passive models. Not chatbots. Fully autonomous agents that
-            anticipate, adapt, and act.
-          </p>
-        </AnimatedSection>
-
-        {/* INSET CARD — Main content */}
-        <AnimatedSection delay={300}>
-          <div className="inset-card rounded-3xl p-8 md:p-12 mb-8">
-            {/* Tab switcher inside card */}
-            <div className="flex gap-2 mb-10 p-1 bg-white border border-gray-100 rounded-2xl w-fit shadow-sm">
-              {(["about", "team"] as const).map((tab) => (
-                <button
-                  key={tab}
-                  onClick={() => setActiveTab(tab)}
-                  className={`px-6 py-2.5 rounded-xl text-sm font-semibold capitalize transition-all duration-200 ${
-                    activeTab === tab
-                      ? "bg-gray-900 text-white shadow-sm"
-                      : "text-gray-400 hover:text-gray-700"
-                  }`}
-                >
-                  {tab === "about" ? "🏢 About" : "👤 Team"}
-                </button>
-              ))}
-            </div>
-
-            {/* ABOUT TAB */}
+      {/* INSET SCROLLABLE CONTAINER */}
+      <div className="flex-1 px-10 pb-10 min-h-0">
+        <div className="h-full rounded-2xl border border-gray-200 bg-gray-50 overflow-hidden shadow-[inset_0_2px_8px_rgba(0,0,0,0.04)]">
+          <div
+            ref={scrollRef}
+            className="inset-scroll h-full overflow-y-auto px-8 py-8"
+          >
+            {/* ═══ ABOUT TAB ═══ */}
             {activeTab === "about" && (
-              <div>
-                {/* Stats row */}
-                <div className="grid grid-cols-3 gap-4 mb-10">
-                  {stats.map((s, i) => (
-                    <AnimatedSection
-                      key={i}
-                      delay={i * 80}
-                      className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm text-center"
-                    >
-                      <div className="text-3xl font-black gradient-text mb-1">
-                        {s.value}
-                      </div>
-                      <div className="text-xs text-gray-400 font-medium leading-tight">
-                        {s.label}
-                      </div>
-                    </AnimatedSection>
-                  ))}
-                </div>
-
-                {/* Core beliefs grid */}
-                <AnimatedSection className="mb-3">
-                  <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-4">
-                    What we believe
-                  </p>
-                </AnimatedSection>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-10">
-                  {beliefs.map((b, i) => (
-                    <div
-                      key={i}
-                      onMouseEnter={() => setHoveredBelief(i)}
-                      onMouseLeave={() => setHoveredBelief(null)}
-                      className={`bg-gradient-to-br ${b.color} border ${b.border} rounded-2xl p-5 cursor-default transition-all duration-200 ${
-                        hoveredBelief === i ? "scale-[1.02] shadow-md" : "scale-100"
-                      }`}
-                    >
-                      <div className="flex items-start gap-3">
-                        <div className={`${b.iconBg} p-2 rounded-xl flex-shrink-0`}>
-                          {b.icon}
-                        </div>
-                        <div>
-                          <div className="font-bold text-gray-900 mb-1">
-                            {b.label}
-                          </div>
-                          <div className="text-sm text-gray-500 leading-relaxed">
-                            {b.desc}
-                          </div>
-                        </div>
-                      </div>
+              <div className="max-w-2xl mx-auto space-y-0">
+                {/* Long-form sections */}
+                {sections.map((s, i) => (
+                  <Reveal key={i} delay={i * 60} className="pb-12 border-b border-gray-200 mb-12 last:border-0 last:mb-0">
+                    <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-gray-400 mb-4">{s.label}</p>
+                    <h2 className="text-3xl font-black text-gray-900 leading-tight tracking-tight mb-6 whitespace-pre-line">
+                      {s.heading}
+                    </h2>
+                    <div className="space-y-4">
+                      {s.body.map((p, j) => (
+                        <p key={j} className="text-[15px] text-gray-500 leading-[1.8] font-medium">{p}</p>
+                      ))}
                     </div>
-                  ))}
-                </div>
+                  </Reveal>
+                ))}
 
-                {/* Mission pills */}
-                <AnimatedSection className="mb-3">
-                  <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-4">
-                    Our mission, condensed
+                {/* Principles */}
+                <Reveal delay={0} className="pb-12 border-b border-gray-200 mb-12">
+                  <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-gray-400 mb-4">04 — Principles</p>
+                  <h2 className="text-3xl font-black text-gray-900 leading-tight tracking-tight mb-8">
+                    Four words.<br />Everything we build toward.
+                  </h2>
+                  <div className="grid grid-cols-2 gap-px bg-gray-200 rounded-xl overflow-hidden border border-gray-200">
+                    {principles.map(([word, desc], i) => (
+                      <div key={i} className="bg-gray-50 p-6">
+                        <div className="text-xl font-black text-gray-900 mb-2">{word}</div>
+                        <div className="text-sm text-gray-400 leading-relaxed font-medium">{desc}</div>
+                      </div>
+                    ))}
+                  </div>
+                </Reveal>
+
+                {/* Mission statement */}
+                <Reveal delay={0} className="pb-12">
+                  <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-gray-400 mb-4">05 — The Mission</p>
+                  <blockquote className="text-2xl font-black text-gray-900 leading-snug tracking-tight border-l-4 border-gray-900 pl-6 mb-6">
+                    "Make action the default, not the exception."
+                  </blockquote>
+                  <p className="text-[15px] text-gray-500 leading-[1.8] font-medium">
+                    Every product decision, every line of code, every system we ship is in service of one thing: closing the gap between what you want done and what actually gets done. No intermediary. No endless iteration. Just outcomes.
                   </p>
-                </AnimatedSection>
-                <div className="flex flex-wrap gap-2">
-                  {missionPills.map((pill, i) => (
-                    <AnimatedSection key={i} delay={i * 60}>
-                      <span
-                        className={`inline-flex items-center px-4 py-2 rounded-full text-sm font-medium border transition-all hover:scale-105 cursor-default ${
-                          i % 3 === 0
-                            ? "bg-pink-50 border-pink-100 text-pink-600"
-                            : i % 3 === 1
-                              ? "bg-orange-50 border-orange-100 text-orange-600"
-                              : "bg-gray-100 border-gray-200 text-gray-600"
-                        }`}
-                      >
-                        {pill}
-                      </span>
-                    </AnimatedSection>
-                  ))}
-                </div>
+                </Reveal>
               </div>
             )}
 
-            {/* TEAM TAB */}
+            {/* ═══ TEAM TAB ═══ */}
             {activeTab === "team" && (
-              <div>
-                <AnimatedSection className="mb-2">
-                  <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-6">
-                    The people building it
-                  </p>
-                </AnimatedSection>
-
-                {/* Zayd's card */}
-                <AnimatedSection delay={100}>
-                  <div className="bg-white border border-gray-100 rounded-3xl overflow-hidden shadow-sm">
-                    <div className="h-2 bg-gradient-to-r from-pink-400 to-orange-400" />
-                    <div className="p-8 md:p-10">
-                      <div className="flex items-start gap-6 mb-8">
-                        {/* Avatar placeholder */}
-                        <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-pink-100 to-orange-100 flex items-center justify-center flex-shrink-0 border border-pink-100">
-                          <span className="text-2xl font-black gradient-text">Z</span>
-                        </div>
-                        <div>
-                          <h2 className="text-2xl font-black text-gray-900 mb-1">
-                            Zayd Malik
-                          </h2>
-                          <div className="flex items-center gap-2">
-                            <span className="text-sm font-semibold text-gray-400">Founder</span>
-                            <span className="text-gray-200">·</span>
-                            <span className="inline-flex items-center gap-1 text-sm font-semibold gradient-text">
-                              <Globe size={12} />
-                              akakAI
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Key statement */}
-                      <div className="bg-gradient-to-br from-gray-50 to-gray-50/50 border border-gray-100 rounded-2xl p-6 mb-6">
-                        <div className="text-2xl font-black text-gray-900 leading-tight mb-2">
-                          "AI should{" "}
-                          <span className="gradient-text">act</span>, not just{" "}
-                          <span className="line-through text-gray-300">react</span>."
-                        </div>
-                        <p className="text-sm text-gray-400 font-medium">
-                          The conviction that started it all
-                        </p>
-                      </div>
-
-                      {/* Three pillars */}
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
-                        {[
-                          {
-                            title: "The Problem",
-                            text: "Passive tools. Overhyped tech. AI that waits instead of works.",
-                            color: "text-rose-500",
-                            bg: "bg-rose-50 border-rose-100",
-                          },
-                          {
-                            title: "The Vision",
-                            text: "Agents that take initiative, understand context, and actually follow through.",
-                            color: "text-orange-500",
-                            bg: "bg-orange-50 border-orange-100",
-                          },
-                          {
-                            title: "The Approach",
-                            text: "Strip the gimmicks. Focus on core function. Deliver real results.",
-                            color: "text-purple-500",
-                            bg: "bg-purple-50 border-purple-100",
-                          },
-                        ].map((p, i) => (
-                          <AnimatedSection
-                            key={i}
-                            delay={i * 80}
-                            className={`${p.bg} border rounded-2xl p-4`}
-                          >
-                            <div className={`text-xs font-black uppercase tracking-widest ${p.color} mb-2`}>
-                              {p.title}
-                            </div>
-                            <div className="text-sm text-gray-600 leading-relaxed font-medium">
-                              {p.text}
-                            </div>
-                          </AnimatedSection>
-                        ))}
-                      </div>
-
-                      {/* Trait tags */}
-                      <div>
-                        <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-3">
-                          Zayd in tags
-                        </p>
-                        <div className="flex flex-wrap gap-2">
-                          {zaydTraits.map((trait, i) => (
-                            <span
-                              key={i}
-                              className="inline-flex items-center px-3 py-1.5 rounded-full bg-gray-900 text-white text-xs font-semibold hover:scale-105 transition-transform cursor-default"
-                            >
-                              {trait}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </AnimatedSection>
-
-                {/* Hiring nudge */}
-                <AnimatedSection delay={300} className="mt-6">
-                  <div className="bg-gradient-to-r from-pink-50 to-orange-50 border border-pink-100 rounded-2xl p-6 flex items-center justify-between">
+              <div className="max-w-2xl mx-auto">
+                {/* Zayd */}
+                <Reveal className="border-b border-gray-200 pb-12 mb-12">
+                  <div className="flex items-start justify-between mb-8">
                     <div>
-                      <div className="font-black text-gray-900 mb-1">
-                        We&apos;re building the team.
-                      </div>
-                      <div className="text-sm text-gray-500 font-medium">
-                        If you believe AI should act, not react — let&apos;s talk.
-                      </div>
+                      <div className="text-[10px] font-bold uppercase tracking-[0.15em] text-gray-400 mb-3">Founder</div>
+                      <h2 className="text-4xl font-black text-gray-900 tracking-tight">Zayd Malik</h2>
+                      <p className="text-sm text-gray-400 font-medium mt-1">akakAI</p>
                     </div>
-                    <button className="flex items-center gap-2 bg-gray-900 text-white px-5 py-2.5 rounded-full text-sm font-semibold hover:bg-gray-700 transition-colors whitespace-nowrap ml-6">
-                      <Users size={14} />
-                      Join us
-                    </button>
+                    <div className="w-12 h-12 rounded-xl bg-gray-200 flex items-center justify-center text-xl font-black text-gray-900 flex-shrink-0">
+                      Z
+                    </div>
                   </div>
-                </AnimatedSection>
+
+                  <div className="border-l-4 border-gray-900 pl-6 mb-8">
+                    <p className="text-xl font-black text-gray-900 leading-snug">
+                      "AI should act, not just react."
+                    </p>
+                    <p className="text-xs text-gray-400 font-medium mt-2 uppercase tracking-widest">The conviction that started it all</p>
+                  </div>
+
+                  <div className="space-y-5 mb-10">
+                    <p className="text-[15px] text-gray-500 leading-[1.8] font-medium">
+                      Zayd started akakAI with a simple but uncomfortable observation: the AI tools people were using were passive. They waited. They asked for input. They responded. They never moved first.
+                    </p>
+                    <p className="text-[15px] text-gray-500 leading-[1.8] font-medium">
+                      Frustrated with passive tools and overhyped tech, he set out to build something different — AI that takes initiative, understands context, and actually follows through. Not a productivity app with a chatbot on top. A step toward a future where intelligent agents handle meaningful work on your behalf, autonomously and reliably.
+                    </p>
+                    <p className="text-[15px] text-gray-500 leading-[1.8] font-medium">
+                      His approach strips away the gimmicks and focuses on core functionality: agents that understand goals, take action without micromanagement, and deliver real results in dynamic environments. Capability over complexity — always.
+                    </p>
+                  </div>
+
+                  <div className="grid grid-cols-3 gap-px bg-gray-200 rounded-xl overflow-hidden border border-gray-200 mb-8">
+                    {[
+                      ["The Problem", "Passive tools, overhyped AI, systems that wait instead of work."],
+                      ["The Vision", "Agents that take initiative, understand context, and follow through."],
+                      ["The Standard", "No trends, no noise. Just AI that works with you and for you."],
+                    ].map(([title, text], i) => (
+                      <div key={i} className="bg-gray-50 p-5">
+                        <div className="text-xs font-black text-gray-900 uppercase tracking-widest mb-2">{title}</div>
+                        <div className="text-xs text-gray-400 leading-relaxed font-medium">{text}</div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="flex flex-wrap gap-2">
+                    {["Anti-hype", "Action-first", "Systems thinker", "Capability over complexity", "Builder", "No gimmicks"].map((tag) => (
+                      <span key={tag} className="text-xs font-semibold border border-gray-200 text-gray-500 px-3 py-1 rounded-full">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </Reveal>
+
+                {/* Hiring */}
+                <Reveal>
+                  <div className="bg-gray-900 rounded-2xl p-8">
+                    <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-gray-500 mb-4">We&apos;re Hiring</p>
+                    <h3 className="text-2xl font-black text-white leading-tight mb-3">
+                      Build what comes<br />after passive AI.
+                    </h3>
+                    <p className="text-sm text-gray-400 leading-relaxed font-medium mb-6">
+                      If you believe AI should move first, think independently, and deliver without hand-holding — we want to talk.
+                    </p>
+                    <a href="#" className="inline-flex items-center gap-2 bg-white text-gray-900 px-5 py-2.5 rounded-full text-sm font-bold hover:bg-gray-100 transition-colors">
+                      Get in touch <ArrowUpRight size={14} />
+                    </a>
+                  </div>
+                </Reveal>
               </div>
             )}
-          </div>
-        </AnimatedSection>
-
-        {/* Bottom CTA strip */}
-        <AnimatedSection delay={100}>
-          <div className="bg-gray-900 rounded-3xl p-8 md:p-12 text-center text-white">
-            <div className="text-3xl md:text-4xl font-black mb-3">
-              Action is the{" "}
-              <span className="gradient-text">default.</span>
-            </div>
-            <p className="text-gray-400 mb-6 font-medium">
-              Not the exception. Build with agents that actually do things.
-            </p>
-            <button className="inline-flex items-center gap-2 bg-gradient-to-r from-pink-500 to-orange-400 text-white px-7 py-3.5 rounded-full font-bold hover:opacity-90 transition-opacity">
-              Start Building <ArrowRight size={16} />
-            </button>
-          </div>
-        </AnimatedSection>
-      </main>
-
-      {/* Footer */}
-      <footer className="border-t border-gray-100 mt-16">
-        <div className="max-w-6xl mx-auto px-6 py-8 flex items-center justify-between">
-          <Image
-            src="/logo-horizontal.png"
-            alt="akakAI"
-            width={100}
-            height={26}
-            style={{ filter: "invert(1) brightness(0)" }}
-            className="h-6 w-auto opacity-40"
-          />
-          <div className="text-xs text-gray-400">© 2026 akakAI</div>
-          <div className="flex gap-4 text-xs text-gray-400">
-            <a href="#" className="hover:text-gray-600 transition-colors">Privacy</a>
-            <a href="#" className="hover:text-gray-600 transition-colors">Terms</a>
-            <a href="#" className="hover:text-gray-600 transition-colors">Contact</a>
           </div>
         </div>
-      </footer>
+      </div>
+
+      {/* FOOTER */}
+      <div className="flex-none px-10 pb-4 flex items-center justify-between">
+        <Image
+          src="/logo-horizontal.png"
+          alt="akakAI"
+          width={80}
+          height={20}
+          style={{ filter: "invert(1) brightness(0)" }}
+          className="h-5 w-auto opacity-30"
+        />
+        <div className="flex gap-5 text-[11px] text-gray-300 font-medium">
+          <a href="#" className="hover:text-gray-500 transition-colors">Documentation</a>
+          <a href="#" className="hover:text-gray-500 transition-colors">Contact</a>
+          <a href="#" className="hover:text-gray-500 transition-colors">Privacy</a>
+          <a href="#" className="hover:text-gray-500 transition-colors">Terms</a>
+          <span>© 2026 akakAI</span>
+        </div>
+      </div>
     </div>
   );
 }

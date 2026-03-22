@@ -433,7 +433,7 @@ export default function CompanyPage() {
                 <div>
                   <div className="mb-8">
                     <Image src="/zayd.png" alt="Zayd Malik" width={96} height={96}
-                      className="w-24 h-24 rounded-full object-cover object-top grayscale" />
+                      className="w-24 h-24 rounded-full object-cover object-top" />
                   </div>
                   <p className="text-[14px] uppercase tracking-[0.18em] text-gray-400 mb-4">Co-founder & CEO</p>
                   <h2 className="text-[42px] leading-none text-gray-900 mb-3" style={{ fontWeight: 500 }}>Zayd Malik</h2>
@@ -443,7 +443,7 @@ export default function CompanyPage() {
                   </p>
                   <p className="text-[13px] uppercase tracking-[0.15em] text-gray-400">The conviction that started it all</p>
                 </div>
-                <div className="pt-14">
+                <div className="flex flex-col justify-center">
                   <p className="text-[18px] text-gray-600 leading-[1.8] mb-6">
                     Zayd started akakAI with a simple but uncomfortable observation: the AI tools people were using were passive. They waited. They asked for input. They responded. They never moved first.
                   </p>
@@ -460,7 +460,7 @@ export default function CompanyPage() {
                 <div>
                   <div className="mb-8">
                     <Image src="/abhi.jpg" alt="Abhiram Vishnubhotla" width={96} height={96}
-                      className="w-24 h-24 rounded-full object-cover object-top grayscale" />
+                      className="w-24 h-24 rounded-full object-cover object-top" />
                   </div>
                   <p className="text-[14px] uppercase tracking-[0.18em] text-gray-400 mb-4">Co-founder & Agent Developer</p>
                   <h2 className="text-[42px] leading-none text-gray-900 mb-3" style={{ fontWeight: 500 }}>Abhiram Vishnubhotla</h2>
@@ -470,7 +470,7 @@ export default function CompanyPage() {
                   </p>
                   <p className="text-[13px] uppercase tracking-[0.15em] text-gray-400">The engineering behind the autonomy</p>
                 </div>
-                <div className="pt-14">
+                <div className="flex flex-col justify-center">
                   <p className="text-[18px] text-gray-600 leading-[1.8] mb-6">
                     Abhiram brings the technical depth to turn akakAI's vision into working systems. His focus is on the hardest problem in the space: building agents that don't just run through steps, but genuinely reason about what needs to happen next.
                   </p>

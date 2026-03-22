@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description:
     "Pioneering the future of AI autonomy. AI agents that think independently, take initiative, and execute tasks with purpose.",
   icons: {
-    icon: "/logo-icon.png",
+    icon: "/favicon-badge.png",
   },
 };
 

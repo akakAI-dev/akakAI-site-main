@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { ArrowUpRight, Youtube, Instagram, Twitter, ChevronDown } from "lucide-react";
 
-type Tab = "about" | "mission" | "team" | "investments" | "projects";
+type Tab = "about" | "mission" | "team" | "investments" | "projects" | "contact";
 type ProjectView = null | "aegent" | "email";
 
 /* ── Scroll-reveal ── */
@@ -77,7 +77,7 @@ function HiringCTA({ root }: { root: React.RefObject<HTMLDivElement | null> }) {
         <p className="text-[16px] sm:text-[18px] text-gray-500 leading-[1.75] mb-8 max-w-lg">
           If you believe AI should move first, think independently, and deliver without hand-holding — we want to talk.
         </p>
-        <a href="#" className="inline-flex items-center gap-2 bg-gray-900 text-white px-6 py-3 rounded-full text-[14px] hover:bg-gray-700 transition-colors">
+        <a href="mailto:media@akakai.com" className="inline-flex items-center gap-2 bg-gray-900 text-white px-6 py-3 rounded-full text-[14px] hover:bg-gray-700 transition-colors">
           Get in touch <ArrowUpRight size={14} />
         </a>
       </div>
@@ -173,6 +173,7 @@ export default function CompanyPage() {
     { id: "team", label: "Team" },
     { id: "investments", label: "Investments" },
     { id: "projects", label: "Projects" },
+    { id: "contact", label: "Get in touch" },
   ];
 
   const socials = [
@@ -242,7 +243,7 @@ export default function CompanyPage() {
           {/* Hero text */}
           <div className="flex-1 flex flex-col justify-center py-7 sm:py-10">
             <p className="text-[11px] sm:text-[14px] uppercase tracking-[0.18em] text-gray-400 mb-3 sm:mb-5">
-              {activeTab === "about" ? "Company Overview" : activeTab === "mission" ? "Our Mission" : activeTab === "team" ? "The Team" : activeTab === "investments" ? "Investments" : "Our Projects"}
+              {activeTab === "about" ? "Company Overview" : activeTab === "mission" ? "Our Mission" : activeTab === "team" ? "The Team" : activeTab === "investments" ? "Investments" : activeTab === "projects" ? "Our Projects" : "Contact"}
             </p>
             <h1 className="text-[30px] sm:text-[62px] leading-[1.05] sm:leading-[1.0] tracking-tight text-gray-900 mb-3 sm:mb-6" style={{ fontWeight: 500 }}>
               {activeTab === "about" && <>AI that acts,<br /><span className="text-gray-300">not just reacts.</span></>}
@@ -250,6 +251,7 @@ export default function CompanyPage() {
               {activeTab === "team" && <>The people<br /><span className="text-gray-300">building it.</span></>}
               {activeTab === "investments" && <>Backing the<br /><span className="text-gray-300">next wave.</span></>}
               {activeTab === "projects" && <>What we've<br /><span className="text-gray-300">built.</span></>}
+              {activeTab === "contact" && <>Let's build<br /><span className="text-gray-300">together.</span></>}
             </h1>
             <p className="text-[15px] sm:text-[19px] text-gray-500 leading-[1.6] sm:leading-[1.7] max-w-2xl">
               {activeTab === "about" && "Autonomous agents built to navigate complexity, make decisions, and deliver outcomes — with minimal human intervention."}
@@ -257,6 +259,7 @@ export default function CompanyPage() {
               {activeTab === "team" && "akakAI was started with a simple conviction. Here's the team putting in the work to prove it."}
               {activeTab === "investments" && "akakAI is building the infrastructure for autonomous AI action. For investment inquiries, reach us at investments@akakai.com."}
               {activeTab === "projects" && "Many products. One conviction. Agents that don't wait to be asked — they understand, decide, and act."}
+              {activeTab === "contact" && "If you believe AI should move first, think independently, and deliver without hand-holding — we want to talk."}
             </p>
           </div>
         </div>}
@@ -1134,6 +1137,26 @@ export default function CompanyPage() {
                     </Card>
                   </Reveal>
                 ))}
+              </div>
+            </Section>
+          </div>
+        )}
+
+        {/* ═══ CONTACT ═══ */}
+        {activeTab === "contact" && (
+          <div className="px-4 sm:px-8">
+            <Section first root={scrollRef}>
+              <div className="border border-gray-200 rounded-xl p-6 sm:p-10">
+                <p className="text-[14px] uppercase tracking-[0.18em] text-gray-400 mb-5">🚀 We're Hiring</p>
+                <h3 className="text-[24px] sm:text-[34px] text-gray-900 leading-tight mb-4" style={{ fontWeight: 500 }}>
+                  Build what comes after passive AI.
+                </h3>
+                <p className="text-[16px] sm:text-[18px] text-gray-500 leading-[1.75] mb-8 max-w-lg">
+                  If you believe AI should move first, think independently, and deliver without hand-holding — we want to talk.
+                </p>
+                <a href="mailto:media@akakai.com" className="inline-flex items-center gap-2 bg-gray-900 text-white px-6 py-3 rounded-full text-[14px] hover:bg-gray-700 transition-colors">
+                  Get in touch <ArrowUpRight size={14} />
+                </a>
               </div>
             </Section>
           </div>

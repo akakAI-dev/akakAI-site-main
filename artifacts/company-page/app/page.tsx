@@ -2,9 +2,9 @@
 
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Youtube, Instagram, Twitter } from "lucide-react";
 
-type Tab = "about" | "mission" | "team";
+type Tab = "about" | "mission" | "team" | "investments";
 
 /* ── Scroll-reveal wrapper ── */
 function Reveal({
@@ -45,11 +45,11 @@ function Reveal({
   );
 }
 
-/* ── Hiring CTA — shown at bottom of every tab ── */
+/* ── Hiring CTA ── */
 function HiringCTA({ root }: { root: React.RefObject<HTMLDivElement | null> }) {
   return (
     <Reveal root={root} delay={60}>
-      <div className="border-t border-gray-100 pt-14">
+      <div className="border border-gray-200 rounded-xl p-10">
         <p className="text-[12px] uppercase tracking-[0.18em] text-gray-400 mb-5">🚀 We're Hiring</p>
         <h3 className="text-[34px] text-gray-900 leading-tight mb-4" style={{ fontWeight: 500 }}>
           Build what comes after passive AI.
@@ -59,8 +59,7 @@ function HiringCTA({ root }: { root: React.RefObject<HTMLDivElement | null> }) {
         </p>
         <a
           href="#"
-          className="inline-flex items-center gap-2 bg-gray-900 text-white px-6 py-3 rounded-full text-[14px] hover:bg-gray-700 transition-colors hover:gap-3"
-          style={{ transition: "background 0.2s, gap 0.2s" }}
+          className="inline-flex items-center gap-2 bg-gray-900 text-white px-6 py-3 rounded-full text-[14px] hover:bg-gray-700 transition-colors"
         >
           Get in touch <ArrowUpRight size={14} />
         </a>
@@ -72,9 +71,7 @@ function HiringCTA({ root }: { root: React.RefObject<HTMLDivElement | null> }) {
 /* ── Hover card wrapper ── */
 function Card({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return (
-    <div
-      className={`${className} transition-all duration-200 hover:-translate-y-1 hover:shadow-md`}
-    >
+    <div className={`${className} transition-all duration-200 hover:-translate-y-1 hover:shadow-md`}>
       {children}
     </div>
   );
@@ -88,6 +85,13 @@ export default function CompanyPage() {
     { id: "about", label: "About" },
     { id: "mission", label: "Mission" },
     { id: "team", label: "Team" },
+    { id: "investments", label: "Investments" },
+  ];
+
+  const socials = [
+    { href: "https://www.youtube.com/@real.akakAI", icon: <Youtube size={16} />, label: "YouTube" },
+    { href: "https://www.instagram.com/real.akakai/", icon: <Instagram size={16} />, label: "Instagram" },
+    { href: "https://x.com/real_akakAI", icon: <Twitter size={16} />, label: "X" },
   ];
 
   return (
@@ -115,10 +119,13 @@ export default function CompanyPage() {
             </button>
           ))}
           <span className="text-gray-200">|</span>
-          <a href="#" className="hover:text-gray-700 transition-colors">Sign In</a>
-          <a href="#" className="bg-gray-900 text-white text-[13px] px-5 py-2 rounded-full hover:bg-gray-700 transition-colors hover:scale-105 inline-block" style={{ transition: "background 0.2s, transform 0.15s" }}>
-            Get Started
-          </a>
+          {socials.map((s) => (
+            <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer"
+              className="text-gray-400 hover:text-gray-800 transition-colors duration-150"
+              aria-label={s.label}>
+              {s.icon}
+            </a>
+          ))}
         </div>
       </nav>
 
@@ -127,8 +134,8 @@ export default function CompanyPage() {
 
         {/* HERO */}
         <div className="px-8 border-b border-gray-100 flex items-stretch min-h-[220px]">
-          {/* Badge logo — fills hero height */}
-          <div className="flex-none flex items-center pr-10 py-10 border-r border-gray-100 mr-10">
+          {/* Badge logo — no right border */}
+          <div className="flex-none flex items-center pr-10 py-10">
             <Image
               src="/logo-badge.png"
               alt="akakAI badge"
@@ -141,17 +148,19 @@ export default function CompanyPage() {
           {/* Hero text */}
           <div className="flex-1 flex flex-col justify-center py-10">
             <p className="text-[12px] uppercase tracking-[0.18em] text-gray-400 mb-5">
-              {activeTab === "about" ? "Company Overview" : activeTab === "mission" ? "Our Mission" : "The Team"}
+              {activeTab === "about" ? "Company Overview" : activeTab === "mission" ? "Our Mission" : activeTab === "team" ? "The Team" : "Investments"}
             </p>
             <h1 className="text-[62px] leading-[1.0] tracking-tight text-gray-900 mb-6" style={{ fontWeight: 500 }}>
               {activeTab === "about" && <>AI that acts,<br /><span className="text-gray-300">not just reacts.</span></>}
               {activeTab === "mission" && <>Action is the<br /><span className="text-gray-300">default.</span></>}
               {activeTab === "team" && <>The people<br /><span className="text-gray-300">building it.</span></>}
+              {activeTab === "investments" && <>Backing the<br /><span className="text-gray-300">next wave.</span></>}
             </h1>
             <p className="text-[19px] text-gray-500 leading-[1.7] max-w-2xl">
               {activeTab === "about" && "Autonomous agents built to navigate complexity, make decisions, and deliver outcomes — with minimal human intervention."}
               {activeTab === "mission" && "Close the gap between intention and execution. Every system we build pushes toward one thing: AI that makes action the rule, not the exception."}
               {activeTab === "team" && "akakAI was started with a simple conviction. Here's the team putting in the work to prove it."}
+              {activeTab === "investments" && "akakAI is building the infrastructure for autonomous AI action. For investment inquiries, reach us at investments@akakai.com."}
             </p>
           </div>
         </div>
@@ -416,6 +425,9 @@ export default function CompanyPage() {
               </div>
             </Reveal>
 
+            {/* Divider before Approach */}
+            <div className="border-t border-gray-100" />
+
             {/* Approach */}
             <Reveal root={scrollRef} delay={60}>
               <div className="grid grid-cols-2 gap-12">
@@ -439,7 +451,6 @@ export default function CompanyPage() {
               </div>
             </Reveal>
 
-            {/* What drives this */}
             <Reveal root={scrollRef} delay={60}>
               <p className="text-[12px] uppercase tracking-[0.18em] text-gray-400 mb-8">💡 What Drives This</p>
               <div className="grid grid-cols-2 gap-5">
@@ -460,7 +471,6 @@ export default function CompanyPage() {
               </div>
             </Reveal>
 
-            {/* Tags */}
             <Reveal root={scrollRef} delay={60}>
               <p className="text-[12px] uppercase tracking-[0.18em] text-gray-400 mb-6">🏷️ The Team in Tags</p>
               <div className="flex flex-wrap gap-3">
@@ -483,6 +493,86 @@ export default function CompanyPage() {
           </div>
         )}
 
+        {/* ═══ INVESTMENTS ═══ */}
+        {activeTab === "investments" && (
+          <div className="px-8 py-14 space-y-16">
+
+            {/* Contact */}
+            <Reveal root={scrollRef}>
+              <div className="grid grid-cols-2 gap-12">
+                <div>
+                  <p className="text-[12px] uppercase tracking-[0.18em] text-gray-400 mb-8">📬 Investment Inquiries</p>
+                  <h2 className="text-[32px] leading-tight text-gray-900 mb-6" style={{ fontWeight: 500 }}>
+                    Interested in backing the next wave?
+                  </h2>
+                  <p className="text-[18px] text-gray-600 leading-[1.8]">
+                    akakAI is building the infrastructure for autonomous AI action — agents that think independently, take initiative, and deliver outcomes without hand-holding.
+                  </p>
+                </div>
+                <div className="pt-14">
+                  <p className="text-[18px] text-gray-600 leading-[1.8] mb-8">
+                    We're early, intentional, and moving fast. If you're interested in partnering with us on this mission, we'd love to connect.
+                  </p>
+                  <a href="mailto:investments@akakai.com"
+                    className="inline-flex items-center gap-2 bg-gray-900 text-white px-6 py-3 rounded-full text-[14px] hover:bg-gray-700 transition-colors">
+                    investments@akakai.com <ArrowUpRight size={14} />
+                  </a>
+                </div>
+              </div>
+            </Reveal>
+
+            {/* Press Release */}
+            <Reveal root={scrollRef} delay={60}>
+              <p className="text-[12px] uppercase tracking-[0.18em] text-gray-400 mb-8">📰 Press</p>
+              <div className="border border-gray-100 rounded-xl p-10">
+                <div className="flex items-start justify-between mb-8">
+                  <div>
+                    <p className="text-[13px] uppercase tracking-[0.15em] text-gray-400 mb-2">Press Release</p>
+                    <h3 className="text-[26px] text-gray-900 leading-tight" style={{ fontWeight: 500 }}>
+                      akakAI Secures Pre-Seed Funding,<br />Valued at $1.5 Million
+                    </h3>
+                  </div>
+                  <div className="text-right flex-none ml-8">
+                    <p className="text-[13px] text-gray-400">Dallas, TX</p>
+                    <p className="text-[13px] text-gray-400">July 7, 2025</p>
+                  </div>
+                </div>
+
+                <div className="border-t border-gray-100 pt-8 space-y-6">
+                  <p className="text-[17px] text-gray-600 leading-[1.85]">
+                    akakAI, the AI startup building autonomous agents that proactively get work done, announced today that it has secured a pre-seed funding round from an undisclosed investor, bringing the company's valuation to <span className="text-gray-900" style={{ fontWeight: 500 }}>$1.5 million</span>.
+                  </p>
+                  <p className="text-[17px] text-gray-600 leading-[1.85]">
+                    Founded by Zayd Malik, akakAI's first product is an AI email agent that integrates directly with Gmail and Outlook, drafting email replies autonomously without requiring prompts, commands, or a separate app. The funding marks an early vote of confidence in the company's vision of replacing passive tools with proactive, task-completing agents.
+                  </p>
+                  <div className="border-l-2 border-gray-200 pl-6 py-1">
+                    <p className="text-[18px] text-gray-700 leading-[1.7] italic">
+                      "This investment allows us to deepen our technical capabilities and grow our team as we continue building agents that work for people, not just with them. We're grateful for the backing and belief in our mission to redefine productivity through agentic AI."
+                    </p>
+                    <p className="text-[13px] text-gray-400 mt-3 uppercase tracking-[0.12em]">— Zayd Malik, Founder, akakAI</p>
+                  </div>
+                  <p className="text-[17px] text-gray-600 leading-[1.85]">
+                    akakAI officially launched on July 3, 2025, and is currently onboarding early users.
+                  </p>
+                </div>
+
+                <div className="border-t border-gray-100 pt-8 mt-8 grid grid-cols-2 gap-8">
+                  <div>
+                    <p className="text-[12px] uppercase tracking-[0.15em] text-gray-400 mb-2">Website</p>
+                    <a href="https://akakai.com" className="text-[15px] text-gray-700 hover:text-gray-900 transition-colors">akakai.com</a>
+                  </div>
+                  <div>
+                    <p className="text-[12px] uppercase tracking-[0.15em] text-gray-400 mb-2">Media Contact</p>
+                    <a href="mailto:media@akakai.com" className="text-[15px] text-gray-700 hover:text-gray-900 transition-colors">media@akakai.com</a>
+                  </div>
+                </div>
+              </div>
+            </Reveal>
+
+            <HiringCTA root={scrollRef} />
+          </div>
+        )}
+
         {/* FOOTER */}
         <div className="border-t border-gray-100 px-8 py-6 flex items-center justify-between">
           <Image
@@ -493,11 +583,17 @@ export default function CompanyPage() {
             style={{ filter: "invert(1) brightness(0)" }}
             className="h-5 w-auto opacity-20"
           />
-          <div className="flex gap-7 text-[13px] text-gray-400">
-            <a href="#" className="hover:text-gray-600 transition-colors">Documentation</a>
-            <a href="#" className="hover:text-gray-600 transition-colors">Contact</a>
-            <a href="#" className="hover:text-gray-600 transition-colors">Privacy</a>
-            <a href="#" className="hover:text-gray-600 transition-colors">Terms</a>
+          <div className="flex items-center gap-7 text-[13px] text-gray-400">
+            <a href="mailto:investments@akakai.com" className="hover:text-gray-600 transition-colors">Investments</a>
+            <a href="mailto:media@akakai.com" className="hover:text-gray-600 transition-colors">Press</a>
+            <span className="text-gray-200">|</span>
+            {socials.map((s) => (
+              <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer"
+                className="hover:text-gray-700 transition-colors" aria-label={s.label}>
+                {s.icon}
+              </a>
+            ))}
+            <span className="text-gray-200">|</span>
             <span>© 2026 akakAI</span>
           </div>
         </div>

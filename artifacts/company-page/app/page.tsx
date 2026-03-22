@@ -740,7 +740,6 @@ export default function CompanyPage() {
                 <div className="grid grid-cols-2 gap-x-6 gap-y-4">
                   {[
                     { label: "Timeline", value: "2025 – 2026" },
-                    { label: "Role", value: "Co-Founder & Developer" },
                     { label: "Company", value: "akakAI — $1.5M Pre-Seed" },
                     { label: "Type", value: "Full-Stack AI Platform" },
                     { label: "Tech", value: "Node.js, React, PostgreSQL, LLMs" },
@@ -842,7 +841,6 @@ export default function CompanyPage() {
                 <div className="grid grid-cols-2 gap-x-6 gap-y-4">
                   {[
                     { label: "Timeline", value: "2025" },
-                    { label: "Role", value: "Co-Founder" },
                     { label: "Company", value: "akakAI" },
                     { label: "Type", value: "AI Email Agent" },
                     { label: "Tech", value: "LLMs, Gmail API, Outlook API" },

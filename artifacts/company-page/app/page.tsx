@@ -2,11 +2,11 @@
 
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
-import { ArrowUpRight, Youtube, Instagram, Twitter } from "lucide-react";
+import { ArrowUpRight, Youtube, Instagram, Twitter, ChevronDown } from "lucide-react";
 
 type Tab = "about" | "mission" | "team" | "investments";
 
-/* ── Scroll-reveal wrapper ── */
+/* ── Scroll-reveal ── */
 function Reveal({
   children,
   delay = 0,
@@ -45,10 +45,29 @@ function Reveal({
   );
 }
 
+/* ── Section wrapper — adds divider above every section except first ── */
+function Section({
+  children,
+  first = false,
+  root,
+  delay = 0,
+}: {
+  children: React.ReactNode;
+  first?: boolean;
+  root: React.RefObject<HTMLDivElement | null>;
+  delay?: number;
+}) {
+  return (
+    <Reveal root={root} delay={delay} className={`py-14 ${first ? "" : "border-t border-gray-100"}`}>
+      {children}
+    </Reveal>
+  );
+}
+
 /* ── Hiring CTA ── */
 function HiringCTA({ root }: { root: React.RefObject<HTMLDivElement | null> }) {
   return (
-    <Reveal root={root} delay={60}>
+    <Reveal root={root} delay={60} className="border-t border-gray-100 py-14">
       <div className="border border-gray-200 rounded-xl p-10">
         <p className="text-[14px] uppercase tracking-[0.18em] text-gray-400 mb-5">🚀 We're Hiring</p>
         <h3 className="text-[34px] text-gray-900 leading-tight mb-4" style={{ fontWeight: 500 }}>
@@ -57,10 +76,7 @@ function HiringCTA({ root }: { root: React.RefObject<HTMLDivElement | null> }) {
         <p className="text-[18px] text-gray-500 leading-[1.75] mb-8 max-w-lg">
           If you believe AI should move first, think independently, and deliver without hand-holding — we want to talk.
         </p>
-        <a
-          href="#"
-          className="inline-flex items-center gap-2 bg-gray-900 text-white px-6 py-3 rounded-full text-[14px] hover:bg-gray-700 transition-colors"
-        >
+        <a href="#" className="inline-flex items-center gap-2 bg-gray-900 text-white px-6 py-3 rounded-full text-[14px] hover:bg-gray-700 transition-colors">
           Get in touch <ArrowUpRight size={14} />
         </a>
       </div>
@@ -68,11 +84,62 @@ function HiringCTA({ root }: { root: React.RefObject<HTMLDivElement | null> }) {
   );
 }
 
-/* ── Hover card wrapper ── */
+/* ── Hover card ── */
 function Card({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return (
     <div className={`${className} transition-all duration-200 hover:-translate-y-1 hover:shadow-md`}>
       {children}
+    </div>
+  );
+}
+
+/* ── Collapsible press entry ── */
+function PressEntry({
+  title,
+  date,
+  location,
+  children,
+}: {
+  title: string;
+  date: string;
+  location: string;
+  children: React.ReactNode;
+}) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="border border-gray-100 rounded-xl overflow-hidden">
+      <button
+        onClick={() => setOpen(!open)}
+        className="w-full flex items-start justify-between p-8 text-left hover:bg-gray-50 transition-colors"
+      >
+        <div>
+          <p className="text-[13px] uppercase tracking-[0.15em] text-gray-400 mb-2">Press Release</p>
+          <h3 className="text-[22px] text-gray-900 leading-tight" style={{ fontWeight: 500 }}>{title}</h3>
+        </div>
+        <div className="flex items-center gap-6 ml-8 flex-none">
+          <div className="text-right">
+            <p className="text-[13px] text-gray-400">{location}</p>
+            <p className="text-[13px] text-gray-400">{date}</p>
+          </div>
+          <ChevronDown
+            size={18}
+            className="text-gray-400 transition-transform duration-300 flex-none"
+            style={{ transform: open ? "rotate(180deg)" : "rotate(0deg)" }}
+          />
+        </div>
+      </button>
+
+      <div
+        style={{
+          maxHeight: open ? "2000px" : "0",
+          overflow: "hidden",
+          transition: "max-height 0.4s ease",
+        }}
+      >
+        <div className="px-8 pb-8 border-t border-gray-100 pt-8">
+          {children}
+        </div>
+      </div>
     </div>
   );
 }
@@ -99,30 +166,20 @@ export default function CompanyPage() {
 
       {/* NAV */}
       <nav className="flex-none flex items-center justify-between px-8 h-[56px] border-b border-gray-100">
-        <Image
-          src="/logo-horizontal.png"
-          alt="akakAI"
-          width={120}
-          height={30}
-          style={{ filter: "invert(1) brightness(0)" }}
-          className="h-6 w-auto"
-          priority
-        />
+        <Image src="/logo-horizontal.png" alt="akakAI" width={120} height={30}
+          style={{ filter: "invert(1) brightness(0)" }} className="h-6 w-auto" priority />
         <div className="flex items-center gap-8 text-[14px] text-gray-500">
           {tabs.map((t) => (
-            <button
-              key={t.id}
+            <button key={t.id}
               onClick={() => { setActiveTab(t.id); scrollRef.current?.scrollTo({ top: 0, behavior: "smooth" }); }}
-              className={`transition-colors duration-150 ${activeTab === t.id ? "text-gray-900" : "hover:text-gray-700"}`}
-            >
+              className={`transition-colors duration-150 ${activeTab === t.id ? "text-gray-900" : "hover:text-gray-700"}`}>
               {t.label}
             </button>
           ))}
           <span className="text-gray-200">|</span>
           {socials.map((s) => (
             <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer"
-              className="text-gray-400 hover:text-gray-800 transition-colors duration-150"
-              aria-label={s.label}>
+              className="text-gray-400 hover:text-gray-800 transition-colors duration-150" aria-label={s.label}>
               {s.icon}
             </a>
           ))}
@@ -134,16 +191,10 @@ export default function CompanyPage() {
 
         {/* HERO */}
         <div className="px-8 border-b border-gray-100 flex items-stretch min-h-[220px]">
-          {/* Badge logo — no right border */}
-          <div className="flex-none flex items-center pr-10 py-10">
-            <Image
-              src="/logo-badge.png"
-              alt="akakAI badge"
-              width={240}
-              height={240}
-              style={{ filter: "invert(1)" }}
-              className="w-[200px] h-[200px] object-contain"
-            />
+          {/* Badge logo — with right border */}
+          <div className="flex-none flex items-center pr-10 py-10 border-r border-gray-100 mr-10">
+            <Image src="/logo-badge.png" alt="akakAI badge" width={240} height={240}
+              style={{ filter: "invert(1)" }} className="w-[200px] h-[200px] object-contain" />
           </div>
           {/* Hero text */}
           <div className="flex-1 flex flex-col justify-center py-10">
@@ -167,9 +218,8 @@ export default function CompanyPage() {
 
         {/* ═══ ABOUT ═══ */}
         {activeTab === "about" && (
-          <div className="px-8 py-14 space-y-16">
-
-            <Reveal root={scrollRef}>
+          <div className="px-8">
+            <Section first root={scrollRef}>
               <p className="text-[14px] uppercase tracking-[0.18em] text-gray-400 mb-8">🏗️ What We Are</p>
               <div className="grid grid-cols-2 gap-12">
                 <div>
@@ -189,18 +239,18 @@ export default function CompanyPage() {
                   </p>
                 </div>
               </div>
-            </Reveal>
+            </Section>
 
-            <Reveal root={scrollRef} delay={60}>
+            <Section root={scrollRef} delay={60}>
               <div className="border-l-2 border-gray-200 pl-8 py-2">
                 <p className="text-[26px] text-gray-900 leading-[1.4]" style={{ fontWeight: 400 }}>
                   "AI shouldn't wait for direction — it should anticipate, adapt, and act."
                 </p>
                 <p className="text-[13px] uppercase tracking-[0.15em] text-gray-400 mt-5">The core belief driving everything we build</p>
               </div>
-            </Reveal>
+            </Section>
 
-            <Reveal root={scrollRef} delay={60}>
+            <Section root={scrollRef} delay={60}>
               <p className="text-[14px] uppercase tracking-[0.18em] text-gray-400 mb-8">⚙️ What Our Agents Do</p>
               <div className="grid grid-cols-2 gap-5">
                 {[
@@ -220,9 +270,9 @@ export default function CompanyPage() {
                   </Reveal>
                 ))}
               </div>
-            </Reveal>
+            </Section>
 
-            <Reveal root={scrollRef} delay={60}>
+            <Section root={scrollRef} delay={60}>
               <p className="text-[14px] uppercase tracking-[0.18em] text-gray-400 mb-8">🔬 The Technology</p>
               <div className="grid grid-cols-2 gap-12">
                 <div>
@@ -242,9 +292,9 @@ export default function CompanyPage() {
                   </p>
                 </div>
               </div>
-            </Reveal>
+            </Section>
 
-            <Reveal root={scrollRef} delay={60}>
+            <Section root={scrollRef} delay={60}>
               <p className="text-[14px] uppercase tracking-[0.18em] text-gray-400 mb-8">💡 What We Believe</p>
               <div className="flex flex-wrap gap-3">
                 {[
@@ -260,7 +310,7 @@ export default function CompanyPage() {
                   </span>
                 ))}
               </div>
-            </Reveal>
+            </Section>
 
             <HiringCTA root={scrollRef} />
           </div>
@@ -268,9 +318,8 @@ export default function CompanyPage() {
 
         {/* ═══ MISSION ═══ */}
         {activeTab === "mission" && (
-          <div className="px-8 py-14 space-y-16">
-
-            <Reveal root={scrollRef}>
+          <div className="px-8">
+            <Section first root={scrollRef}>
               <div className="grid grid-cols-2 gap-12">
                 <div>
                   <p className="text-[14px] uppercase tracking-[0.18em] text-gray-400 mb-8">🎯 The Mission</p>
@@ -290,9 +339,9 @@ export default function CompanyPage() {
                   </p>
                 </div>
               </div>
-            </Reveal>
+            </Section>
 
-            <Reveal root={scrollRef} delay={60}>
+            <Section root={scrollRef} delay={60}>
               <p className="text-[14px] uppercase tracking-[0.18em] text-gray-400 mb-8">💭 What We Believe</p>
               <div className="grid grid-cols-2 gap-5">
                 {[
@@ -310,9 +359,9 @@ export default function CompanyPage() {
                   </Reveal>
                 ))}
               </div>
-            </Reveal>
+            </Section>
 
-            <Reveal root={scrollRef} delay={60}>
+            <Section root={scrollRef} delay={60}>
               <p className="text-[14px] uppercase tracking-[0.18em] text-gray-400 mb-8">🧭 Four Principles</p>
               <div className="grid grid-cols-2 gap-5">
                 {[
@@ -330,9 +379,9 @@ export default function CompanyPage() {
                   </Reveal>
                 ))}
               </div>
-            </Reveal>
+            </Section>
 
-            <Reveal root={scrollRef} delay={60}>
+            <Section root={scrollRef} delay={60}>
               <p className="text-[14px] uppercase tracking-[0.18em] text-gray-400 mb-8">🌊 The Next Wave</p>
               <div className="grid grid-cols-2 gap-12">
                 <div>
@@ -349,9 +398,9 @@ export default function CompanyPage() {
                   </p>
                 </div>
               </div>
-            </Reveal>
+            </Section>
 
-            <Reveal root={scrollRef} delay={60}>
+            <Section root={scrollRef} delay={60}>
               <p className="text-[14px] uppercase tracking-[0.18em] text-gray-400 mb-8">🚫 What akakAI Is Not</p>
               <div className="grid grid-cols-2 gap-5">
                 {[
@@ -369,7 +418,7 @@ export default function CompanyPage() {
                   </Reveal>
                 ))}
               </div>
-            </Reveal>
+            </Section>
 
             <HiringCTA root={scrollRef} />
           </div>
@@ -377,10 +426,9 @@ export default function CompanyPage() {
 
         {/* ═══ TEAM ═══ */}
         {activeTab === "team" && (
-          <div className="px-8 py-14 space-y-16">
-
+          <div className="px-8">
             {/* Zayd */}
-            <Reveal root={scrollRef}>
+            <Section first root={scrollRef}>
               <div className="grid grid-cols-2 gap-12">
                 <div>
                   <p className="text-[14px] uppercase tracking-[0.18em] text-gray-400 mb-8">👤 Co-founder & CEO</p>
@@ -400,12 +448,12 @@ export default function CompanyPage() {
                   </p>
                 </div>
               </div>
-            </Reveal>
+            </Section>
 
             {/* Abhiram */}
-            <Reveal root={scrollRef} delay={60}>
-              <div className="grid grid-cols-2 gap-12 pt-2 border-t border-gray-100">
-                <div className="pt-12">
+            <Section root={scrollRef} delay={60}>
+              <div className="grid grid-cols-2 gap-12">
+                <div>
                   <p className="text-[14px] uppercase tracking-[0.18em] text-gray-400 mb-8">👤 Co-founder & Agent Developer</p>
                   <h2 className="text-[42px] leading-none text-gray-900 mb-3" style={{ fontWeight: 500 }}>Abhiram Vishnubhotla</h2>
                   <p className="text-[14px] text-gray-400 mb-8 uppercase tracking-[0.12em]">akakAI</p>
@@ -414,7 +462,7 @@ export default function CompanyPage() {
                   </p>
                   <p className="text-[13px] uppercase tracking-[0.15em] text-gray-400">The engineering behind the autonomy</p>
                 </div>
-                <div className="pt-24">
+                <div className="pt-14">
                   <p className="text-[18px] text-gray-600 leading-[1.8] mb-6">
                     Abhiram brings the technical depth to turn akakAI's vision into working systems. His focus is on the hardest problem in the space: building agents that don't just run through steps, but genuinely reason about what needs to happen next.
                   </p>
@@ -423,13 +471,10 @@ export default function CompanyPage() {
                   </p>
                 </div>
               </div>
-            </Reveal>
-
-            {/* Divider before Approach */}
-            <div className="border-t border-gray-100" />
+            </Section>
 
             {/* Approach */}
-            <Reveal root={scrollRef} delay={60}>
+            <Section root={scrollRef} delay={60}>
               <div className="grid grid-cols-2 gap-12">
                 <div>
                   <p className="text-[14px] uppercase tracking-[0.18em] text-gray-400 mb-8">🔬 The Approach</p>
@@ -449,9 +494,9 @@ export default function CompanyPage() {
                   </p>
                 </div>
               </div>
-            </Reveal>
+            </Section>
 
-            <Reveal root={scrollRef} delay={60}>
+            <Section root={scrollRef} delay={60}>
               <p className="text-[14px] uppercase tracking-[0.18em] text-gray-400 mb-8">💡 What Drives This</p>
               <div className="grid grid-cols-2 gap-5">
                 {[
@@ -469,9 +514,9 @@ export default function CompanyPage() {
                   </Reveal>
                 ))}
               </div>
-            </Reveal>
+            </Section>
 
-            <Reveal root={scrollRef} delay={60}>
+            <Section root={scrollRef} delay={60}>
               <p className="text-[14px] uppercase tracking-[0.18em] text-gray-400 mb-6">🏷️ The Team in Tags</p>
               <div className="flex flex-wrap gap-3">
                 {[
@@ -487,7 +532,7 @@ export default function CompanyPage() {
                   </span>
                 ))}
               </div>
-            </Reveal>
+            </Section>
 
             <HiringCTA root={scrollRef} />
           </div>
@@ -495,10 +540,8 @@ export default function CompanyPage() {
 
         {/* ═══ INVESTMENTS ═══ */}
         {activeTab === "investments" && (
-          <div className="px-8 py-14 space-y-16">
-
-            {/* Contact */}
-            <Reveal root={scrollRef}>
+          <div className="px-8">
+            <Section first root={scrollRef}>
               <div className="grid grid-cols-2 gap-12">
                 <div>
                   <p className="text-[14px] uppercase tracking-[0.18em] text-gray-400 mb-8">📬 Investment Inquiries</p>
@@ -519,55 +562,46 @@ export default function CompanyPage() {
                   </a>
                 </div>
               </div>
-            </Reveal>
+            </Section>
 
-            {/* Press Release */}
-            <Reveal root={scrollRef} delay={60}>
+            <Section root={scrollRef} delay={60}>
               <p className="text-[14px] uppercase tracking-[0.18em] text-gray-400 mb-8">📰 Press</p>
-              <div className="border border-gray-100 rounded-xl p-10">
-                <div className="flex items-start justify-between mb-8">
-                  <div>
-                    <p className="text-[13px] uppercase tracking-[0.15em] text-gray-400 mb-2">Press Release</p>
-                    <h3 className="text-[26px] text-gray-900 leading-tight" style={{ fontWeight: 500 }}>
-                      akakAI Secures Pre-Seed Funding,<br />Valued at $1.5 Million
-                    </h3>
-                  </div>
-                  <div className="text-right flex-none ml-8">
-                    <p className="text-[13px] text-gray-400">Dallas, TX</p>
-                    <p className="text-[13px] text-gray-400">July 7, 2025</p>
-                  </div>
-                </div>
-
-                <div className="border-t border-gray-100 pt-8 space-y-6">
-                  <p className="text-[17px] text-gray-600 leading-[1.85]">
-                    akakAI, the AI startup building autonomous agents that proactively get work done, announced today that it has secured a pre-seed funding round from an undisclosed investor, bringing the company's valuation to <span className="text-gray-900" style={{ fontWeight: 500 }}>$1.5 million</span>.
-                  </p>
-                  <p className="text-[17px] text-gray-600 leading-[1.85]">
-                    Founded by Zayd Malik, akakAI's first product is an AI email agent that integrates directly with Gmail and Outlook, drafting email replies autonomously without requiring prompts, commands, or a separate app. The funding marks an early vote of confidence in the company's vision of replacing passive tools with proactive, task-completing agents.
-                  </p>
-                  <div className="border-l-2 border-gray-200 pl-6 py-1">
-                    <p className="text-[18px] text-gray-700 leading-[1.7] italic">
-                      "This investment allows us to deepen our technical capabilities and grow our team as we continue building agents that work for people, not just with them. We're grateful for the backing and belief in our mission to redefine productivity through agentic AI."
+              <div className="space-y-4">
+                <PressEntry
+                  title="akakAI Secures Pre-Seed Funding, Valued at $1.5 Million"
+                  date="July 7, 2025"
+                  location="Dallas, TX"
+                >
+                  <div className="space-y-6">
+                    <p className="text-[17px] text-gray-600 leading-[1.85]">
+                      akakAI, the AI startup building autonomous agents that proactively get work done, announced today that it has secured a pre-seed funding round from an undisclosed investor, bringing the company's valuation to <span className="text-gray-900" style={{ fontWeight: 500 }}>$1.5 million</span>.
                     </p>
-                    <p className="text-[13px] text-gray-400 mt-3 uppercase tracking-[0.12em]">— Zayd Malik, Founder, akakAI</p>
+                    <p className="text-[17px] text-gray-600 leading-[1.85]">
+                      Founded by Zayd Malik, akakAI's first product is an AI email agent that integrates directly with Gmail and Outlook, drafting email replies autonomously without requiring prompts, commands, or a separate app. The funding marks an early vote of confidence in the company's vision of replacing passive tools with proactive, task-completing agents.
+                    </p>
+                    <div className="border-l-2 border-gray-200 pl-6 py-1">
+                      <p className="text-[18px] text-gray-700 leading-[1.7] italic">
+                        "This investment allows us to deepen our technical capabilities and grow our team as we continue building agents that work for people, not just with them. We're grateful for the backing and belief in our mission to redefine productivity through agentic AI."
+                      </p>
+                      <p className="text-[13px] text-gray-400 mt-3 uppercase tracking-[0.12em]">— Zayd Malik, Founder, akakAI</p>
+                    </div>
+                    <p className="text-[17px] text-gray-600 leading-[1.85]">
+                      akakAI officially launched on July 3, 2025, and is currently onboarding early users.
+                    </p>
+                    <div className="grid grid-cols-2 gap-8 border-t border-gray-100 pt-6">
+                      <div>
+                        <p className="text-[13px] uppercase tracking-[0.15em] text-gray-400 mb-2">Website</p>
+                        <a href="https://akakai.com" className="text-[15px] text-gray-700 hover:text-gray-900 transition-colors">akakai.com</a>
+                      </div>
+                      <div>
+                        <p className="text-[13px] uppercase tracking-[0.15em] text-gray-400 mb-2">Media Contact</p>
+                        <a href="mailto:media@akakai.com" className="text-[15px] text-gray-700 hover:text-gray-900 transition-colors">media@akakai.com</a>
+                      </div>
+                    </div>
                   </div>
-                  <p className="text-[17px] text-gray-600 leading-[1.85]">
-                    akakAI officially launched on July 3, 2025, and is currently onboarding early users.
-                  </p>
-                </div>
-
-                <div className="border-t border-gray-100 pt-8 mt-8 grid grid-cols-2 gap-8">
-                  <div>
-                    <p className="text-[14px] uppercase tracking-[0.15em] text-gray-400 mb-2">Website</p>
-                    <a href="https://akakai.com" className="text-[15px] text-gray-700 hover:text-gray-900 transition-colors">akakai.com</a>
-                  </div>
-                  <div>
-                    <p className="text-[14px] uppercase tracking-[0.15em] text-gray-400 mb-2">Media Contact</p>
-                    <a href="mailto:media@akakai.com" className="text-[15px] text-gray-700 hover:text-gray-900 transition-colors">media@akakai.com</a>
-                  </div>
-                </div>
+                </PressEntry>
               </div>
-            </Reveal>
+            </Section>
 
             <HiringCTA root={scrollRef} />
           </div>
@@ -575,14 +609,8 @@ export default function CompanyPage() {
 
         {/* FOOTER */}
         <div className="border-t border-gray-100 px-8 py-6 flex items-center justify-between">
-          <Image
-            src="/logo-horizontal.png"
-            alt="akakAI"
-            width={80}
-            height={20}
-            style={{ filter: "invert(1) brightness(0)" }}
-            className="h-5 w-auto opacity-20"
-          />
+          <Image src="/logo-horizontal.png" alt="akakAI" width={80} height={20}
+            style={{ filter: "invert(1) brightness(0)" }} className="h-5 w-auto opacity-20" />
           <div className="flex items-center gap-7 text-[13px] text-gray-400">
             <a href="mailto:investments@akakai.com" className="hover:text-gray-600 transition-colors">Investments</a>
             <a href="mailto:media@akakai.com" className="hover:text-gray-600 transition-colors">Press</a>

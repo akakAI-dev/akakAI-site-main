@@ -1,10 +1,84 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 
 type Tab = "about" | "mission" | "team";
+
+/* ── Scroll-reveal wrapper ── */
+function Reveal({
+  children,
+  delay = 0,
+  className = "",
+  root,
+}: {
+  children: React.ReactNode;
+  delay?: number;
+  className?: string;
+  root: React.RefObject<HTMLDivElement | null>;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [vis, setVis] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) setVis(true); },
+      { threshold: 0.05, root: root.current }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [root]);
+  return (
+    <div
+      ref={ref}
+      className={className}
+      style={{
+        opacity: vis ? 1 : 0,
+        transform: vis ? "translateY(0)" : "translateY(20px)",
+        transition: `opacity 0.5s ease ${delay}ms, transform 0.5s ease ${delay}ms`,
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+
+/* ── Hiring CTA — shown at bottom of every tab ── */
+function HiringCTA({ root }: { root: React.RefObject<HTMLDivElement | null> }) {
+  return (
+    <Reveal root={root} delay={60}>
+      <div className="border-t border-gray-100 pt-14">
+        <p className="text-[12px] uppercase tracking-[0.18em] text-gray-400 mb-5">🚀 We're Hiring</p>
+        <h3 className="text-[34px] text-gray-900 leading-tight mb-4" style={{ fontWeight: 500 }}>
+          Build what comes after passive AI.
+        </h3>
+        <p className="text-[18px] text-gray-500 leading-[1.75] mb-8 max-w-lg">
+          If you believe AI should move first, think independently, and deliver without hand-holding — we want to talk.
+        </p>
+        <a
+          href="#"
+          className="inline-flex items-center gap-2 bg-gray-900 text-white px-6 py-3 rounded-full text-[14px] hover:bg-gray-700 transition-colors hover:gap-3"
+          style={{ transition: "background 0.2s, gap 0.2s" }}
+        >
+          Get in touch <ArrowUpRight size={14} />
+        </a>
+      </div>
+    </Reveal>
+  );
+}
+
+/* ── Hover card wrapper ── */
+function Card({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+  return (
+    <div
+      className={`${className} transition-all duration-200 hover:-translate-y-1 hover:shadow-md`}
+    >
+      {children}
+    </div>
+  );
+}
 
 export default function CompanyPage() {
   const [activeTab, setActiveTab] = useState<Tab>("about");
@@ -35,14 +109,14 @@ export default function CompanyPage() {
             <button
               key={t.id}
               onClick={() => { setActiveTab(t.id); scrollRef.current?.scrollTo({ top: 0, behavior: "smooth" }); }}
-              className={`transition-colors ${activeTab === t.id ? "text-gray-900" : "hover:text-gray-700"}`}
+              className={`transition-colors duration-150 ${activeTab === t.id ? "text-gray-900" : "hover:text-gray-700"}`}
             >
               {t.label}
             </button>
           ))}
           <span className="text-gray-200">|</span>
           <a href="#" className="hover:text-gray-700 transition-colors">Sign In</a>
-          <a href="#" className="bg-gray-900 text-white text-[13px] px-5 py-2 rounded-full hover:bg-gray-700 transition-colors">
+          <a href="#" className="bg-gray-900 text-white text-[13px] px-5 py-2 rounded-full hover:bg-gray-700 transition-colors hover:scale-105 inline-block" style={{ transition: "background 0.2s, transform 0.15s" }}>
             Get Started
           </a>
         </div>
@@ -52,35 +126,33 @@ export default function CompanyPage() {
       <div ref={scrollRef} className="flex-1 overflow-y-auto page-scroll">
 
         {/* HERO */}
-        <div className="px-8 pt-12 pb-12 border-b border-gray-100">
-          <div className="flex items-center gap-10">
-            {/* Badge logo */}
-            <div className="flex-none">
-              <Image
-                src="/logo-badge.png"
-                alt="akakAI badge"
-                width={180}
-                height={180}
-                style={{ filter: "invert(1)" }}
-                className="w-[160px] h-[160px] object-contain"
-              />
-            </div>
-            {/* Hero text */}
-            <div className="flex-1">
-              <p className="text-[12px] uppercase tracking-[0.18em] text-gray-400 mb-6">
-                {activeTab === "about" ? "Company Overview" : activeTab === "mission" ? "Our Mission" : "The Team"}
-              </p>
-              <h1 className="text-[62px] leading-[1.0] tracking-tight text-gray-900 mb-6" style={{ fontWeight: 500 }}>
-                {activeTab === "about" && <>AI that acts,<br /><span className="text-gray-300">not just reacts.</span></>}
-                {activeTab === "mission" && <>Action is the<br /><span className="text-gray-300">default.</span></>}
-                {activeTab === "team" && <>The people<br /><span className="text-gray-300">building it.</span></>}
-              </h1>
-              <p className="text-[19px] text-gray-500 leading-[1.7] max-w-2xl">
-                {activeTab === "about" && "Autonomous agents built to navigate complexity, make decisions, and deliver outcomes — with minimal human intervention."}
-                {activeTab === "mission" && "Close the gap between intention and execution. Every system we build pushes toward one thing: AI that makes action the rule, not the exception."}
-                {activeTab === "team" && "akakAI was started with a simple conviction. Here's the team putting in the work to prove it."}
-              </p>
-            </div>
+        <div className="px-8 border-b border-gray-100 flex items-stretch min-h-[220px]">
+          {/* Badge logo — fills hero height */}
+          <div className="flex-none flex items-center pr-10 py-10 border-r border-gray-100 mr-10">
+            <Image
+              src="/logo-badge.png"
+              alt="akakAI badge"
+              width={240}
+              height={240}
+              style={{ filter: "invert(1)" }}
+              className="w-[200px] h-[200px] object-contain"
+            />
+          </div>
+          {/* Hero text */}
+          <div className="flex-1 flex flex-col justify-center py-10">
+            <p className="text-[12px] uppercase tracking-[0.18em] text-gray-400 mb-5">
+              {activeTab === "about" ? "Company Overview" : activeTab === "mission" ? "Our Mission" : "The Team"}
+            </p>
+            <h1 className="text-[62px] leading-[1.0] tracking-tight text-gray-900 mb-6" style={{ fontWeight: 500 }}>
+              {activeTab === "about" && <>AI that acts,<br /><span className="text-gray-300">not just reacts.</span></>}
+              {activeTab === "mission" && <>Action is the<br /><span className="text-gray-300">default.</span></>}
+              {activeTab === "team" && <>The people<br /><span className="text-gray-300">building it.</span></>}
+            </h1>
+            <p className="text-[19px] text-gray-500 leading-[1.7] max-w-2xl">
+              {activeTab === "about" && "Autonomous agents built to navigate complexity, make decisions, and deliver outcomes — with minimal human intervention."}
+              {activeTab === "mission" && "Close the gap between intention and execution. Every system we build pushes toward one thing: AI that makes action the rule, not the exception."}
+              {activeTab === "team" && "akakAI was started with a simple conviction. Here's the team putting in the work to prove it."}
+            </p>
           </div>
         </div>
 
@@ -88,8 +160,7 @@ export default function CompanyPage() {
         {activeTab === "about" && (
           <div className="px-8 py-14 space-y-16">
 
-            {/* What we are */}
-            <div>
+            <Reveal root={scrollRef}>
               <p className="text-[12px] uppercase tracking-[0.18em] text-gray-400 mb-8">🏗️ What We Are</p>
               <div className="grid grid-cols-2 gap-12">
                 <div>
@@ -109,18 +180,18 @@ export default function CompanyPage() {
                   </p>
                 </div>
               </div>
-            </div>
+            </Reveal>
 
-            {/* Pull quote */}
-            <div className="border-l-2 border-gray-200 pl-8 py-2">
-              <p className="text-[26px] text-gray-900 leading-[1.4]" style={{ fontWeight: 400 }}>
-                "AI shouldn't wait for direction — it should anticipate, adapt, and act."
-              </p>
-              <p className="text-[13px] uppercase tracking-[0.15em] text-gray-400 mt-5">The core belief driving everything we build</p>
-            </div>
+            <Reveal root={scrollRef} delay={60}>
+              <div className="border-l-2 border-gray-200 pl-8 py-2">
+                <p className="text-[26px] text-gray-900 leading-[1.4]" style={{ fontWeight: 400 }}>
+                  "AI shouldn't wait for direction — it should anticipate, adapt, and act."
+                </p>
+                <p className="text-[13px] uppercase tracking-[0.15em] text-gray-400 mt-5">The core belief driving everything we build</p>
+              </div>
+            </Reveal>
 
-            {/* What our agents do */}
-            <div>
+            <Reveal root={scrollRef} delay={60}>
               <p className="text-[12px] uppercase tracking-[0.18em] text-gray-400 mb-8">⚙️ What Our Agents Do</p>
               <div className="grid grid-cols-2 gap-5">
                 {[
@@ -131,17 +202,18 @@ export default function CompanyPage() {
                   { emoji: "🛡️", label: "Judgment Under Uncertainty", desc: "Plans break. Conditions change. The real test of an intelligent system is what it does when the world doesn't cooperate — and ours make the right call without escalating." },
                   { emoji: "📈", label: "Natural Scaling", desc: "More complexity doesn't mean more humans. Our agents compound in capability as scope grows — handling more, deciding more, without the overhead that comes with scaling teams." },
                 ].map((c, i) => (
-                  <div key={i} className="bg-gray-50 rounded-xl p-7">
-                    <div className="text-2xl mb-4">{c.emoji}</div>
-                    <p className="text-[17px] text-gray-900 mb-3" style={{ fontWeight: 500 }}>{c.label}</p>
-                    <p className="text-[16px] text-gray-500 leading-[1.75]">{c.desc}</p>
-                  </div>
+                  <Reveal key={i} root={scrollRef} delay={i * 40}>
+                    <Card className="bg-gray-50 rounded-xl p-7 cursor-default">
+                      <div className="text-2xl mb-4">{c.emoji}</div>
+                      <p className="text-[17px] text-gray-900 mb-3" style={{ fontWeight: 500 }}>{c.label}</p>
+                      <p className="text-[16px] text-gray-500 leading-[1.75]">{c.desc}</p>
+                    </Card>
+                  </Reveal>
                 ))}
               </div>
-            </div>
+            </Reveal>
 
-            {/* The technology */}
-            <div>
+            <Reveal root={scrollRef} delay={60}>
               <p className="text-[12px] uppercase tracking-[0.18em] text-gray-400 mb-8">🔬 The Technology</p>
               <div className="grid grid-cols-2 gap-12">
                 <div>
@@ -161,10 +233,9 @@ export default function CompanyPage() {
                   </p>
                 </div>
               </div>
-            </div>
+            </Reveal>
 
-            {/* Beliefs */}
-            <div>
+            <Reveal root={scrollRef} delay={60}>
               <p className="text-[12px] uppercase tracking-[0.18em] text-gray-400 mb-8">💡 What We Believe</p>
               <div className="flex flex-wrap gap-3">
                 {[
@@ -175,12 +246,14 @@ export default function CompanyPage() {
                   { emoji: "✂️", text: "Strip the gimmicks" },
                   { emoji: "⚡", text: "Action is the default" },
                 ].map((b) => (
-                  <span key={b.text} className="text-[15px] text-gray-600 border border-gray-200 px-5 py-2.5 rounded-full flex items-center gap-2">
+                  <span key={b.text} className="text-[15px] text-gray-600 border border-gray-200 px-5 py-2.5 rounded-full flex items-center gap-2 hover:border-gray-400 hover:text-gray-900 cursor-default transition-colors duration-150">
                     <span>{b.emoji}</span>{b.text}
                   </span>
                 ))}
               </div>
-            </div>
+            </Reveal>
+
+            <HiringCTA root={scrollRef} />
           </div>
         )}
 
@@ -188,29 +261,29 @@ export default function CompanyPage() {
         {activeTab === "mission" && (
           <div className="px-8 py-14 space-y-16">
 
-            {/* Core statement */}
-            <div className="grid grid-cols-2 gap-12">
-              <div>
-                <p className="text-[12px] uppercase tracking-[0.18em] text-gray-400 mb-8">🎯 The Mission</p>
-                <h2 className="text-[34px] leading-[1.2] text-gray-900 mb-7" style={{ fontWeight: 500 }}>
-                  "Make action the default, not the exception."
-                </h2>
-                <p className="text-[18px] text-gray-600 leading-[1.8]">
-                  We exist at the intersection of ambition and execution — building the systems that let ideas become outcomes without the human bottleneck that kills most of them.
-                </p>
+            <Reveal root={scrollRef}>
+              <div className="grid grid-cols-2 gap-12">
+                <div>
+                  <p className="text-[12px] uppercase tracking-[0.18em] text-gray-400 mb-8">🎯 The Mission</p>
+                  <h2 className="text-[34px] leading-[1.2] text-gray-900 mb-7" style={{ fontWeight: 500 }}>
+                    "Make action the default, not the exception."
+                  </h2>
+                  <p className="text-[18px] text-gray-600 leading-[1.8]">
+                    We exist at the intersection of ambition and execution — building the systems that let ideas become outcomes without the human bottleneck that kills most of them.
+                  </p>
+                </div>
+                <div className="pt-14">
+                  <p className="text-[18px] text-gray-600 leading-[1.8] mb-6">
+                    Every product decision, every line of code, every system we ship is in service of one thing: closing the gap between what you want done and what actually gets done.
+                  </p>
+                  <p className="text-[18px] text-gray-600 leading-[1.8]">
+                    No intermediary. No endless iteration. No prompting. Just outcomes — delivered by agents that understand what matters and move without being told twice.
+                  </p>
+                </div>
               </div>
-              <div className="pt-14">
-                <p className="text-[18px] text-gray-600 leading-[1.8] mb-6">
-                  Every product decision, every line of code, every system we ship is in service of one thing: closing the gap between what you want done and what actually gets done.
-                </p>
-                <p className="text-[18px] text-gray-600 leading-[1.8]">
-                  No intermediary. No endless iteration. No prompting. Just outcomes — delivered by agents that understand what matters and move without being told twice.
-                </p>
-              </div>
-            </div>
+            </Reveal>
 
-            {/* What we believe */}
-            <div>
+            <Reveal root={scrollRef} delay={60}>
               <p className="text-[12px] uppercase tracking-[0.18em] text-gray-400 mb-8">💭 What We Believe</p>
               <div className="grid grid-cols-2 gap-5">
                 {[
@@ -219,17 +292,18 @@ export default function CompanyPage() {
                   { emoji: "🔭", heading: "The gap between intention and execution is where potential dies.", body: "Most organizations have more good ideas than capacity to execute. Not because people aren't capable — but because the translation layer between knowing what needs to be done and actually doing it is slow, lossy, and human-bottlenecked. akakAI's mission is to eliminate that bottleneck entirely. Not reduce it. Eliminate it." },
                   { emoji: "🏗️", heading: "Autonomy is not a feature. It's the foundation.", body: "You can't bolt autonomy onto a system built for passivity. It requires rethinking the architecture from first principles — how an agent understands goals, how it reasons about context, when it acts and when it pauses. This is what we've built from the ground up. Every layer designed for independent, purposeful execution." },
                 ].map((b, i) => (
-                  <div key={i} className="bg-gray-50 rounded-xl p-8">
-                    <div className="text-2xl mb-4">{b.emoji}</div>
-                    <p className="text-[18px] text-gray-900 mb-5 leading-snug" style={{ fontWeight: 500 }}>{b.heading}</p>
-                    <p className="text-[16px] text-gray-500 leading-[1.8]">{b.body}</p>
-                  </div>
+                  <Reveal key={i} root={scrollRef} delay={i * 50}>
+                    <Card className="bg-gray-50 rounded-xl p-8 cursor-default">
+                      <div className="text-2xl mb-4">{b.emoji}</div>
+                      <p className="text-[18px] text-gray-900 mb-5 leading-snug" style={{ fontWeight: 500 }}>{b.heading}</p>
+                      <p className="text-[16px] text-gray-500 leading-[1.8]">{b.body}</p>
+                    </Card>
+                  </Reveal>
                 ))}
               </div>
-            </div>
+            </Reveal>
 
-            {/* Four principles */}
-            <div>
+            <Reveal root={scrollRef} delay={60}>
               <p className="text-[12px] uppercase tracking-[0.18em] text-gray-400 mb-8">🧭 Four Principles</p>
               <div className="grid grid-cols-2 gap-5">
                 {[
@@ -238,17 +312,18 @@ export default function CompanyPage() {
                   { emoji: "✅", word: "Act", desc: "Thinking without doing is just noise. Our agents close the loop — from high-level intent to real-world outcome, without waiting for permission, clarification, or a next step." },
                   { emoji: "📡", word: "Scale", desc: "Human attention is finite. Intelligent action shouldn't be. As complexity grows, the agents grow with it — compounding capability without compounding cost or headcount." },
                 ].map((p, i) => (
-                  <div key={i} className="border border-gray-100 rounded-xl p-8">
-                    <div className="text-2xl mb-4">{p.emoji}</div>
-                    <p className="text-[32px] text-gray-900 mb-4" style={{ fontWeight: 500 }}>{p.word}</p>
-                    <p className="text-[16px] text-gray-500 leading-[1.8]">{p.desc}</p>
-                  </div>
+                  <Reveal key={i} root={scrollRef} delay={i * 50}>
+                    <Card className="border border-gray-100 rounded-xl p-8 cursor-default">
+                      <div className="text-2xl mb-4">{p.emoji}</div>
+                      <p className="text-[32px] text-gray-900 mb-4" style={{ fontWeight: 500 }}>{p.word}</p>
+                      <p className="text-[16px] text-gray-500 leading-[1.8]">{p.desc}</p>
+                    </Card>
+                  </Reveal>
                 ))}
               </div>
-            </div>
+            </Reveal>
 
-            {/* The next wave */}
-            <div>
+            <Reveal root={scrollRef} delay={60}>
               <p className="text-[12px] uppercase tracking-[0.18em] text-gray-400 mb-8">🌊 The Next Wave</p>
               <div className="grid grid-cols-2 gap-12">
                 <div>
@@ -265,10 +340,9 @@ export default function CompanyPage() {
                   </p>
                 </div>
               </div>
-            </div>
+            </Reveal>
 
-            {/* What we are not */}
-            <div>
+            <Reveal root={scrollRef} delay={60}>
               <p className="text-[12px] uppercase tracking-[0.18em] text-gray-400 mb-8">🚫 What akakAI Is Not</p>
               <div className="grid grid-cols-2 gap-5">
                 {[
@@ -277,14 +351,18 @@ export default function CompanyPage() {
                   { emoji: "🎠", label: "An AI wrapper", desc: "Purpose-built for autonomous execution from the ground up — not a UI layer or another chatbot with a new coat of paint." },
                   { emoji: "🎪", label: "A hype product", desc: "No buzzwords, no fundraising theater. Just agents that work — reliably, independently, in the real world with real stakes." },
                 ].map((item, i) => (
-                  <div key={i} className="border border-gray-100 rounded-xl p-8">
-                    <div className="text-2xl mb-4">{item.emoji}</div>
-                    <p className="text-[18px] text-gray-300 line-through mb-4">{item.label}</p>
-                    <p className="text-[16px] text-gray-500 leading-[1.8]">{item.desc}</p>
-                  </div>
+                  <Reveal key={i} root={scrollRef} delay={i * 40}>
+                    <Card className="border border-gray-100 rounded-xl p-8 cursor-default">
+                      <div className="text-2xl mb-4">{item.emoji}</div>
+                      <p className="text-[18px] text-gray-300 line-through mb-4">{item.label}</p>
+                      <p className="text-[16px] text-gray-500 leading-[1.8]">{item.desc}</p>
+                    </Card>
+                  </Reveal>
                 ))}
               </div>
-            </div>
+            </Reveal>
+
+            <HiringCTA root={scrollRef} />
           </div>
         )}
 
@@ -292,50 +370,77 @@ export default function CompanyPage() {
         {activeTab === "team" && (
           <div className="px-8 py-14 space-y-16">
 
-            {/* Founder */}
-            <div className="grid grid-cols-2 gap-12">
-              <div>
-                <p className="text-[12px] uppercase tracking-[0.18em] text-gray-400 mb-8">👤 Founder</p>
-                <h2 className="text-[42px] leading-none text-gray-900 mb-3" style={{ fontWeight: 500 }}>Zayd Malik</h2>
-                <p className="text-[14px] text-gray-400 mb-8 uppercase tracking-[0.12em]">akakAI</p>
-                <p className="text-[22px] text-gray-900 leading-[1.4] mb-8" style={{ fontWeight: 400 }}>
-                  "AI should act, not just react."
-                </p>
-                <p className="text-[13px] uppercase tracking-[0.15em] text-gray-400">The conviction that started it all</p>
+            {/* Zayd */}
+            <Reveal root={scrollRef}>
+              <div className="grid grid-cols-2 gap-12">
+                <div>
+                  <p className="text-[12px] uppercase tracking-[0.18em] text-gray-400 mb-8">👤 Co-founder & CEO</p>
+                  <h2 className="text-[42px] leading-none text-gray-900 mb-3" style={{ fontWeight: 500 }}>Zayd Malik</h2>
+                  <p className="text-[14px] text-gray-400 mb-8 uppercase tracking-[0.12em]">akakAI</p>
+                  <p className="text-[22px] text-gray-900 leading-[1.4] mb-8" style={{ fontWeight: 400 }}>
+                    "AI should act, not just react."
+                  </p>
+                  <p className="text-[13px] uppercase tracking-[0.15em] text-gray-400">The conviction that started it all</p>
+                </div>
+                <div className="pt-14">
+                  <p className="text-[18px] text-gray-600 leading-[1.8] mb-6">
+                    Zayd started akakAI with a simple but uncomfortable observation: the AI tools people were using were passive. They waited. They asked for input. They responded. They never moved first.
+                  </p>
+                  <p className="text-[18px] text-gray-600 leading-[1.8]">
+                    Frustrated with passive tools and overhyped tech, he set out to build something fundamentally different — AI that takes initiative, understands context, and actually follows through.
+                  </p>
+                </div>
               </div>
-              <div className="pt-14">
-                <p className="text-[18px] text-gray-600 leading-[1.8] mb-6">
-                  Zayd started akakAI with a simple but uncomfortable observation: the AI tools people were using were passive. They waited. They asked for input. They responded. They never moved first.
-                </p>
-                <p className="text-[18px] text-gray-600 leading-[1.8]">
-                  Frustrated with passive tools and overhyped tech, he set out to build something fundamentally different — AI that takes initiative, understands context, and actually follows through.
-                </p>
+            </Reveal>
+
+            {/* Abhiram */}
+            <Reveal root={scrollRef} delay={60}>
+              <div className="grid grid-cols-2 gap-12 pt-2 border-t border-gray-100">
+                <div className="pt-12">
+                  <p className="text-[12px] uppercase tracking-[0.18em] text-gray-400 mb-8">👤 Co-founder & Agent Developer</p>
+                  <h2 className="text-[42px] leading-none text-gray-900 mb-3" style={{ fontWeight: 500 }}>Abhiram Vishnubhotla</h2>
+                  <p className="text-[14px] text-gray-400 mb-8 uppercase tracking-[0.12em]">akakAI</p>
+                  <p className="text-[22px] text-gray-900 leading-[1.4] mb-8" style={{ fontWeight: 400 }}>
+                    "Agents that don't just execute — they understand."
+                  </p>
+                  <p className="text-[13px] uppercase tracking-[0.15em] text-gray-400">The engineering behind the autonomy</p>
+                </div>
+                <div className="pt-24">
+                  <p className="text-[18px] text-gray-600 leading-[1.8] mb-6">
+                    Abhiram brings the technical depth to turn akakAI's vision into working systems. His focus is on the hardest problem in the space: building agents that don't just run through steps, but genuinely reason about what needs to happen next.
+                  </p>
+                  <p className="text-[18px] text-gray-600 leading-[1.8]">
+                    He architects the core agent runtime — the layer responsible for goal comprehension, dynamic planning, and real-time decision-making across complex, multi-system environments.
+                  </p>
+                </div>
               </div>
-            </div>
+            </Reveal>
 
             {/* Approach */}
-            <div className="grid grid-cols-2 gap-12">
-              <div>
-                <p className="text-[12px] uppercase tracking-[0.18em] text-gray-400 mb-8">🔬 The Approach</p>
-                <h2 className="text-[28px] leading-tight text-gray-900 mb-6" style={{ fontWeight: 500 }}>
-                  Capability over complexity — always.
-                </h2>
-                <p className="text-[18px] text-gray-600 leading-[1.8]">
-                  Strip away the gimmicks. Focus on core functionality. Build agents that understand goals, take action without micromanagement, and deliver real results in dynamic environments.
-                </p>
+            <Reveal root={scrollRef} delay={60}>
+              <div className="grid grid-cols-2 gap-12">
+                <div>
+                  <p className="text-[12px] uppercase tracking-[0.18em] text-gray-400 mb-8">🔬 The Approach</p>
+                  <h2 className="text-[28px] leading-tight text-gray-900 mb-6" style={{ fontWeight: 500 }}>
+                    Capability over complexity — always.
+                  </h2>
+                  <p className="text-[18px] text-gray-600 leading-[1.8]">
+                    Strip away the gimmicks. Focus on core functionality. Build agents that understand goals, take action without micromanagement, and deliver real results in dynamic environments.
+                  </p>
+                </div>
+                <div className="pt-14">
+                  <p className="text-[18px] text-gray-600 leading-[1.8] mb-6">
+                    No trends, no noise. Just AI that works with you and for you — reliably, autonomously, at the level of complexity that real work actually demands.
+                  </p>
+                  <p className="text-[18px] text-gray-600 leading-[1.8]">
+                    This philosophy drives every product decision at akakAI: if it doesn't make the agent more capable or more autonomous, it doesn't ship.
+                  </p>
+                </div>
               </div>
-              <div className="pt-14">
-                <p className="text-[18px] text-gray-600 leading-[1.8] mb-6">
-                  No trends, no noise. Just AI that works with you and for you — reliably, autonomously, at the level of complexity that real work actually demands.
-                </p>
-                <p className="text-[18px] text-gray-600 leading-[1.8]">
-                  This philosophy drives every product decision at akakAI: if it doesn't make the agent more capable or more autonomous, it doesn't ship.
-                </p>
-              </div>
-            </div>
+            </Reveal>
 
-            {/* What drives him */}
-            <div>
+            {/* What drives this */}
+            <Reveal root={scrollRef} delay={60}>
               <p className="text-[12px] uppercase tracking-[0.18em] text-gray-400 mb-8">💡 What Drives This</p>
               <div className="grid grid-cols-2 gap-5">
                 {[
@@ -344,47 +449,37 @@ export default function CompanyPage() {
                   { emoji: "📏", title: "The Standard", text: "No trends, no noise. Just AI that works reliably — without getting in the way, without needing a prompt for every decision." },
                   { emoji: "🏁", title: "The Goal", text: "Close the gap between what you want done and what gets done. Permanently. Without the intermediary layer that slows everything down." },
                 ].map((item, i) => (
-                  <div key={i} className="bg-gray-50 rounded-xl p-7">
-                    <div className="text-2xl mb-4">{item.emoji}</div>
-                    <p className="text-[16px] text-gray-900 mb-3" style={{ fontWeight: 500 }}>{item.title}</p>
-                    <p className="text-[16px] text-gray-500 leading-[1.8]">{item.text}</p>
-                  </div>
+                  <Reveal key={i} root={scrollRef} delay={i * 40}>
+                    <Card className="bg-gray-50 rounded-xl p-7 cursor-default">
+                      <div className="text-2xl mb-4">{item.emoji}</div>
+                      <p className="text-[16px] text-gray-900 mb-3" style={{ fontWeight: 500 }}>{item.title}</p>
+                      <p className="text-[16px] text-gray-500 leading-[1.8]">{item.text}</p>
+                    </Card>
+                  </Reveal>
                 ))}
               </div>
-            </div>
+            </Reveal>
 
             {/* Tags */}
-            <div>
-              <p className="text-[12px] uppercase tracking-[0.18em] text-gray-400 mb-6">🏷️ Zayd in Tags</p>
+            <Reveal root={scrollRef} delay={60}>
+              <p className="text-[12px] uppercase tracking-[0.18em] text-gray-400 mb-6">🏷️ The Team in Tags</p>
               <div className="flex flex-wrap gap-3">
                 {[
                   { emoji: "🚫", text: "Anti-hype" },
                   { emoji: "⚡", text: "Action-first" },
-                  { emoji: "🧠", text: "Systems thinker" },
+                  { emoji: "🧠", text: "Systems thinkers" },
                   { emoji: "🎯", text: "Capability over complexity" },
-                  { emoji: "🔧", text: "Builder" },
+                  { emoji: "🔧", text: "Builders" },
                   { emoji: "✂️", text: "No gimmicks" },
                 ].map((tag) => (
-                  <span key={tag.text} className="text-[14px] text-gray-500 border border-gray-200 px-5 py-2.5 rounded-full flex items-center gap-2">
+                  <span key={tag.text} className="text-[14px] text-gray-500 border border-gray-200 px-5 py-2.5 rounded-full flex items-center gap-2 hover:border-gray-400 hover:text-gray-800 cursor-default transition-colors duration-150">
                     <span>{tag.emoji}</span>{tag.text}
                   </span>
                 ))}
               </div>
-            </div>
+            </Reveal>
 
-            {/* Hiring */}
-            <div className="border border-gray-100 rounded-xl p-10">
-              <p className="text-[12px] uppercase tracking-[0.18em] text-gray-400 mb-6">🚀 We're Hiring</p>
-              <h3 className="text-[28px] text-gray-900 leading-tight mb-5" style={{ fontWeight: 500 }}>
-                Build what comes after passive AI.
-              </h3>
-              <p className="text-[18px] text-gray-500 leading-[1.75] mb-8 max-w-lg">
-                If you believe AI should move first, think independently, and deliver without hand-holding — we want to talk.
-              </p>
-              <a href="#" className="inline-flex items-center gap-2 bg-gray-900 text-white px-6 py-3 rounded-full text-[14px] hover:bg-gray-700 transition-colors">
-                Get in touch <ArrowUpRight size={14} />
-              </a>
-            </div>
+            <HiringCTA root={scrollRef} />
           </div>
         )}
 

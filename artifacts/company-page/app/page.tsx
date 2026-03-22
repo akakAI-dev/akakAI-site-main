@@ -233,7 +233,7 @@ export default function CompanyPage() {
               {activeTab === "mission" && "Close the gap between intention and execution. Every system we build pushes toward one thing: AI that makes action the rule, not the exception."}
               {activeTab === "team" && "akakAI was started with a simple conviction. Here's the team putting in the work to prove it."}
               {activeTab === "investments" && "akakAI is building the infrastructure for autonomous AI action. For investment inquiries, reach us at investments@akakai.com."}
-              {activeTab === "projects" && "Two products. One conviction. Agents that don't wait to be asked — they understand, decide, and act."}
+              {activeTab === "projects" && "Many products. One conviction. Agents that don't wait to be asked — they understand, decide, and act."}
             </p>
           </div>
         </div>

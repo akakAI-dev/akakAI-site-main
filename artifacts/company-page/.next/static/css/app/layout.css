@@ -511,6 +511,12 @@ video {
 .inset-\[10px\] {
   inset: 10px;
 }
+.mb-1 {
+  margin-bottom: 0.25rem;
+}
+.mb-10 {
+  margin-bottom: 2.5rem;
+}
 .mb-2 {
   margin-bottom: 0.5rem;
 }
@@ -543,12 +549,6 @@ video {
 }
 .mt-5 {
   margin-top: 1.25rem;
-}
-.mb-1 {
-  margin-bottom: 0.25rem;
-}
-.mb-10 {
-  margin-bottom: 2.5rem;
 }
 .flex {
   display: flex;
@@ -620,11 +620,11 @@ video {
 .grid-cols-2 {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
-.grid-cols-\[2fr_3fr\] {
-  grid-template-columns: 2fr 3fr;
-}
 .grid-cols-\[2fr_1fr\] {
   grid-template-columns: 2fr 1fr;
+}
+.grid-cols-\[2fr_3fr\] {
+  grid-template-columns: 2fr 3fr;
 }
 .flex-col {
   flex-direction: column;
@@ -762,6 +762,10 @@ video {
 .p-8 {
   padding: 2rem;
 }
+.px-3 {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
 .px-4 {
   padding-left: 1rem;
   padding-right: 1rem;
@@ -810,16 +814,15 @@ video {
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
 }
-.px-3 {
-  padding-left: 0.75rem;
-  padding-right: 0.75rem;
-}
 .py-8 {
   padding-top: 2rem;
   padding-bottom: 2rem;
 }
 .pb-8 {
   padding-bottom: 2rem;
+}
+.pl-12 {
+  padding-left: 3rem;
 }
 .pl-6 {
   padding-left: 1.5rem;
@@ -842,9 +845,6 @@ video {
 .pt-8 {
   padding-top: 2rem;
 }
-.pl-12 {
-  padding-left: 3rem;
-}
 .text-left {
   text-align: left;
 }
@@ -860,6 +860,9 @@ video {
 }
 .text-\[11px\] {
   font-size: 11px;
+}
+.text-\[12px\] {
+  font-size: 12px;
 }
 .text-\[13px\] {
   font-size: 13px;
@@ -885,6 +888,9 @@ video {
 .text-\[22px\] {
   font-size: 22px;
 }
+.text-\[24px\] {
+  font-size: 24px;
+}
 .text-\[26px\] {
   font-size: 26px;
 }
@@ -897,23 +903,17 @@ video {
 .text-\[34px\] {
   font-size: 34px;
 }
-.text-\[42px\] {
-  font-size: 42px;
-}
-.text-\[62px\] {
-  font-size: 62px;
-}
-.text-\[12px\] {
-  font-size: 12px;
-}
-.text-\[24px\] {
-  font-size: 24px;
-}
 .text-\[38px\] {
   font-size: 38px;
 }
+.text-\[42px\] {
+  font-size: 42px;
+}
 .text-\[56px\] {
   font-size: 56px;
+}
+.text-\[62px\] {
+  font-size: 62px;
 }
 .uppercase {
   text-transform: uppercase;
@@ -960,11 +960,11 @@ video {
 .tracking-\[0\.18em\] {
   letter-spacing: 0.18em;
 }
-.tracking-tight {
-  letter-spacing: -0.025em;
-}
 .tracking-\[0\.2em\] {
   letter-spacing: 0.2em;
+}
+.tracking-tight {
+  letter-spacing: -0.025em;
 }
 .text-gray-200 {
   --tw-text-opacity: 1;
@@ -1057,7 +1057,7 @@ video {
 }
 
 html {
-  zoom: 1.5;
+  zoom: 1.4;
 }
 
 html, body {

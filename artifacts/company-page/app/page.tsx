@@ -851,8 +851,9 @@ export default function CompanyPage() {
                   </p>
                   <div className="flex flex-col gap-4 mt-6">
                     {[
-                      { emoji: "📬", label: "Email Inbox (IMAP)", desc: "Monitors an email inbox via IMAP polling. When a new email arrives, it triggers the agent with the full message context. Configurable poll interval, SMTP credentials, and active/inactive toggle." },
-                      { emoji: "⏰", label: "Cron Job", desc: "Triggers the agent on a schedule defined by a cron expression. Unlike polling listeners, cron jobs only fire when the schedule matches — saving API calls for time-sensitive recurring tasks." },
+                      { emoji: "⏰", label: "Cron Job", desc: "Triggers the agent on a schedule defined by a cron expression. Only fires when the schedule matches — saving API calls for time-sensitive recurring tasks." },
+                      { emoji: "🪝", label: "Webhook", desc: "Listens for incoming HTTP requests and triggers the agent the moment a payload arrives. Ideal for real-time event-driven workflows from any external system." },
+                      { emoji: "🔄", label: "Polling", desc: "Continuously checks an external source — an inbox, API endpoint, or data feed — at a configurable interval and triggers the agent when new data is detected." },
                     ].map((item) => (
                       <Card key={item.label} className="bg-gray-50 rounded-xl p-5 cursor-default">
                         <div className="text-lg mb-2">{item.emoji}</div>

@@ -187,7 +187,7 @@ export default function CompanyPage() {
       </nav>
 
       {/* SCROLLABLE BODY */}
-      <div ref={scrollRef} className="flex-1 overflow-y-auto page-scroll">
+      <div ref={scrollRef} className="flex-1 overflow-y-auto page-scroll" style={{ scrollbarGutter: "stable" }}>
 
         {/* HERO */}
         <div className="px-8 border-b border-gray-100 flex items-stretch min-h-[220px]">

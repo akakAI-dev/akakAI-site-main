@@ -429,7 +429,7 @@ export default function CompanyPage() {
           <div className="px-8">
             {/* Zayd */}
             <Section first root={scrollRef}>
-              <div className="grid grid-cols-2 gap-12">
+              <div className="grid grid-cols-[2fr_3fr] gap-8">
                 <div>
                   <div className="mb-8">
                     <Image src="/zayd.png" alt="Zayd Malik" width={96} height={96}
@@ -456,7 +456,7 @@ export default function CompanyPage() {
 
             {/* Abhiram */}
             <Section root={scrollRef} delay={60}>
-              <div className="grid grid-cols-2 gap-12">
+              <div className="grid grid-cols-[2fr_3fr] gap-8">
                 <div>
                   <div className="mb-8">
                     <Image src="/abhi.jpg" alt="Abhiram Vishnubhotla" width={96} height={96}

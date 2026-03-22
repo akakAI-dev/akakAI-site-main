@@ -763,15 +763,15 @@ export default function CompanyPage() {
                     A no-code platform for building agents that act on real-world events.
                   </h3>
                   <p className="text-[17px] text-gray-600 leading-[1.85] mb-5">
-                    Aegent is a no-code autonomous AI agent platform built by akakAI — a startup that closed $1.5M in pre-seed funding. Aegent lets anyone build agents that listen to real-world triggers and act autonomously through integrations, without writing a single line of code.
+                    Aegent is akakAI's no-code autonomous AI agent platform. It lets anyone build agents that listen to real-world triggers — email inboxes, cron schedules, Slack channels — and act autonomously through integrations, without writing a single line of code.
                   </p>
                   <p className="text-[17px] text-gray-600 leading-[1.85]">
-                    Agents on Aegent are driven by listeners — event sources like email inboxes, cron schedules, Slack channels, and more — and respond by executing tools from a community-built integration library. Every agent run is evaluated, summarized, and stored for monitoring and improvement.
+                    Agents on Aegent are driven by listeners — event sources that wake the agent when something happens — and respond by executing tools from a community-built integration library. Every run is evaluated, summarized, and stored for monitoring and improvement.
                   </p>
                 </div>
-                <div className="flex flex-col justify-center border-l border-gray-200 pl-12">
-                  <p className="text-[17px] text-gray-600 leading-[1.85] mb-5">
-                    akakAI closed $1.5M in pre-seed funding. Aegent features a community integration library, cron and email listeners, live thread monitoring, and a full evaluation framework for agent runs.
+                <div className="flex flex-col justify-center border-l border-gray-200 pl-12 gap-5">
+                  <p className="text-[17px] text-gray-600 leading-[1.85]">
+                    akakAI closed $1.5M in pre-seed funding on the strength of Aegent's architecture and vision — demonstrating that production-grade autonomous AI doesn't require a team of engineers.
                   </p>
                   <a href="https://aegent.akakai.com" target="_blank" rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 text-[13px] text-gray-500 border border-gray-200 px-5 py-2.5 rounded-full hover:border-gray-400 hover:text-gray-900 transition-colors w-fit">
@@ -781,44 +781,193 @@ export default function CompanyPage() {
               </div>
             </Section>
 
-            {/* What It Does */}
+            {/* Challenge */}
             <Section root={scrollRef} delay={60}>
-              <SectionLabel>⚡ Core Capabilities</SectionLabel>
+              <SectionLabel>🧩 The Challenge</SectionLabel>
+              <div className="grid grid-cols-2 gap-12 mb-10">
+                <div>
+                  <h3 className="text-[24px] text-gray-900 leading-tight mb-5" style={{ fontWeight: 500 }}>
+                    Building AI agents today requires significant engineering.
+                  </h3>
+                  <p className="text-[17px] text-gray-600 leading-[1.85]">
+                    LLM orchestration, tool calling, event listeners, integration management, and evaluation all need to be wired together manually. No platform made this accessible without code while still being powerful enough for production workflows.
+                  </p>
+                </div>
+                <div className="flex flex-col justify-center border-l border-gray-200 pl-12">
+                  <p className="text-[17px] text-gray-600 leading-[1.85]">
+                    Non-technical users needed to configure complex agentic behavior — listeners, scripts, memory, escalation — without touching code. And every agent run needed to be fully observable, not a black box.
+                  </p>
+                </div>
+              </div>
               <div className="grid grid-cols-2 gap-5">
                 {[
-                  { emoji: "👂", label: "Event Listeners", desc: "Agents are always on, monitoring email inboxes, Slack channels, cron schedules, and webhooks. When something happens, the agent wakes up and acts — no manual trigger needed." },
-                  { emoji: "🔗", label: "Integration Library", desc: "A community-built library of pre-built integrations — databases, email, Slack, APIs — that agents can call as tools during their runs. Anyone can contribute." },
-                  { emoji: "🧵", label: "Live Thread Monitoring", desc: "Every agent run is a live, inspectable thread. See every decision, every tool call, every output in real time. No black boxes." },
-                  { emoji: "📊", label: "Evaluation Framework", desc: "Every run is evaluated, scored, and summarized. Agents improve over time as their performance is tracked and analyzed across runs." },
+                  { label: "Diverse event sources", desc: "Agents needed to listen to emails, schedules, and webhooks — not just chat inputs." },
+                  { label: "Full observability", desc: "Every run needed step-by-step traces, integration call logs, success evaluation, and key learnings." },
+                  { label: "Open integration ecosystem", desc: "Integrations had to be community-contributed and shareable, not locked to one vendor." },
+                  { label: "No-code complexity", desc: "Non-technical users needed to configure listeners, scripts, memory, and escalation without code." },
                 ].map((c, i) => (
                   <Reveal key={i} root={scrollRef} delay={i * 40}>
-                    <Card className="bg-gray-50 rounded-xl p-7 cursor-default">
-                      <div className="text-2xl mb-4">{c.emoji}</div>
-                      <p className="text-[16px] text-gray-900 mb-3" style={{ fontWeight: 500 }}>{c.label}</p>
-                      <p className="text-[15px] text-gray-500 leading-[1.8]">{c.desc}</p>
+                    <Card className="bg-gray-50 rounded-xl p-6 cursor-default">
+                      <p className="text-[15px] text-gray-900 mb-2" style={{ fontWeight: 500 }}>{c.label}</p>
+                      <p className="text-[14px] text-gray-500 leading-[1.75]">{c.desc}</p>
                     </Card>
                   </Reveal>
                 ))}
               </div>
             </Section>
 
-            {/* Context */}
+            {/* Solution — Agent Builder */}
             <Section root={scrollRef} delay={60}>
-              <SectionLabel>💡 The Problem It Solves</SectionLabel>
+              <SectionLabel>🛠️ Solution</SectionLabel>
+              <div className="grid grid-cols-2 gap-12 mb-10">
+                <div>
+                  <h3 className="text-[24px] text-gray-900 leading-tight mb-5" style={{ fontWeight: 500 }}>
+                    Agent Builder
+                  </h3>
+                  <p className="text-[17px] text-gray-600 leading-[1.85] mb-4">
+                    Each agent has a configurable identity, behavior profile, and additional context that shapes how the underlying LLM responds. Agents are structured around a sidebar — Identity, Behavior, Additional Info — with separate tabs for Connections, Monitoring, and Developer tools.
+                  </p>
+                  <p className="text-[17px] text-gray-600 leading-[1.85]">
+                    The agent builder is fully no-code and persists all configuration to a per-agent database, giving users complete control over how their agent behaves without writing a line of code.
+                  </p>
+                </div>
+                <div className="flex flex-col justify-center border-l border-gray-200 pl-12">
+                  <Image src="/aegent-thread.png" alt="Aegent thread monitoring" width={900} height={600}
+                    className="w-full rounded-xl border border-gray-100 object-cover" />
+                </div>
+              </div>
+            </Section>
+
+            {/* Solution — Listeners */}
+            <Section root={scrollRef} delay={60}>
+              <div className="grid grid-cols-2 gap-12 mb-8">
+                <div>
+                  <h3 className="text-[24px] text-gray-900 leading-tight mb-5" style={{ fontWeight: 500 }}>
+                    Listeners
+                  </h3>
+                  <p className="text-[17px] text-gray-600 leading-[1.85] mb-4">
+                    Listeners are the trigger layer — they define when an agent runs. Aegent supports two core listener types that cover the majority of real-world automation use cases.
+                  </p>
+                  <div className="flex flex-col gap-4 mt-6">
+                    {[
+                      { label: "Email Inbox (IMAP)", desc: "Monitors an email inbox via IMAP polling. When a new email arrives, it triggers the agent with the full message context. Configurable poll interval, SMTP credentials, and active/inactive toggle." },
+                      { label: "Cron Job", desc: "Triggers the agent on a schedule defined by a cron expression. Unlike polling listeners, cron jobs only fire when the schedule matches — saving API calls for time-sensitive recurring tasks." },
+                    ].map((item) => (
+                      <Card key={item.label} className="bg-gray-50 rounded-xl p-5 cursor-default">
+                        <p className="text-[14px] text-gray-900 mb-1.5" style={{ fontWeight: 500 }}>{item.label}</p>
+                        <p className="text-[14px] text-gray-500 leading-[1.75]">{item.desc}</p>
+                      </Card>
+                    ))}
+                  </div>
+                </div>
+                <div className="flex flex-col gap-5 justify-center border-l border-gray-200 pl-12">
+                  <Image src="/aegent-listener-email.png" alt="Email inbox listener" width={900} height={500}
+                    className="w-full rounded-xl border border-gray-100 object-cover" />
+                  <Image src="/aegent-listener-cron.png" alt="Cron job listener" width={900} height={500}
+                    className="w-full rounded-xl border border-gray-100 object-cover" />
+                </div>
+              </div>
+            </Section>
+
+            {/* Solution — Integration Library */}
+            <Section root={scrollRef} delay={60}>
               <div className="grid grid-cols-2 gap-12">
                 <div>
-                  <h3 className="text-[24px] text-gray-900 leading-tight mb-6" style={{ fontWeight: 500 }}>
-                    Most AI requires constant human prompting. Aegent doesn't.
+                  <h3 className="text-[24px] text-gray-900 leading-tight mb-5" style={{ fontWeight: 500 }}>
+                    Community Integration Library
+                  </h3>
+                  <p className="text-[17px] text-gray-600 leading-[1.85] mb-4">
+                    Integrations are the action layer — tools agents can call during a run. Aegent's community library includes integrations built and published by akakAI and contributors: Email Send, Slack, Database (SQL), Microsoft Teams, Twilio SMS, PayPal, Google Calendar, and more.
+                  </p>
+                  <p className="text-[17px] text-gray-600 leading-[1.85]">
+                    Each integration has a structured parameter schema and can be added to any agent with one click. The community model enables the platform to scale capabilities without central engineering bottlenecks.
+                  </p>
+                </div>
+                <div className="flex flex-col justify-center border-l border-gray-200 pl-12">
+                  <Image src="/aegent-integrations.png" alt="Community integration library" width={900} height={600}
+                    className="w-full rounded-xl border border-gray-100 object-cover" />
+                </div>
+              </div>
+            </Section>
+
+            {/* Solution — Thread Monitoring & Evaluation */}
+            <Section root={scrollRef} delay={60}>
+              <div className="grid grid-cols-2 gap-12">
+                <div>
+                  <h3 className="text-[24px] text-gray-900 leading-tight mb-5" style={{ fontWeight: 500 }}>
+                    Thread Monitoring & Evaluation
+                  </h3>
+                  <p className="text-[17px] text-gray-600 leading-[1.85] mb-4">
+                    Every agent run produces a full thread: a timestamped, step-by-step trace of every event received, agent action taken, integration called, and interaction concluded.
+                  </p>
+                  <p className="text-[17px] text-gray-600 leading-[1.85]">
+                    Each thread is evaluated automatically — the agent receives a success score, keyword tags, a step pattern summary, conversation summary, and key learnings. This makes every run observable, auditable, and improvable over time.
+                  </p>
+                </div>
+                <div className="flex flex-col justify-center border-l border-gray-200 pl-12">
+                  <Image src="/aegent-evaluation.png" alt="Thread evaluation" width={900} height={700}
+                    className="w-full rounded-xl border border-gray-100 object-cover" />
+                </div>
+              </div>
+            </Section>
+
+            {/* Key Features */}
+            <Section root={scrollRef} delay={60}>
+              <SectionLabel>⚡ Key Features</SectionLabel>
+              <div className="grid grid-cols-3 gap-5">
+                {[
+                  { label: "No-Code Agent Builder", desc: "Full agent configuration — identity, behavior, memory, escalation — without writing code." },
+                  { label: "Email Inbox Listener", desc: "IMAP-based inbox monitoring that triggers agents on new messages with configurable polling." },
+                  { label: "Cron Job Listener", desc: "Schedule-based triggers using cron expressions for recurring autonomous tasks." },
+                  { label: "Community Integration Library", desc: "Shared, versioned integrations (Email, Slack, SQL, Twilio, PayPal, Teams, Calendar) addable to any agent." },
+                  { label: "Live Thread Monitoring", desc: "Full step-by-step traces of every agent run with timestamps and integration call results." },
+                  { label: "Automatic Evaluation", desc: "Per-run success scoring, keyword tagging, step pattern analysis, conversation summaries, and key learnings." },
+                  { label: "Master Memory & Knowledge Base", desc: "Persistent agent memory and a structured knowledge base for context-aware responses." },
+                  { label: "Escalation System", desc: "Configurable escalation rules and logs for when agents need human review." },
+                  { label: "Open API", desc: "Developer access to agent internals for programmatic control and custom integrations." },
+                ].map((c, i) => (
+                  <Reveal key={i} root={scrollRef} delay={i * 30}>
+                    <Card className="bg-gray-50 rounded-xl p-6 cursor-default">
+                      <p className="text-[15px] text-gray-900 mb-2" style={{ fontWeight: 500 }}>{c.label}</p>
+                      <p className="text-[14px] text-gray-500 leading-[1.75]">{c.desc}</p>
+                    </Card>
+                  </Reveal>
+                ))}
+              </div>
+            </Section>
+
+            {/* Impact */}
+            <Section root={scrollRef} delay={60}>
+              <SectionLabel>📈 Impact</SectionLabel>
+              <div className="grid grid-cols-2 gap-12 mb-10">
+                <div>
+                  <h3 className="text-[24px] text-gray-900 leading-tight mb-5" style={{ fontWeight: 500 }}>
+                    Aegent proves that autonomous AI doesn't require a team of engineers.
                   </h3>
                   <p className="text-[17px] text-gray-600 leading-[1.85]">
-                    Every existing AI tool is reactive: you ask, it answers. Aegent is built around the opposite model — agents that watch, decide, and act without waiting. You define the agent's identity, connect its listeners, and let it run.
+                    By separating listeners, integrations, and evaluation into composable primitives, Aegent makes production-grade AI agents accessible to anyone. The right abstraction layer is all it takes.
                   </p>
                 </div>
                 <div className="flex flex-col justify-center border-l border-gray-200 pl-12">
                   <p className="text-[17px] text-gray-600 leading-[1.85]">
-                    The result is a platform where non-technical users can deploy genuinely autonomous agents in minutes — agents that handle real business workflows across email, databases, scheduling, and external APIs.
+                    The evaluation framework transforms opaque agent behavior into observable, improvable workflows — and the community integration model means the platform scales capabilities without central engineering bottlenecks.
                   </p>
                 </div>
+              </div>
+              <div className="grid grid-cols-2 gap-5">
+                {[
+                  { label: "$1.5M Pre-Seed Closed", desc: "akakAI closed $1.5M in pre-seed funding on the strength of Aegent's architecture and vision." },
+                  { label: "End-to-End Platform", desc: "Built the entire platform — from agent runtime and LLM orchestration to the community integration library and evaluation framework." },
+                  { label: "Scalable Integration Model", desc: "Community integration library model enables the platform to scale capabilities without central engineering bottlenecks." },
+                  { label: "Observable Agent Behavior", desc: "Evaluation framework transforms opaque agent behavior into observable, improvable workflows." },
+                ].map((c, i) => (
+                  <Reveal key={i} root={scrollRef} delay={i * 40}>
+                    <Card className="border border-gray-100 rounded-xl p-6 cursor-default">
+                      <p className="text-[15px] text-gray-900 mb-2" style={{ fontWeight: 500 }}>{c.label}</p>
+                      <p className="text-[14px] text-gray-500 leading-[1.75]">{c.desc}</p>
+                    </Card>
+                  </Reveal>
+                ))}
               </div>
             </Section>
           </div>

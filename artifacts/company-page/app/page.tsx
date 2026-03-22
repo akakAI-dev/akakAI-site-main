@@ -209,8 +209,8 @@ export default function CompanyPage() {
       {/* SCROLLABLE BODY */}
       <div ref={scrollRef} className="flex-1 overflow-y-auto page-scroll" style={{ scrollbarGutter: "stable" }}>
 
-        {/* HERO */}
-        <div className="px-8 border-b border-gray-100 flex items-stretch min-h-[220px]">
+        {/* HERO — hidden when inside a case study */}
+        {projectView === null && <div className="px-8 border-b border-gray-100 flex items-stretch min-h-[220px]">
           {/* Badge logo — with right border */}
           <div className="flex-none flex items-center pr-10 py-10 border-r border-gray-100 mr-10">
             <Image src="/logo-badge.png" alt="akakAI badge" width={240} height={240}
@@ -236,7 +236,7 @@ export default function CompanyPage() {
               {activeTab === "projects" && "Many products. One conviction. Agents that don't wait to be asked — they understand, decide, and act."}
             </p>
           </div>
-        </div>
+        </div>}
 
         {/* ═══ ABOUT ═══ */}
         {activeTab === "about" && (
@@ -657,9 +657,9 @@ export default function CompanyPage() {
 
                 {/* Aegent Card */}
                 <Card className="border border-gray-100 rounded-2xl overflow-hidden">
-                  <div className="bg-gray-900 px-8 py-10">
-                    <p className="text-[11px] uppercase tracking-[0.2em] text-gray-500 mb-3">01 — Autonomous Agent Platform</p>
-                    <h2 className="text-[38px] text-white leading-none mb-2" style={{ fontWeight: 500, fontStyle: "italic" }}>Aegent.</h2>
+                  <div className="bg-white px-8 py-10 border-b border-gray-100">
+                    <p className="text-[11px] uppercase tracking-[0.2em] text-gray-400 mb-3">01 — Autonomous Agent Platform</p>
+                    <h2 className="text-[38px] text-gray-900 leading-none mb-2" style={{ fontWeight: 500, fontStyle: "italic" }}>Aegent.</h2>
                     <p className="text-[14px] text-gray-400">by akakAI</p>
                   </div>
                   <div className="px-8 py-8">
@@ -688,7 +688,7 @@ export default function CompanyPage() {
 
                 {/* Email Card */}
                 <Card className="border border-gray-100 rounded-2xl overflow-hidden">
-                  <div className="bg-gray-50 px-8 py-10 border-b border-gray-100">
+                  <div className="bg-white px-8 py-10 border-b border-gray-100">
                     <p className="text-[11px] uppercase tracking-[0.2em] text-gray-400 mb-3">02 — Autonomous Email Agent</p>
                     <h2 className="text-[38px] text-gray-900 leading-none mb-2" style={{ fontWeight: 500, fontStyle: "italic" }}>Email.</h2>
                     <p className="text-[14px] text-gray-400">by akakAI</p>

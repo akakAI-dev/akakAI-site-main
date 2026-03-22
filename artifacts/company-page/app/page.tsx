@@ -50,7 +50,7 @@ function HiringCTA({ root }: { root: React.RefObject<HTMLDivElement | null> }) {
   return (
     <Reveal root={root} delay={60}>
       <div className="border border-gray-200 rounded-xl p-10">
-        <p className="text-[12px] uppercase tracking-[0.18em] text-gray-400 mb-5">🚀 We're Hiring</p>
+        <p className="text-[14px] uppercase tracking-[0.18em] text-gray-400 mb-5">🚀 We're Hiring</p>
         <h3 className="text-[34px] text-gray-900 leading-tight mb-4" style={{ fontWeight: 500 }}>
           Build what comes after passive AI.
         </h3>
@@ -147,7 +147,7 @@ export default function CompanyPage() {
           </div>
           {/* Hero text */}
           <div className="flex-1 flex flex-col justify-center py-10">
-            <p className="text-[12px] uppercase tracking-[0.18em] text-gray-400 mb-5">
+            <p className="text-[14px] uppercase tracking-[0.18em] text-gray-400 mb-5">
               {activeTab === "about" ? "Company Overview" : activeTab === "mission" ? "Our Mission" : activeTab === "team" ? "The Team" : "Investments"}
             </p>
             <h1 className="text-[62px] leading-[1.0] tracking-tight text-gray-900 mb-6" style={{ fontWeight: 500 }}>
@@ -170,7 +170,7 @@ export default function CompanyPage() {
           <div className="px-8 py-14 space-y-16">
 
             <Reveal root={scrollRef}>
-              <p className="text-[12px] uppercase tracking-[0.18em] text-gray-400 mb-8">🏗️ What We Are</p>
+              <p className="text-[14px] uppercase tracking-[0.18em] text-gray-400 mb-8">🏗️ What We Are</p>
               <div className="grid grid-cols-2 gap-12">
                 <div>
                   <h2 className="text-[32px] leading-tight text-gray-900 mb-6" style={{ fontWeight: 500 }}>
@@ -201,7 +201,7 @@ export default function CompanyPage() {
             </Reveal>
 
             <Reveal root={scrollRef} delay={60}>
-              <p className="text-[12px] uppercase tracking-[0.18em] text-gray-400 mb-8">⚙️ What Our Agents Do</p>
+              <p className="text-[14px] uppercase tracking-[0.18em] text-gray-400 mb-8">⚙️ What Our Agents Do</p>
               <div className="grid grid-cols-2 gap-5">
                 {[
                   { emoji: "🧠", label: "Independent Thinking", desc: "Real reasoning — not pattern-matching. Our agents decompose goals, weigh options, and find the right path even when the instructions stop short of telling them how." },
@@ -223,7 +223,7 @@ export default function CompanyPage() {
             </Reveal>
 
             <Reveal root={scrollRef} delay={60}>
-              <p className="text-[12px] uppercase tracking-[0.18em] text-gray-400 mb-8">🔬 The Technology</p>
+              <p className="text-[14px] uppercase tracking-[0.18em] text-gray-400 mb-8">🔬 The Technology</p>
               <div className="grid grid-cols-2 gap-12">
                 <div>
                   <h2 className="text-[28px] leading-tight text-gray-900 mb-6" style={{ fontWeight: 500 }}>
@@ -245,7 +245,7 @@ export default function CompanyPage() {
             </Reveal>
 
             <Reveal root={scrollRef} delay={60}>
-              <p className="text-[12px] uppercase tracking-[0.18em] text-gray-400 mb-8">💡 What We Believe</p>
+              <p className="text-[14px] uppercase tracking-[0.18em] text-gray-400 mb-8">💡 What We Believe</p>
               <div className="flex flex-wrap gap-3">
                 {[
                   { emoji: "🚫", text: "AI shouldn't wait for direction" },
@@ -273,7 +273,7 @@ export default function CompanyPage() {
             <Reveal root={scrollRef}>
               <div className="grid grid-cols-2 gap-12">
                 <div>
-                  <p className="text-[12px] uppercase tracking-[0.18em] text-gray-400 mb-8">🎯 The Mission</p>
+                  <p className="text-[14px] uppercase tracking-[0.18em] text-gray-400 mb-8">🎯 The Mission</p>
                   <h2 className="text-[34px] leading-[1.2] text-gray-900 mb-7" style={{ fontWeight: 500 }}>
                     "Make action the default, not the exception."
                   </h2>
@@ -293,7 +293,7 @@ export default function CompanyPage() {
             </Reveal>
 
             <Reveal root={scrollRef} delay={60}>
-              <p className="text-[12px] uppercase tracking-[0.18em] text-gray-400 mb-8">💭 What We Believe</p>
+              <p className="text-[14px] uppercase tracking-[0.18em] text-gray-400 mb-8">💭 What We Believe</p>
               <div className="grid grid-cols-2 gap-5">
                 {[
                   { emoji: "🌊", heading: "We are at an inflection point.", body: "Every decade, a new computing paradigm shifts what's possible. The internet connected information. Mobile connected people. AI is connecting intent to action — and we are at the very beginning of understanding what that means. akakAI exists to push that frontier forward, deliberately and without compromise." },
@@ -313,7 +313,7 @@ export default function CompanyPage() {
             </Reveal>
 
             <Reveal root={scrollRef} delay={60}>
-              <p className="text-[12px] uppercase tracking-[0.18em] text-gray-400 mb-8">🧭 Four Principles</p>
+              <p className="text-[14px] uppercase tracking-[0.18em] text-gray-400 mb-8">🧭 Four Principles</p>
               <div className="grid grid-cols-2 gap-5">
                 {[
                   { emoji: "👁️", word: "Anticipate", desc: "The most powerful move isn't reacting — it's already being in motion before the problem is named. Our agents see what's coming and act before anyone asks." },
@@ -333,7 +333,7 @@ export default function CompanyPage() {
             </Reveal>
 
             <Reveal root={scrollRef} delay={60}>
-              <p className="text-[12px] uppercase tracking-[0.18em] text-gray-400 mb-8">🌊 The Next Wave</p>
+              <p className="text-[14px] uppercase tracking-[0.18em] text-gray-400 mb-8">🌊 The Next Wave</p>
               <div className="grid grid-cols-2 gap-12">
                 <div>
                   <h2 className="text-[28px] leading-tight text-gray-900 mb-6" style={{ fontWeight: 500 }}>
@@ -352,7 +352,7 @@ export default function CompanyPage() {
             </Reveal>
 
             <Reveal root={scrollRef} delay={60}>
-              <p className="text-[12px] uppercase tracking-[0.18em] text-gray-400 mb-8">🚫 What akakAI Is Not</p>
+              <p className="text-[14px] uppercase tracking-[0.18em] text-gray-400 mb-8">🚫 What akakAI Is Not</p>
               <div className="grid grid-cols-2 gap-5">
                 {[
                   { emoji: "💬", label: "A chatbot", desc: "Chatbots respond. Agents act. The architecture, the intent, and the outcome are entirely different." },
@@ -383,7 +383,7 @@ export default function CompanyPage() {
             <Reveal root={scrollRef}>
               <div className="grid grid-cols-2 gap-12">
                 <div>
-                  <p className="text-[12px] uppercase tracking-[0.18em] text-gray-400 mb-8">👤 Co-founder & CEO</p>
+                  <p className="text-[14px] uppercase tracking-[0.18em] text-gray-400 mb-8">👤 Co-founder & CEO</p>
                   <h2 className="text-[42px] leading-none text-gray-900 mb-3" style={{ fontWeight: 500 }}>Zayd Malik</h2>
                   <p className="text-[14px] text-gray-400 mb-8 uppercase tracking-[0.12em]">akakAI</p>
                   <p className="text-[22px] text-gray-900 leading-[1.4] mb-8" style={{ fontWeight: 400 }}>
@@ -406,7 +406,7 @@ export default function CompanyPage() {
             <Reveal root={scrollRef} delay={60}>
               <div className="grid grid-cols-2 gap-12 pt-2 border-t border-gray-100">
                 <div className="pt-12">
-                  <p className="text-[12px] uppercase tracking-[0.18em] text-gray-400 mb-8">👤 Co-founder & Agent Developer</p>
+                  <p className="text-[14px] uppercase tracking-[0.18em] text-gray-400 mb-8">👤 Co-founder & Agent Developer</p>
                   <h2 className="text-[42px] leading-none text-gray-900 mb-3" style={{ fontWeight: 500 }}>Abhiram Vishnubhotla</h2>
                   <p className="text-[14px] text-gray-400 mb-8 uppercase tracking-[0.12em]">akakAI</p>
                   <p className="text-[22px] text-gray-900 leading-[1.4] mb-8" style={{ fontWeight: 400 }}>
@@ -432,7 +432,7 @@ export default function CompanyPage() {
             <Reveal root={scrollRef} delay={60}>
               <div className="grid grid-cols-2 gap-12">
                 <div>
-                  <p className="text-[12px] uppercase tracking-[0.18em] text-gray-400 mb-8">🔬 The Approach</p>
+                  <p className="text-[14px] uppercase tracking-[0.18em] text-gray-400 mb-8">🔬 The Approach</p>
                   <h2 className="text-[28px] leading-tight text-gray-900 mb-6" style={{ fontWeight: 500 }}>
                     Capability over complexity — always.
                   </h2>
@@ -452,7 +452,7 @@ export default function CompanyPage() {
             </Reveal>
 
             <Reveal root={scrollRef} delay={60}>
-              <p className="text-[12px] uppercase tracking-[0.18em] text-gray-400 mb-8">💡 What Drives This</p>
+              <p className="text-[14px] uppercase tracking-[0.18em] text-gray-400 mb-8">💡 What Drives This</p>
               <div className="grid grid-cols-2 gap-5">
                 {[
                   { emoji: "🔍", title: "The Problem", text: "Passive tools, overhyped AI, systems that wait for input instead of taking initiative. The gap between what AI promised and what it delivered." },
@@ -472,7 +472,7 @@ export default function CompanyPage() {
             </Reveal>
 
             <Reveal root={scrollRef} delay={60}>
-              <p className="text-[12px] uppercase tracking-[0.18em] text-gray-400 mb-6">🏷️ The Team in Tags</p>
+              <p className="text-[14px] uppercase tracking-[0.18em] text-gray-400 mb-6">🏷️ The Team in Tags</p>
               <div className="flex flex-wrap gap-3">
                 {[
                   { emoji: "🚫", text: "Anti-hype" },
@@ -501,7 +501,7 @@ export default function CompanyPage() {
             <Reveal root={scrollRef}>
               <div className="grid grid-cols-2 gap-12">
                 <div>
-                  <p className="text-[12px] uppercase tracking-[0.18em] text-gray-400 mb-8">📬 Investment Inquiries</p>
+                  <p className="text-[14px] uppercase tracking-[0.18em] text-gray-400 mb-8">📬 Investment Inquiries</p>
                   <h2 className="text-[32px] leading-tight text-gray-900 mb-6" style={{ fontWeight: 500 }}>
                     Interested in backing the next wave?
                   </h2>
@@ -523,7 +523,7 @@ export default function CompanyPage() {
 
             {/* Press Release */}
             <Reveal root={scrollRef} delay={60}>
-              <p className="text-[12px] uppercase tracking-[0.18em] text-gray-400 mb-8">📰 Press</p>
+              <p className="text-[14px] uppercase tracking-[0.18em] text-gray-400 mb-8">📰 Press</p>
               <div className="border border-gray-100 rounded-xl p-10">
                 <div className="flex items-start justify-between mb-8">
                   <div>
@@ -558,11 +558,11 @@ export default function CompanyPage() {
 
                 <div className="border-t border-gray-100 pt-8 mt-8 grid grid-cols-2 gap-8">
                   <div>
-                    <p className="text-[12px] uppercase tracking-[0.15em] text-gray-400 mb-2">Website</p>
+                    <p className="text-[14px] uppercase tracking-[0.15em] text-gray-400 mb-2">Website</p>
                     <a href="https://akakai.com" className="text-[15px] text-gray-700 hover:text-gray-900 transition-colors">akakai.com</a>
                   </div>
                   <div>
-                    <p className="text-[12px] uppercase tracking-[0.15em] text-gray-400 mb-2">Media Contact</p>
+                    <p className="text-[14px] uppercase tracking-[0.15em] text-gray-400 mb-2">Media Contact</p>
                     <a href="mailto:media@akakai.com" className="text-[15px] text-gray-700 hover:text-gray-900 transition-colors">media@akakai.com</a>
                   </div>
                 </div>

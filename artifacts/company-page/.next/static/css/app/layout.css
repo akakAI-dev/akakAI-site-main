@@ -486,6 +486,12 @@ video {
 .mb-7{
   margin-bottom: 1.75rem;
 }
+.mb-0\.5{
+  margin-bottom: 0.125rem;
+}
+.mb-1{
+  margin-bottom: 0.25rem;
+}
 .inline-block{
   display: inline-block;
 }
@@ -543,6 +549,9 @@ video {
 .w-11{
   width: 2.75rem;
 }
+.w-14{
+  width: 3.5rem;
+}
 .max-w-2xl{
   max-width: 42rem;
 }
@@ -551,6 +560,9 @@ video {
 }
 .max-w-lg{
   max-width: 32rem;
+}
+.max-w-md{
+  max-width: 28rem;
 }
 .flex-1{
   flex: 1 1 0%;
@@ -564,11 +576,17 @@ video {
 .transform{
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
+.cursor-default{
+  cursor: default;
+}
 .grid-cols-2{
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 .grid-cols-3{
   grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.grid-cols-4{
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 .flex-col{
   flex-direction: column;
@@ -609,6 +627,15 @@ video {
 .gap-7{
   gap: 1.75rem;
 }
+.gap-0{
+  gap: 0px;
+}
+.gap-3{
+  gap: 0.75rem;
+}
+.gap-4{
+  gap: 1rem;
+}
 .space-y-0 > :not([hidden]) ~ :not([hidden]){
   --tw-space-y-reverse: 0;
   margin-top: calc(0px * calc(1 - var(--tw-space-y-reverse)));
@@ -623,6 +650,30 @@ video {
   --tw-space-y-reverse: 0;
   margin-top: calc(1.25rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(1.25rem * var(--tw-space-y-reverse));
+}
+.space-y-10 > :not([hidden]) ~ :not([hidden]){
+  --tw-space-y-reverse: 0;
+  margin-top: calc(2.5rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(2.5rem * var(--tw-space-y-reverse));
+}
+.space-y-12 > :not([hidden]) ~ :not([hidden]){
+  --tw-space-y-reverse: 0;
+  margin-top: calc(3rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(3rem * var(--tw-space-y-reverse));
+}
+.space-y-3 > :not([hidden]) ~ :not([hidden]){
+  --tw-space-y-reverse: 0;
+  margin-top: calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(0.75rem * var(--tw-space-y-reverse));
+}
+.divide-x > :not([hidden]) ~ :not([hidden]){
+  --tw-divide-x-reverse: 0;
+  border-right-width: calc(1px * var(--tw-divide-x-reverse));
+  border-left-width: calc(1px * calc(1 - var(--tw-divide-x-reverse)));
+}
+.divide-gray-100 > :not([hidden]) ~ :not([hidden]){
+  --tw-divide-opacity: 1;
+  border-color: rgb(243 244 246 / var(--tw-divide-opacity, 1));
 }
 .overflow-hidden{
   overflow: hidden;
@@ -698,6 +749,12 @@ video {
 .p-8{
   padding: 2rem;
 }
+.p-4{
+  padding: 1rem;
+}
+.p-7{
+  padding: 1.75rem;
+}
 .px-10{
   padding-left: 2.5rem;
   padding-right: 2.5rem;
@@ -750,6 +807,10 @@ video {
   padding-top: 1.25rem;
   padding-bottom: 1.25rem;
 }
+.py-10{
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+}
 .pb-10{
   padding-bottom: 2.5rem;
 }
@@ -770,6 +831,18 @@ video {
 }
 .pt-12{
   padding-top: 3rem;
+}
+.pb-8{
+  padding-bottom: 2rem;
+}
+.pl-10{
+  padding-left: 2.5rem;
+}
+.pl-5{
+  padding-left: 1.25rem;
+}
+.text-center{
+  text-align: center;
 }
 .font-sans{
   font-family: Inter, system-ui, sans-serif;
@@ -845,6 +918,21 @@ video {
   font-size: 1.125rem;
   line-height: 1.75rem;
 }
+.text-\[17px\]{
+  font-size: 17px;
+}
+.text-\[19px\]{
+  font-size: 19px;
+}
+.text-\[26px\]{
+  font-size: 26px;
+}
+.text-\[32px\]{
+  font-size: 32px;
+}
+.text-\[50px\]{
+  font-size: 50px;
+}
 .font-black{
   font-weight: 900;
 }
@@ -856,6 +944,9 @@ video {
 }
 .font-semibold{
   font-weight: 600;
+}
+.font-light{
+  font-weight: 300;
 }
 .uppercase{
   text-transform: uppercase;
@@ -880,6 +971,9 @@ video {
 }
 .leading-\[1\.85\]{
   line-height: 1.85;
+}
+.leading-none{
+  line-height: 1;
 }
 .tracking-\[0\.12em\]{
   letter-spacing: 0.12em;
@@ -919,6 +1013,24 @@ video {
 .text-white{
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+}
+.text-gray-600{
+  --tw-text-opacity: 1;
+  color: rgb(75 85 99 / var(--tw-text-opacity, 1));
+}
+.text-gray-700{
+  --tw-text-opacity: 1;
+  color: rgb(55 65 81 / var(--tw-text-opacity, 1));
+}
+.text-gray-800{
+  --tw-text-opacity: 1;
+  color: rgb(31 41 55 / var(--tw-text-opacity, 1));
+}
+.line-through{
+  text-decoration-line: line-through;
+}
+.decoration-gray-300{
+  text-decoration-color: #d1d5db;
 }
 .antialiased{
   -webkit-font-smoothing: antialiased;

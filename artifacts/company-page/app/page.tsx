@@ -189,62 +189,74 @@ export default function CompanyPage() {
   ];
 
   return (
-    <div className="fixed inset-[4px] sm:inset-[10px] rounded-xl sm:rounded-2xl bg-white border border-gray-200 shadow-sm sm:overflow-hidden flex flex-col overflow-y-auto">
-
-      {/* NAV */}
-      <nav className="sticky top-0 z-20 bg-white flex-none border-b border-gray-100 shrink-0">
-        {/* Main row */}
-        <div className="flex items-center justify-between px-4 sm:px-8 h-[48px] sm:h-[56px]">
-          <Image src="/logo-horizontal.png" alt="akakAI" width={120} height={30}
-            style={{ filter: "invert(1) brightness(0)" }} className="h-5 sm:h-6 w-auto" priority />
-          {/* Desktop: all tabs + socials */}
-          <div className="hidden sm:flex items-center gap-8 text-[14px] text-gray-500">
+    <>
+      {/* Mobile full-screen nav overlay */}
+      {navOpen && (
+        <div className="sm:hidden fixed inset-0 z-50 bg-white flex flex-col">
+          <div className="flex items-center justify-between px-5 h-[52px] border-b border-gray-100">
+            <Image src="/logo-horizontal.png" alt="akakAI" width={100} height={24}
+              style={{ filter: "invert(1) brightness(0)" }} className="h-5 w-auto" priority />
+            <button onClick={() => setNavOpen(false)} className="text-gray-400 hover:text-gray-900 transition-colors p-1">
+              <X size={20} />
+            </button>
+          </div>
+          <div className="flex-1 flex flex-col justify-center px-8 gap-1">
             {tabs.map((t) => (
               <button key={t.id}
                 onClick={() => switchTab(t.id)}
-                className={`transition-colors duration-150 ${activeTab === t.id ? "text-gray-900" : "hover:text-gray-700"}`}>
+                className={`text-left py-3 text-[22px] tracking-tight transition-colors ${activeTab === t.id ? "text-gray-900" : "text-gray-300 hover:text-gray-600"}`}
+                style={{ fontWeight: 500 }}>
                 {t.label}
               </button>
             ))}
-            <span className="text-gray-200">|</span>
+          </div>
+          <div className="flex items-center gap-6 px-8 pb-10">
             {socials.map((s) => (
               <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer"
-                className="text-gray-400 hover:text-gray-800 transition-colors duration-150" aria-label={s.label}>
+                className="text-gray-400 hover:text-gray-800 transition-colors" aria-label={s.label}>
                 {s.icon}
               </a>
             ))}
           </div>
-          {/* Mobile: hamburger */}
-          <button
-            className="sm:hidden p-1 text-gray-500 hover:text-gray-900 transition-colors"
-            onClick={() => setNavOpen(o => !o)}
-            aria-label="Menu">
-            {navOpen ? <X size={20} /> : <Menu size={20} />}
-          </button>
         </div>
-        {/* Mobile dropdown */}
-        {navOpen && (
-          <div className="sm:hidden border-t border-gray-100 bg-white">
-            {tabs.map((t) => (
-              <button key={t.id}
-                onClick={() => switchTab(t.id)}
-                className={`w-full text-left px-5 py-3.5 text-[15px] border-b border-gray-50 transition-colors ${activeTab === t.id ? "text-gray-900 font-medium" : "text-gray-500"}`}>
-                {t.label}
-              </button>
-            ))}
-            <div className="flex items-center gap-5 px-5 py-4">
+      )}
+
+      {/* MAIN CONTAINER — normal flow on mobile, fixed box on desktop */}
+      <div className="sm:fixed sm:inset-[10px] sm:rounded-2xl bg-white sm:border sm:border-gray-200 sm:shadow-sm sm:overflow-hidden flex flex-col min-h-screen sm:min-h-0">
+
+        {/* NAV */}
+        <nav className="sticky top-0 z-30 bg-white flex-none border-b border-gray-100 shrink-0">
+          <div className="flex items-center justify-between px-4 sm:px-8 h-[48px] sm:h-[56px]">
+            <Image src="/logo-horizontal.png" alt="akakAI" width={120} height={30}
+              style={{ filter: "invert(1) brightness(0)" }} className="h-5 sm:h-6 w-auto" priority />
+            {/* Desktop: all tabs + socials */}
+            <div className="hidden sm:flex items-center gap-8 text-[14px] text-gray-500">
+              {tabs.map((t) => (
+                <button key={t.id}
+                  onClick={() => switchTab(t.id)}
+                  className={`transition-colors duration-150 ${activeTab === t.id ? "text-gray-900" : "hover:text-gray-700"}`}>
+                  {t.label}
+                </button>
+              ))}
+              <span className="text-gray-200">|</span>
               {socials.map((s) => (
                 <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer"
-                  className="text-gray-400 hover:text-gray-800 transition-colors" aria-label={s.label}>
+                  className="text-gray-400 hover:text-gray-800 transition-colors duration-150" aria-label={s.label}>
                   {s.icon}
                 </a>
               ))}
             </div>
+            {/* Mobile: hamburger */}
+            <button
+              className="sm:hidden p-1 text-gray-500 hover:text-gray-900 transition-colors"
+              onClick={() => setNavOpen(true)}
+              aria-label="Menu">
+              <Menu size={20} />
+            </button>
           </div>
-        )}
-      </nav>
+        </nav>
 
-      {/* SCROLLABLE BODY — desktop only inner scroll; mobile scrolls the outer container */}
+      {/* SCROLLABLE BODY — desktop only inner scroll; mobile: natural page scroll */}
       <div ref={scrollRef} className="sm:flex-1 sm:overflow-y-auto page-scroll" style={{ scrollbarGutter: "stable" }}>
 
         {/* HERO — hidden when inside a case study */}
@@ -1195,6 +1207,7 @@ export default function CompanyPage() {
           </div>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 }

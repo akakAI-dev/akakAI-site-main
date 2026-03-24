@@ -226,12 +226,12 @@ export default function CompanyPage() {
                   {activeTab === "about" ? "Company Overview" : activeTab === "mission" ? "Our Mission" : activeTab === "team" ? "The Team" : activeTab === "investments" ? "Investments" : activeTab === "projects" ? "Our Products" : "Contact"}
                 </p>
                 <h1 className={`text-[30px] sm:text-[62px] leading-[1.05] sm:leading-[1.0] tracking-tight ${TEXT} mb-3 sm:mb-6`} style={{ fontWeight: 500 }}>
-                  {activeTab === "about" && <>AI that acts,<br /><span className="text-[#2a2a2a]">not just reacts.</span></>}
-                  {activeTab === "mission" && <>Action is the<br /><span className="text-[#2a2a2a]">default.</span></>}
-                  {activeTab === "team" && <>The people<br /><span className="text-[#2a2a2a]">building it.</span></>}
-                  {activeTab === "investments" && <>Backing the<br /><span className="text-[#2a2a2a]">next wave.</span></>}
-                  {activeTab === "projects" && <>What we&apos;ve<br /><span className="text-[#2a2a2a]">built.</span></>}
-                  {activeTab === "contact" && <>Let&apos;s build<br /><span className="text-[#2a2a2a]">together.</span></>}
+                  {activeTab === "about" && <>AI that acts,<br /><span className="bg-gradient-to-r from-orange-500 via-pink-500 to-rose-500 bg-clip-text text-transparent">not just reacts.</span></>}
+                  {activeTab === "mission" && <>Action is the<br /><span className="bg-gradient-to-r from-orange-500 via-pink-500 to-rose-500 bg-clip-text text-transparent">default.</span></>}
+                  {activeTab === "team" && <>The people<br /><span className="bg-gradient-to-r from-orange-500 via-pink-500 to-rose-500 bg-clip-text text-transparent">building it.</span></>}
+                  {activeTab === "investments" && <>Backing the<br /><span className="bg-gradient-to-r from-orange-500 via-pink-500 to-rose-500 bg-clip-text text-transparent">next wave.</span></>}
+                  {activeTab === "projects" && <>What we&apos;ve<br /><span className="bg-gradient-to-r from-orange-500 via-pink-500 to-rose-500 bg-clip-text text-transparent">built.</span></>}
+                  {activeTab === "contact" && <>Let&apos;s build<br /><span className="bg-gradient-to-r from-orange-500 via-pink-500 to-rose-500 bg-clip-text text-transparent">together.</span></>}
                 </h1>
                 <p className={`text-[15px] sm:text-[19px] ${MUTED} leading-[1.6] sm:leading-[1.7] max-w-2xl`}>
                   {activeTab === "about" && "Autonomous agents built to navigate complexity, make decisions, and deliver outcomes with minimal human intervention."}

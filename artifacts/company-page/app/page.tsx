@@ -504,11 +504,11 @@ export default function CompanyPage() {
                         ))}
                       </div>
                       <div className="flex items-center gap-3">
-                        <button
+                        {/* <button
                           onClick={() => { setProjectView("aegent"); scrollRef.current?.scrollTo({ top: 0, behavior: "smooth" }); }}
                           className="inline-flex items-center gap-2 bg-white text-black px-5 py-2.5 rounded-full text-[13px] hover:bg-zinc-200 transition-colors">
                           Case Study <ArrowUpRight size={13} />
-                        </button>
+                        </button> */}
                         <a href="https://aegent.akakai.com" target="_blank" rel="noopener noreferrer"
                           className={`inline-flex items-center gap-2 text-[13px] ${MUTED} border ${BORDER} px-5 py-2.5 rounded-full hover:border-[#444] hover:text-white transition-colors`}>
                           aegent.akakai.com <ArrowUpRight size={13} />
@@ -533,11 +533,11 @@ export default function CompanyPage() {
                         ))}
                       </div>
                       <div className="flex items-center gap-3">
-                        <button
+                        {/* <button
                           onClick={() => { setProjectView("email"); scrollRef.current?.scrollTo({ top: 0, behavior: "smooth" }); }}
                           className="inline-flex items-center gap-2 bg-white text-black px-5 py-2.5 rounded-full text-[13px] hover:bg-zinc-200 transition-colors">
                           Case Study <ArrowUpRight size={13} />
-                        </button>
+                        </button> */}
                         <a href="https://email.akakai.com" target="_blank" rel="noopener noreferrer"
                           className={`inline-flex items-center gap-2 text-[13px] ${MUTED} border ${BORDER} px-5 py-2.5 rounded-full hover:border-[#444] hover:text-white transition-colors`}>
                           email.akakai.com <ArrowUpRight size={13} />

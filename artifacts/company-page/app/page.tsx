@@ -139,7 +139,7 @@ export default function CompanyPage() {
     { id: "mission", label: "Mission" },
     { id: "team", label: "Team" },
     { id: "investments", label: "Investments" },
-    { id: "projects", label: "Projects" },
+    { id: "projects", label: "Products" },
     { id: "contact", label: "Get in touch" },
   ];
 
@@ -223,7 +223,7 @@ export default function CompanyPage() {
               </div>
               <div className="flex-1 flex flex-col justify-center py-7 sm:py-10">
                 <p className={`text-[11px] sm:text-[14px] uppercase tracking-[0.18em] ${LABEL_TEXT} mb-3 sm:mb-5`}>
-                  {activeTab === "about" ? "Company Overview" : activeTab === "mission" ? "Our Mission" : activeTab === "team" ? "The Team" : activeTab === "investments" ? "Investments" : activeTab === "projects" ? "Our Projects" : "Contact"}
+                  {activeTab === "about" ? "Company Overview" : activeTab === "mission" ? "Our Mission" : activeTab === "team" ? "The Team" : activeTab === "investments" ? "Investments" : activeTab === "projects" ? "Our Products" : "Contact"}
                 </p>
                 <h1 className={`text-[30px] sm:text-[62px] leading-[1.05] sm:leading-[1.0] tracking-tight ${TEXT} mb-3 sm:mb-6`} style={{ fontWeight: 500 }}>
                   {activeTab === "about" && <>AI that acts,<br /><span className="text-[#2a2a2a]">not just reacts.</span></>}
@@ -558,7 +558,7 @@ export default function CompanyPage() {
               <div className={`py-10 border-b ${BORDER}`}>
                 <button onClick={() => { setProjectView(null); scrollRef.current?.scrollTo({ top: 0, behavior: "smooth" }); }}
                   className={`inline-flex items-center gap-2 text-[13px] ${MUTED} hover:text-white transition-colors mb-10`}>
-                  Back to Projects
+                  Back to Products
                 </button>
                 <div className="grid grid-cols-1 sm:grid-cols-[2fr_1fr] gap-6 sm:gap-12 items-start">
                   <div>
@@ -715,7 +715,7 @@ export default function CompanyPage() {
               <div className={`py-10 border-b ${BORDER}`}>
                 <button onClick={() => { setProjectView(null); scrollRef.current?.scrollTo({ top: 0, behavior: "smooth" }); }}
                   className={`inline-flex items-center gap-2 text-[13px] ${MUTED} hover:text-white transition-colors mb-10`}>
-                  Back to Projects
+                  Back to Products
                 </button>
                 <div className="grid grid-cols-1 sm:grid-cols-[2fr_1fr] gap-6 sm:gap-12 items-start">
                   <div>

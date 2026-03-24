@@ -7,16 +7,16 @@ import { ArrowUpRight, Youtube, Instagram, Twitter, ChevronDown, Menu, X } from 
 type Tab = "about" | "mission" | "team" | "investments" | "projects" | "contact";
 type ProjectView = null | "aegent" | "email";
 
-/* ── Scroll-reveal ── */
-function Reveal({
-  children,
-  delay = 0,
-  className = "",
-  root,
-}: {
-  children: React.ReactNode;
-  delay?: number;
-  className?: string;
+const B = "#111";
+const BORDER = "border-[#222]";
+const CARD = "bg-[#191919]";
+const TEXT = "text-white";
+const MUTED = "text-[#666]";
+const LABEL_TEXT = "text-[#555]";
+
+/* Scroll-reveal */
+function Reveal({ children, delay = 0, className = "", root }: {
+  children: React.ReactNode; delay?: number; className?: string;
   root: React.RefObject<HTMLDivElement | null>;
 }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -32,52 +32,57 @@ function Reveal({
     return () => obs.disconnect();
   }, [root]);
   return (
-    <div
-      ref={ref}
-      className={className}
-      style={{
-        opacity: vis ? 1 : 0,
-        transform: vis ? "translateY(0)" : "translateY(20px)",
-        transition: `opacity 0.5s ease ${delay}ms, transform 0.5s ease ${delay}ms`,
-      }}
-    >
+    <div ref={ref} className={className} style={{
+      opacity: vis ? 1 : 0,
+      transform: vis ? "translateY(0)" : "translateY(20px)",
+      transition: `opacity 0.5s ease ${delay}ms, transform 0.5s ease ${delay}ms`,
+    }}>
       {children}
     </div>
   );
 }
 
-/* ── Section wrapper — adds divider above every section except first ── */
-function Section({
-  children,
-  first = false,
-  root,
-  delay = 0,
-}: {
-  children: React.ReactNode;
-  first?: boolean;
-  root: React.RefObject<HTMLDivElement | null>;
-  delay?: number;
+function Section({ children, first = false, root, delay = 0 }: {
+  children: React.ReactNode; first?: boolean;
+  root: React.RefObject<HTMLDivElement | null>; delay?: number;
 }) {
   return (
-    <Reveal root={root} delay={delay} className={`py-14 ${first ? "" : "border-t border-gray-100"}`}>
+    <Reveal root={root} delay={delay} className={`py-14 ${first ? "" : `border-t ${BORDER}`}`}>
       {children}
     </Reveal>
   );
 }
 
-/* ── Hiring CTA ── */
+function SectionLabel({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="mb-8">
+      <span className={`inline-flex items-center text-[11px] uppercase tracking-[0.18em] ${LABEL_TEXT} border border-[#2a2a2a] px-4 py-1.5 rounded-full`}>
+        {children}
+      </span>
+    </div>
+  );
+}
+
+function Card({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+  return (
+    <div className={`${className} transition-all duration-200 hover:-translate-y-1`}>
+      {children}
+    </div>
+  );
+}
+
 function HiringCTA({ root }: { root: React.RefObject<HTMLDivElement | null> }) {
   return (
-    <Reveal root={root} delay={60} className="border-t border-gray-100 py-14">
-      <div className="border border-gray-200 rounded-xl p-6 sm:p-10">
-        <p className="text-[14px] uppercase tracking-[0.18em] text-gray-400 mb-5">🚀 We're Hiring</p>
-        <h3 className="text-[24px] sm:text-[34px] text-gray-900 leading-tight mb-4" style={{ fontWeight: 500 }}>
+    <Reveal root={root} delay={60} className={`border-t ${BORDER} py-14`}>
+      <div className={`border ${BORDER} rounded-xl p-6 sm:p-10`}>
+        <p className={`text-[13px] uppercase tracking-[0.18em] ${LABEL_TEXT} mb-5`}>We are Hiring</p>
+        <h3 className={`text-[24px] sm:text-[34px] ${TEXT} leading-tight mb-4`} style={{ fontWeight: 500 }}>
           Build what comes after passive AI.
         </h3>
-        <p className="text-[16px] sm:text-[18px] text-gray-500 leading-[1.75] mb-8 max-w-lg">
-          If you believe AI should move first, think independently, and deliver without hand-holding — we want to talk.
+        <p className={`text-[16px] sm:text-[18px] ${MUTED} leading-[1.75] mb-8 max-w-lg`}>
+          If you believe AI should move first and deliver without hand-holding, we want to talk.
         </p>
-        <a href="mailto:media@akakai.com" className="inline-flex items-center gap-2 bg-gray-900 text-white px-6 py-3 rounded-full text-[14px] hover:bg-gray-700 transition-colors">
+        <a href="mailto:media@akakai.com" className={`inline-flex items-center gap-2 bg-white text-black px-6 py-3 rounded-full text-[14px] hover:bg-zinc-200 transition-colors`}>
           Get in touch <ArrowUpRight size={14} />
         </a>
       </div>
@@ -85,72 +90,29 @@ function HiringCTA({ root }: { root: React.RefObject<HTMLDivElement | null> }) {
   );
 }
 
-/* ── Black pill section label ── */
-function SectionLabel({ children, className = "" }: { children: React.ReactNode; className?: string }) {
-  return (
-    <div className={`mb-8 ${className}`}>
-      <span className="inline-flex items-center gap-1.5 bg-gray-900 text-white text-[11px] uppercase tracking-[0.18em] px-4 py-1.5 rounded-full">
-        {children}
-      </span>
-    </div>
-  );
-}
-
-/* ── Hover card ── */
-function Card({ children, className = "" }: { children: React.ReactNode; className?: string }) {
-  return (
-    <div className={`${className} transition-all duration-200 hover:-translate-y-1 hover:shadow-md`}>
-      {children}
-    </div>
-  );
-}
-
-/* ── Collapsible press entry ── */
-function PressEntry({
-  title,
-  date,
-  location,
-  children,
-}: {
-  title: string;
-  date: string;
-  location: string;
-  children: React.ReactNode;
+function PressEntry({ title, date, location, children }: {
+  title: string; date: string; location: string; children: React.ReactNode;
 }) {
   const [open, setOpen] = useState(false);
   return (
-    <div className="border border-gray-100 rounded-xl overflow-hidden">
-      <button
-        onClick={() => setOpen(!open)}
-        className="w-full flex items-start justify-between p-8 text-left hover:bg-gray-50 transition-colors"
-      >
+    <div className={`border ${BORDER} rounded-xl overflow-hidden`}>
+      <button onClick={() => setOpen(!open)}
+        className={`w-full flex items-start justify-between p-8 text-left hover:bg-[#191919] transition-colors`}>
         <div>
-          <p className="text-[13px] uppercase tracking-[0.15em] text-gray-400 mb-2">Press Release</p>
-          <h3 className="text-[22px] text-gray-900 leading-tight" style={{ fontWeight: 500 }}>{title}</h3>
+          <p className={`text-[13px] uppercase tracking-[0.15em] ${LABEL_TEXT} mb-2`}>Press Release</p>
+          <h3 className={`text-[22px] ${TEXT} leading-tight`} style={{ fontWeight: 500 }}>{title}</h3>
         </div>
         <div className="flex items-center gap-6 ml-8 flex-none">
           <div className="text-right">
-            <p className="text-[13px] text-gray-400">{location}</p>
-            <p className="text-[13px] text-gray-400">{date}</p>
+            <p className={`text-[13px] ${MUTED}`}>{location}</p>
+            <p className={`text-[13px] ${MUTED}`}>{date}</p>
           </div>
-          <ChevronDown
-            size={18}
-            className="text-gray-400 transition-transform duration-300 flex-none"
-            style={{ transform: open ? "rotate(180deg)" : "rotate(0deg)" }}
-          />
+          <ChevronDown size={18} className={`${MUTED} transition-transform duration-300 flex-none`}
+            style={{ transform: open ? "rotate(180deg)" : "rotate(0deg)" }} />
         </div>
       </button>
-
-      <div
-        style={{
-          maxHeight: open ? "2000px" : "0",
-          overflow: "hidden",
-          transition: "max-height 0.4s ease",
-        }}
-      >
-        <div className="px-8 pb-8 border-t border-gray-100 pt-8">
-          {children}
-        </div>
+      <div style={{ maxHeight: open ? "2000px" : "0", overflow: "hidden", transition: "max-height 0.4s ease" }}>
+        <div className={`px-8 pb-8 border-t ${BORDER} pt-8`}>{children}</div>
       </div>
     </div>
   );
@@ -167,7 +129,6 @@ export default function CompanyPage() {
     setProjectView(null);
     setNavOpen(false);
     scrollRef.current?.scrollTo({ top: 0, behavior: "smooth" });
-    // mobile: scroll outer container to top
     if (typeof window !== "undefined" && window.innerWidth < 640) {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
@@ -190,21 +151,20 @@ export default function CompanyPage() {
 
   return (
     <>
-      {/* Mobile full-screen nav overlay */}
+      {/* Mobile nav overlay */}
       {navOpen && (
-        <div className="sm:hidden fixed inset-0 z-50 bg-white flex flex-col">
-          <div className="flex items-center justify-between px-5 h-[52px] border-b border-gray-100">
+        <div className="sm:hidden fixed inset-0 z-50 bg-[#111] flex flex-col">
+          <div className={`flex items-center justify-between px-5 h-[52px] border-b ${BORDER}`}>
             <Image src="/logo-horizontal.png" alt="akakAI" width={100} height={24}
-              style={{ filter: "invert(1) brightness(0)" }} className="h-5 w-auto" priority />
-            <button onClick={() => setNavOpen(false)} className="text-gray-400 hover:text-gray-900 transition-colors p-1">
+              style={{ filter: "brightness(0) invert(1)" }} className="h-5 w-auto" priority />
+            <button onClick={() => setNavOpen(false)} className={`${MUTED} hover:text-white transition-colors p-1`}>
               <X size={20} />
             </button>
           </div>
           <div className="flex-1 flex flex-col justify-center px-8 gap-1">
             {tabs.map((t) => (
-              <button key={t.id}
-                onClick={() => switchTab(t.id)}
-                className={`text-left py-3 text-[22px] tracking-tight transition-colors ${activeTab === t.id ? "text-gray-900" : "text-gray-300 hover:text-gray-600"}`}
+              <button key={t.id} onClick={() => switchTab(t.id)}
+                className={`text-left py-3 text-[22px] tracking-tight transition-colors ${activeTab === t.id ? "text-white" : "text-[#333] hover:text-[#888]"}`}
                 style={{ fontWeight: 500 }}>
                 {t.label}
               </button>
@@ -213,7 +173,7 @@ export default function CompanyPage() {
           <div className="flex items-center gap-6 px-8 pb-10">
             {socials.map((s) => (
               <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer"
-                className="text-gray-400 hover:text-gray-800 transition-colors" aria-label={s.label}>
+                className={`${MUTED} hover:text-white transition-colors`} aria-label={s.label}>
                 {s.icon}
               </a>
             ))}
@@ -221,992 +181,683 @@ export default function CompanyPage() {
         </div>
       )}
 
-      {/* MAIN CONTAINER — normal flow on mobile, fixed box on desktop */}
-      <div className="sm:fixed sm:inset-[10px] sm:rounded-2xl bg-white sm:border sm:border-gray-200 sm:shadow-sm sm:overflow-hidden flex flex-col min-h-screen sm:min-h-0">
+      {/* Main container */}
+      <div className={`sm:fixed sm:inset-[10px] sm:rounded-2xl bg-[#111] sm:border ${BORDER} sm:shadow-sm sm:overflow-hidden flex flex-col min-h-screen sm:min-h-0`}>
 
-        {/* NAV */}
-        <nav className="sticky top-0 z-30 bg-white flex-none border-b border-gray-100 shrink-0">
+        {/* Nav */}
+        <nav className={`sticky top-0 z-30 bg-[#111] flex-none border-b ${BORDER} shrink-0`}>
           <div className="flex items-center justify-between px-4 sm:px-8 h-[48px] sm:h-[56px]">
             <Image src="/logo-horizontal.png" alt="akakAI" width={120} height={30}
-              style={{ filter: "invert(1) brightness(0)" }} className="h-5 sm:h-6 w-auto" priority />
-            {/* Desktop: all tabs + socials */}
-            <div className="hidden sm:flex items-center gap-8 text-[14px] text-gray-500">
+              style={{ filter: "brightness(0) invert(1)" }} className="h-5 sm:h-6 w-auto" priority />
+            <div className={`hidden sm:flex items-center gap-8 text-[14px] ${MUTED}`}>
               {tabs.map((t) => (
-                <button key={t.id}
-                  onClick={() => switchTab(t.id)}
-                  className={`transition-colors duration-150 ${activeTab === t.id ? "text-gray-900" : "hover:text-gray-700"}`}>
+                <button key={t.id} onClick={() => switchTab(t.id)}
+                  className={`transition-colors duration-150 ${activeTab === t.id ? "text-white" : "hover:text-[#aaa]"}`}>
                   {t.label}
                 </button>
               ))}
-              <span className="text-gray-200">|</span>
+              <span className="text-[#2a2a2a]">|</span>
               {socials.map((s) => (
                 <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer"
-                  className="text-gray-400 hover:text-gray-800 transition-colors duration-150" aria-label={s.label}>
+                  className={`${MUTED} hover:text-white transition-colors duration-150`} aria-label={s.label}>
                   {s.icon}
                 </a>
               ))}
             </div>
-            {/* Mobile: hamburger */}
-            <button
-              className="sm:hidden p-1 text-gray-500 hover:text-gray-900 transition-colors"
-              onClick={() => setNavOpen(true)}
-              aria-label="Menu">
+            <button className={`sm:hidden p-1 ${MUTED} hover:text-white transition-colors`}
+              onClick={() => setNavOpen(true)} aria-label="Menu">
               <Menu size={20} />
             </button>
           </div>
         </nav>
 
-      {/* SCROLLABLE BODY — desktop only inner scroll; mobile: natural page scroll */}
-      <div ref={scrollRef} className="sm:flex-1 sm:overflow-y-auto page-scroll" style={{ scrollbarGutter: "stable" }}>
+        {/* Scrollable body */}
+        <div ref={scrollRef} className="sm:flex-1 sm:overflow-y-auto page-scroll" style={{ scrollbarGutter: "stable" }}>
 
-        {/* HERO — hidden when inside a case study */}
-        {projectView === null && <div className="px-4 sm:px-8 border-b border-gray-100 flex items-stretch min-h-[140px] sm:min-h-[220px]">
-          {/* Badge logo — hidden on mobile */}
-          <div className="hidden sm:flex flex-none items-center pr-10 py-10 border-r border-gray-100 mr-10">
-            <Image src="/logo-badge.png" alt="akakAI badge" width={240} height={240}
-              style={{ filter: "invert(1)" }} className="w-[200px] h-[200px] object-contain" />
-          </div>
-          {/* Hero text */}
-          <div className="flex-1 flex flex-col justify-center py-7 sm:py-10">
-            <p className="text-[11px] sm:text-[14px] uppercase tracking-[0.18em] text-gray-400 mb-3 sm:mb-5">
-              {activeTab === "about" ? "Company Overview" : activeTab === "mission" ? "Our Mission" : activeTab === "team" ? "The Team" : activeTab === "investments" ? "Investments" : activeTab === "projects" ? "Our Projects" : "Contact"}
-            </p>
-            <h1 className="text-[30px] sm:text-[62px] leading-[1.05] sm:leading-[1.0] tracking-tight text-gray-900 mb-3 sm:mb-6" style={{ fontWeight: 500 }}>
-              {activeTab === "about" && <>AI that acts,<br /><span className="text-gray-300">not just reacts.</span></>}
-              {activeTab === "mission" && <>Action is the<br /><span className="text-gray-300">default.</span></>}
-              {activeTab === "team" && <>The people<br /><span className="text-gray-300">building it.</span></>}
-              {activeTab === "investments" && <>Backing the<br /><span className="text-gray-300">next wave.</span></>}
-              {activeTab === "projects" && <>What we've<br /><span className="text-gray-300">built.</span></>}
-              {activeTab === "contact" && <>Let's build<br /><span className="text-gray-300">together.</span></>}
-            </h1>
-            <p className="text-[15px] sm:text-[19px] text-gray-500 leading-[1.6] sm:leading-[1.7] max-w-2xl">
-              {activeTab === "about" && "Autonomous agents built to navigate complexity, make decisions, and deliver outcomes — with minimal human intervention."}
-              {activeTab === "mission" && "Close the gap between intention and execution. Every system we build pushes toward one thing: AI that makes action the rule, not the exception."}
-              {activeTab === "team" && "akakAI was started with a simple conviction. Here's the team putting in the work to prove it."}
-              {activeTab === "investments" && "akakAI is building the infrastructure for autonomous AI action. For investment inquiries, reach us at investments@akakai.com."}
-              {activeTab === "projects" && "Many products. One conviction. Agents that don't wait to be asked — they understand, decide, and act."}
-              {activeTab === "contact" && "If you believe AI should move first, think independently, and deliver without hand-holding — we want to talk."}
-            </p>
-          </div>
-        </div>}
-
-        {/* ═══ ABOUT ═══ */}
-        {activeTab === "about" && (
-          <div className="px-4 sm:px-8">
-            <Section first root={scrollRef}>
-              <SectionLabel>🏗️ What We Are</SectionLabel>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-12">
-                <div>
-                  <h2 className="text-[32px] leading-tight text-gray-900 mb-6" style={{ fontWeight: 500 }}>
-                    A new class of intelligent systems.
-                  </h2>
-                  <p className="text-[18px] text-gray-600 leading-[1.8]">
-                    akakAI is building AI agents that don't just respond to instructions — they think independently, take initiative, and execute tasks with purpose. Not assistants. Not autocomplete. Agents.
-                  </p>
-                </div>
-                <div className="pt-2">
-                  <p className="text-[18px] text-gray-600 leading-[1.8] mb-6">
-                    These are entities that understand what needs to happen, decide how to make it happen, and then do it — operating at a level of autonomy that changes what's possible.
-                  </p>
-                  <p className="text-[18px] text-gray-600 leading-[1.8]">
-                    They navigate real-world complexity, make informed decisions without hand-holding, and carry out objectives from start to finish with minimal oversight.
-                  </p>
-                </div>
+          {/* Hero */}
+          {projectView === null && (
+            <div className={`px-4 sm:px-8 border-b ${BORDER} flex items-stretch min-h-[140px] sm:min-h-[220px]`}>
+              <div className={`hidden sm:flex flex-none items-center pr-10 py-10 border-r ${BORDER} mr-10`}>
+                <Image src="/logo-badge.png" alt="akakAI badge" width={240} height={240}
+                  className="w-[200px] h-[200px] object-contain opacity-80" />
               </div>
-            </Section>
-
-            <Section root={scrollRef} delay={60}>
-              <div className="border-l-2 border-gray-200 pl-8 py-2">
-                <p className="text-[26px] text-gray-900 leading-[1.4]" style={{ fontWeight: 400 }}>
-                  "AI shouldn't wait for direction — it should anticipate, adapt, and act."
+              <div className="flex-1 flex flex-col justify-center py-7 sm:py-10">
+                <p className={`text-[11px] sm:text-[14px] uppercase tracking-[0.18em] ${LABEL_TEXT} mb-3 sm:mb-5`}>
+                  {activeTab === "about" ? "Company Overview" : activeTab === "mission" ? "Our Mission" : activeTab === "team" ? "The Team" : activeTab === "investments" ? "Investments" : activeTab === "projects" ? "Our Projects" : "Contact"}
                 </p>
-                <p className="text-[13px] uppercase tracking-[0.15em] text-gray-400 mt-5">The core belief driving everything we build</p>
-              </div>
-            </Section>
-
-            <Section root={scrollRef} delay={60}>
-              <SectionLabel>⚙️ What Our Agents Do</SectionLabel>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                {[
-                  { emoji: "🧠", label: "Independent Thinking", desc: "Real reasoning — not pattern-matching. Our agents decompose goals, weigh options, and find the right path even when the instructions stop short of telling them how." },
-                  { emoji: "⚡", label: "Initiative", desc: "They move first. When there's work to be done, the agent doesn't wait for a signal. It identifies what's needed, builds a plan, and starts — without asking for permission." },
-                  { emoji: "🎯", label: "Goal Execution", desc: "The distance between a stated objective and a real-world outcome is where most AI falls apart. Our agents bridge it — end-to-end, from the first step to the final delivery." },
-                  { emoji: "🌐", label: "Cross-System Coordination", desc: "The work of the world spans dozens of tools, APIs, and platforms. Our agents coordinate across every system they need to, simultaneously, without losing the thread." },
-                  { emoji: "🛡️", label: "Judgment Under Uncertainty", desc: "Plans break. Conditions change. The real test of an intelligent system is what it does when the world doesn't cooperate — and ours make the right call without escalating." },
-                  { emoji: "📈", label: "Natural Scaling", desc: "More complexity doesn't mean more humans. Our agents compound in capability as scope grows — handling more, deciding more, without the overhead that comes with scaling teams." },
-                ].map((c, i) => (
-                  <Reveal key={i} root={scrollRef} delay={i * 40}>
-                    <Card className="bg-gray-50 rounded-xl p-7 cursor-default">
-                      <div className="text-2xl mb-4">{c.emoji}</div>
-                      <p className="text-[17px] text-gray-900 mb-3" style={{ fontWeight: 500 }}>{c.label}</p>
-                      <p className="text-[16px] text-gray-500 leading-[1.75]">{c.desc}</p>
-                    </Card>
-                  </Reveal>
-                ))}
-              </div>
-            </Section>
-
-            <Section root={scrollRef} delay={60}>
-              <SectionLabel>🔬 The Technology</SectionLabel>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-12">
-                <div>
-                  <h2 className="text-[28px] leading-tight text-gray-900 mb-6" style={{ fontWeight: 500 }}>
-                    Built from first principles for autonomous execution.
-                  </h2>
-                  <p className="text-[18px] text-gray-600 leading-[1.8]">
-                    akakAI's technology is not a chatbot with extra steps. It's a purpose-built architecture designed from the ground up around a single question: what does a system need in order to act, not just respond?
-                  </p>
-                </div>
-                <div className="pt-2">
-                  <p className="text-[18px] text-gray-600 leading-[1.8] mb-6">
-                    The answer requires more than a better model. Goal comprehension. Dynamic planning. Real-time adaptation. Multi-system coordination. We've built each layer deliberately — as the core of what these agents are, not features bolted on top.
-                  </p>
-                  <p className="text-[18px] text-gray-600 leading-[1.8]">
-                    The result: agents that become active participants in how work gets done, pushing through to completion without constant direction.
-                  </p>
-                </div>
-              </div>
-            </Section>
-
-            <Section root={scrollRef} delay={60}>
-              <SectionLabel>💡 What We Believe</SectionLabel>
-              <p className="text-[17px] text-gray-500 leading-[1.75] mb-8 max-w-2xl">
-                Six ideas that cut through the noise. Not mission statements — operating principles that shape every decision we make.
-              </p>
-              <div className="flex flex-wrap gap-3">
-                {[
-                  { emoji: "🚫", text: "AI shouldn't wait for direction" },
-                  { emoji: "🏃", text: "Move first, iterate faster" },
-                  { emoji: "🔧", text: "Capability over complexity" },
-                  { emoji: "🎯", text: "Outcomes, not just outputs" },
-                  { emoji: "✂️", text: "Strip the gimmicks" },
-                  { emoji: "⚡", text: "Action is the default" },
-                ].map((b) => (
-                  <span key={b.text} className="text-[15px] text-gray-600 border border-gray-200 px-5 py-2.5 rounded-full flex items-center gap-2 hover:border-gray-400 hover:text-gray-900 cursor-default transition-colors duration-150">
-                    <span>{b.emoji}</span>{b.text}
-                  </span>
-                ))}
-              </div>
-            </Section>
-
-            <HiringCTA root={scrollRef} />
-          </div>
-        )}
-
-        {/* ═══ MISSION ═══ */}
-        {activeTab === "mission" && (
-          <div className="px-4 sm:px-8">
-            <Section first root={scrollRef}>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-12">
-                <div>
-                  <SectionLabel>🎯 The Mission</SectionLabel>
-                  <h2 className="text-[34px] leading-[1.2] text-gray-900 mb-7" style={{ fontWeight: 500 }}>
-                    "Make action the default, not the exception."
-                  </h2>
-                  <p className="text-[18px] text-gray-600 leading-[1.8]">
-                    We exist at the intersection of ambition and execution — building the systems that let ideas become outcomes without the human bottleneck that kills most of them.
-                  </p>
-                </div>
-                <div className="sm:pt-14">
-                  <p className="text-[18px] text-gray-600 leading-[1.8] mb-6">
-                    Every product decision, every line of code, every system we ship is in service of one thing: closing the gap between what you want done and what actually gets done.
-                  </p>
-                  <p className="text-[18px] text-gray-600 leading-[1.8]">
-                    No intermediary. No endless iteration. No prompting. Just outcomes — delivered by agents that understand what matters and move without being told twice.
-                  </p>
-                </div>
-              </div>
-            </Section>
-
-            <Section root={scrollRef} delay={60}>
-              <SectionLabel>💭 What We Believe</SectionLabel>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                {[
-                  { emoji: "🌊", heading: "We are at an inflection point.", body: "Every decade, a new computing paradigm shifts what's possible. The internet connected information. Mobile connected people. AI is connecting intent to action — and we are at the very beginning of understanding what that means. akakAI exists to push that frontier forward, deliberately and without compromise." },
-                  { emoji: "⚡", heading: "Passivity is a design choice — and the wrong one.", body: "The dominant model of AI today is reactive: you ask, it answers. You prompt, it generates. You iterate endlessly until the output is close enough. This is not intelligence — this is sophisticated autocomplete with a better interface. We chose differently. Our agents own objectives, not just respond to them." },
-                  { emoji: "🔭", heading: "The gap between intention and execution is where potential dies.", body: "Most organizations have more good ideas than capacity to execute. Not because people aren't capable — but because the translation layer between knowing what needs to be done and actually doing it is slow, lossy, and human-bottlenecked. akakAI's mission is to eliminate that bottleneck entirely. Not reduce it. Eliminate it." },
-                  { emoji: "🏗️", heading: "Autonomy is not a feature. It's the foundation.", body: "You can't bolt autonomy onto a system built for passivity. It requires rethinking the architecture from first principles — how an agent understands goals, how it reasons about context, when it acts and when it pauses. This is what we've built from the ground up. Every layer designed for independent, purposeful execution." },
-                ].map((b, i) => (
-                  <Reveal key={i} root={scrollRef} delay={i * 50}>
-                    <Card className="bg-gray-50 rounded-xl p-8 cursor-default">
-                      <div className="text-2xl mb-4">{b.emoji}</div>
-                      <p className="text-[18px] text-gray-900 mb-5 leading-snug" style={{ fontWeight: 500 }}>{b.heading}</p>
-                      <p className="text-[16px] text-gray-500 leading-[1.8]">{b.body}</p>
-                    </Card>
-                  </Reveal>
-                ))}
-              </div>
-            </Section>
-
-            <Section root={scrollRef} delay={60}>
-              <SectionLabel>🧭 Four Principles</SectionLabel>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                {[
-                  { emoji: "👁️", word: "Anticipate", desc: "The most powerful move isn't reacting — it's already being in motion before the problem is named. Our agents see what's coming and act before anyone asks." },
-                  { emoji: "🔄", word: "Adapt", desc: "The world doesn't hold still. Conditions change, systems fail, goals shift. Agents that can only follow scripts break the moment reality deviates from the plan. Ours don't." },
-                  { emoji: "✅", word: "Act", desc: "Thinking without doing is just noise. Our agents close the loop — from high-level intent to real-world outcome, without waiting for permission, clarification, or a next step." },
-                  { emoji: "📡", word: "Scale", desc: "Human attention is finite. Intelligent action shouldn't be. As complexity grows, the agents grow with it — compounding capability without compounding cost or headcount." },
-                ].map((p, i) => (
-                  <Reveal key={i} root={scrollRef} delay={i * 50}>
-                    <Card className="border border-gray-100 rounded-xl p-8 cursor-default">
-                      <div className="text-2xl mb-4">{p.emoji}</div>
-                      <p className="text-[32px] text-gray-900 mb-4" style={{ fontWeight: 500 }}>{p.word}</p>
-                      <p className="text-[16px] text-gray-500 leading-[1.8]">{p.desc}</p>
-                    </Card>
-                  </Reveal>
-                ))}
-              </div>
-            </Section>
-
-            <Section root={scrollRef} delay={60}>
-              <SectionLabel>🌊 The Next Wave</SectionLabel>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-12">
-                <div>
-                  <h2 className="text-[28px] leading-tight text-gray-900 mb-6" style={{ fontWeight: 500 }}>
-                    This is what the next generation of AI looks like.
-                  </h2>
-                  <p className="text-[18px] text-gray-600 leading-[1.8]">
-                    The first wave of AI gave us better search, smarter recommendations, and generated content. Useful — but fundamentally reactive. The second wave brought conversational interfaces. Still reactive. You had to ask. You had to prompt.
-                  </p>
-                </div>
-                <div className="sm:pt-14">
-                  <p className="text-[18px] text-gray-600 leading-[1.8]">
-                    The third wave — the one akakAI is building into — is agentic. It doesn't wait to be asked. It understands what needs to happen, builds the plan, executes the steps, and reports back when it's done. This is the wave that changes how organizations operate at a fundamental level.
-                  </p>
-                </div>
-              </div>
-            </Section>
-
-            <Section root={scrollRef} delay={60}>
-              <SectionLabel>🚫 What akakAI Is Not</SectionLabel>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                {[
-                  { emoji: "💬", label: "A chatbot", desc: "Chatbots respond. Agents act. The architecture, the intent, and the outcome are entirely different." },
-                  { emoji: "📝", label: "A workflow tool", desc: "We don't need pre-built workflows. The agent figures out the steps, adapts when they fail, and finds a way regardless." },
-                  { emoji: "🎠", label: "An AI wrapper", desc: "Purpose-built for autonomous execution from the ground up — not a UI layer or another chatbot with a new coat of paint." },
-                  { emoji: "🎪", label: "A hype product", desc: "No buzzwords, no fundraising theater. Just agents that work — reliably, independently, in the real world with real stakes." },
-                ].map((item, i) => (
-                  <Reveal key={i} root={scrollRef} delay={i * 40}>
-                    <Card className="border border-gray-100 rounded-xl p-8 cursor-default">
-                      <div className="text-2xl mb-4">{item.emoji}</div>
-                      <p className="text-[18px] text-gray-300 line-through mb-4">{item.label}</p>
-                      <p className="text-[16px] text-gray-500 leading-[1.8]">{item.desc}</p>
-                    </Card>
-                  </Reveal>
-                ))}
-              </div>
-            </Section>
-
-            <HiringCTA root={scrollRef} />
-          </div>
-        )}
-
-        {/* ═══ TEAM ═══ */}
-        {activeTab === "team" && (
-          <div className="px-4 sm:px-8">
-            {/* Zayd */}
-            <Section first root={scrollRef}>
-              <div className="grid grid-cols-1 sm:grid-cols-[2fr_3fr] gap-8">
-                <div>
-                  <div className="mb-8">
-                    <Image src="/zayd.png" alt="Zayd Malik" width={96} height={96}
-                      className="w-24 h-24 rounded-full object-cover object-top" />
-                  </div>
-                  <p className="text-[14px] uppercase tracking-[0.18em] text-gray-400 mb-4">Co-founder & CEO</p>
-                  <h2 className="text-[26px] sm:text-[42px] leading-none text-gray-900 mb-3" style={{ fontWeight: 500 }}>Zayd Malik</h2>
-                  <p className="text-[14px] text-gray-400 mb-8 uppercase tracking-[0.12em]">akakAI</p>
-                  <p className="text-[22px] text-gray-900 leading-[1.4] mb-8" style={{ fontWeight: 400 }}>
-                    "AI should act, not just react."
-                  </p>
-                  <p className="text-[13px] uppercase tracking-[0.15em] text-gray-400">The conviction that started it all</p>
-                </div>
-                <div className="flex flex-col justify-center sm:border-l sm:border-gray-200 sm:pl-8">
-                  <p className="text-[18px] text-gray-600 leading-[1.8] mb-6">
-                    Zayd started akakAI with a simple but uncomfortable observation: the AI tools people were using were passive. They waited. They asked for input. They responded. They never moved first.
-                  </p>
-                  <p className="text-[18px] text-gray-600 leading-[1.8]">
-                    Frustrated with passive tools and overhyped tech, he set out to build something fundamentally different — AI that takes initiative, understands context, and actually follows through.
-                  </p>
-                </div>
-              </div>
-            </Section>
-
-            {/* Abhiram */}
-            <Section root={scrollRef} delay={60}>
-              <div className="grid grid-cols-1 sm:grid-cols-[2fr_3fr] gap-8">
-                <div>
-                  <div className="mb-8">
-                    <Image src="/abhi.jpg" alt="Abhiram Vishnubhotla" width={96} height={96}
-                      className="w-24 h-24 rounded-full object-cover object-top" />
-                  </div>
-                  <p className="text-[14px] uppercase tracking-[0.18em] text-gray-400 mb-4">Co-founder & Agent Developer</p>
-                  <h2 className="text-[26px] sm:text-[42px] leading-none text-gray-900 mb-3" style={{ fontWeight: 500 }}>Abhiram Vishnubhotla</h2>
-                  <p className="text-[14px] text-gray-400 mb-8 uppercase tracking-[0.12em]">akakAI</p>
-                  <p className="text-[22px] text-gray-900 leading-[1.4] mb-8" style={{ fontWeight: 400 }}>
-                    "Agents that don't just execute — they understand."
-                  </p>
-                  <p className="text-[13px] uppercase tracking-[0.15em] text-gray-400 mb-6">The engineering behind the autonomy</p>
-                  <a
-                    href="https://abhiramv09.replit.app/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-[13px] text-gray-500 border border-gray-200 px-4 py-1.5 rounded-full hover:border-gray-400 hover:text-gray-900 transition-colors duration-150 w-fit"
-                  >
-                    🌐 abhiramv09.replit.app <ArrowUpRight size={12} />
-                  </a>
-                </div>
-                <div className="flex flex-col justify-center sm:border-l sm:border-gray-200 sm:pl-8">
-                  <p className="text-[18px] text-gray-600 leading-[1.8] mb-6">
-                    Abhiram brings the technical depth to turn akakAI's vision into working systems. His focus is on the hardest problem in the space: building agents that don't just run through steps, but genuinely reason about what needs to happen next.
-                  </p>
-                  <p className="text-[18px] text-gray-600 leading-[1.8]">
-                    He architects the core agent runtime — the layer responsible for goal comprehension, dynamic planning, and real-time decision-making across complex, multi-system environments.
-                  </p>
-                </div>
-              </div>
-            </Section>
-
-            {/* Approach */}
-            <Section root={scrollRef} delay={60}>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-12">
-                <div>
-                  <SectionLabel>🔬 The Approach</SectionLabel>
-                  <h2 className="text-[28px] leading-tight text-gray-900 mb-6" style={{ fontWeight: 500 }}>
-                    Capability over complexity — always.
-                  </h2>
-                  <p className="text-[18px] text-gray-600 leading-[1.8]">
-                    Strip away the gimmicks. Focus on core functionality. Build agents that understand goals, take action without micromanagement, and deliver real results in dynamic environments.
-                  </p>
-                </div>
-                <div className="sm:pt-14">
-                  <p className="text-[18px] text-gray-600 leading-[1.8] mb-6">
-                    No trends, no noise. Just AI that works with you and for you — reliably, autonomously, at the level of complexity that real work actually demands.
-                  </p>
-                  <p className="text-[18px] text-gray-600 leading-[1.8]">
-                    This philosophy drives every product decision at akakAI: if it doesn't make the agent more capable or more autonomous, it doesn't ship.
-                  </p>
-                </div>
-              </div>
-            </Section>
-
-            <Section root={scrollRef} delay={60}>
-              <SectionLabel>💡 What Drives This</SectionLabel>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                {[
-                  { emoji: "🔍", title: "The Problem", text: "Passive tools, overhyped AI, systems that wait for input instead of taking initiative. The gap between what AI promised and what it delivered." },
-                  { emoji: "🔭", title: "The Vision", text: "Agents that take initiative, understand context, and follow through from start to finish. AI that makes action the default, not the exception." },
-                  { emoji: "📏", title: "The Standard", text: "No trends, no noise. Just AI that works reliably — without getting in the way, without needing a prompt for every decision." },
-                  { emoji: "🏁", title: "The Goal", text: "Close the gap between what you want done and what gets done. Permanently. Without the intermediary layer that slows everything down." },
-                ].map((item, i) => (
-                  <Reveal key={i} root={scrollRef} delay={i * 40}>
-                    <Card className="bg-gray-50 rounded-xl p-7 cursor-default">
-                      <div className="text-2xl mb-4">{item.emoji}</div>
-                      <p className="text-[16px] text-gray-900 mb-3" style={{ fontWeight: 500 }}>{item.title}</p>
-                      <p className="text-[16px] text-gray-500 leading-[1.8]">{item.text}</p>
-                    </Card>
-                  </Reveal>
-                ))}
-              </div>
-            </Section>
-
-            <Section root={scrollRef} delay={60}>
-              <SectionLabel className="mb-6">🏷️ The Team in Tags</SectionLabel>
-              <div className="flex flex-wrap gap-3">
-                {[
-                  { emoji: "🚫", text: "Anti-hype" },
-                  { emoji: "⚡", text: "Action-first" },
-                  { emoji: "🧠", text: "Systems thinkers" },
-                  { emoji: "🎯", text: "Capability over complexity" },
-                  { emoji: "🔧", text: "Builders" },
-                  { emoji: "✂️", text: "No gimmicks" },
-                ].map((tag) => (
-                  <span key={tag.text} className="text-[14px] text-gray-500 border border-gray-200 px-5 py-2.5 rounded-full flex items-center gap-2 hover:border-gray-400 hover:text-gray-800 cursor-default transition-colors duration-150">
-                    <span>{tag.emoji}</span>{tag.text}
-                  </span>
-                ))}
-              </div>
-            </Section>
-
-            <HiringCTA root={scrollRef} />
-          </div>
-        )}
-
-        {/* ═══ INVESTMENTS ═══ */}
-        {activeTab === "investments" && (
-          <div className="px-4 sm:px-8">
-            <Section first root={scrollRef}>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-12">
-                <div>
-                  <SectionLabel>📬 Investment Inquiries</SectionLabel>
-                  <h2 className="text-[32px] leading-tight text-gray-900 mb-6" style={{ fontWeight: 500 }}>
-                    Interested in backing the next wave?
-                  </h2>
-                  <p className="text-[18px] text-gray-600 leading-[1.8]">
-                    akakAI is building the infrastructure for autonomous AI action — agents that think independently, take initiative, and deliver outcomes without hand-holding.
-                  </p>
-                </div>
-                <div className="sm:pt-14">
-                  <p className="text-[18px] text-gray-600 leading-[1.8] mb-8">
-                    We're early, intentional, and moving fast. If you're interested in partnering with us on this mission, we'd love to connect.
-                  </p>
-                  <a href="mailto:investments@akakai.com"
-                    className="inline-flex items-center gap-2 bg-gray-900 text-white px-6 py-3 rounded-full text-[14px] hover:bg-gray-700 transition-colors">
-                    investments@akakai.com <ArrowUpRight size={14} />
-                  </a>
-                </div>
-              </div>
-            </Section>
-
-            <Section root={scrollRef} delay={60}>
-              <SectionLabel>📰 Press</SectionLabel>
-              <div className="space-y-4">
-                <PressEntry
-                  title="akakAI Secures Pre-Seed Funding, Valued at $1.5 Million"
-                  date="July 7, 2025"
-                  location="Dallas, TX"
-                >
-                  <div className="space-y-6">
-                    <p className="text-[17px] text-gray-600 leading-[1.85]">
-                      akakAI, the AI startup building autonomous agents that proactively get work done, announced today that it has secured a pre-seed funding round from an undisclosed investor, bringing the company's valuation to <span className="text-gray-900" style={{ fontWeight: 500 }}>$1.5 million</span>.
-                    </p>
-                    <p className="text-[17px] text-gray-600 leading-[1.85]">
-                      Founded by Zayd Malik, akakAI's first product is an AI email agent that integrates directly with Gmail and Outlook, drafting email replies autonomously without requiring prompts, commands, or a separate app. The funding marks an early vote of confidence in the company's vision of replacing passive tools with proactive, task-completing agents.
-                    </p>
-                    <div className="border-l-2 border-gray-200 pl-6 py-1">
-                      <p className="text-[18px] text-gray-700 leading-[1.7] italic">
-                        "This investment allows us to deepen our technical capabilities and grow our team as we continue building agents that work for people, not just with them. We're grateful for the backing and belief in our mission to redefine productivity through agentic AI."
-                      </p>
-                      <p className="text-[13px] text-gray-400 mt-3 uppercase tracking-[0.12em]">— Zayd Malik, Founder, akakAI</p>
-                    </div>
-                    <p className="text-[17px] text-gray-600 leading-[1.85]">
-                      akakAI officially launched on July 3, 2025, and is currently onboarding early users.
-                    </p>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 border-t border-gray-100 pt-6">
-                      <div>
-                        <p className="text-[13px] uppercase tracking-[0.15em] text-gray-400 mb-2">Website</p>
-                        <a href="https://akakai.com" className="text-[15px] text-gray-700 hover:text-gray-900 transition-colors">akakai.com</a>
-                      </div>
-                      <div>
-                        <p className="text-[13px] uppercase tracking-[0.15em] text-gray-400 mb-2">Media Contact</p>
-                        <a href="mailto:media@akakai.com" className="text-[15px] text-gray-700 hover:text-gray-900 transition-colors">media@akakai.com</a>
-                      </div>
-                    </div>
-                  </div>
-                </PressEntry>
-              </div>
-            </Section>
-
-            <HiringCTA root={scrollRef} />
-          </div>
-        )}
-
-        {/* ═══ PROJECTS ═══ */}
-        {activeTab === "projects" && projectView === null && (
-          <div className="px-4 sm:px-8">
-            <Section first root={scrollRef}>
-              <SectionLabel>🛠️ Products</SectionLabel>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-
-                {/* Aegent Card */}
-                <Card className="border border-gray-100 rounded-2xl overflow-hidden">
-                  <div className="bg-white px-8 py-10 border-b border-gray-100">
-                    <p className="text-[11px] uppercase tracking-[0.2em] text-gray-400 mb-3">01 — Autonomous Agent Platform</p>
-                    <h2 className="text-[26px] sm:text-[38px] text-gray-900 leading-none mb-2" style={{ fontWeight: 500, fontStyle: "italic" }}>Aegent.</h2>
-                    <p className="text-[14px] text-gray-400">by akakAI</p>
-                  </div>
-                  <div className="px-8 py-8">
-                    <p className="text-[16px] text-gray-600 leading-[1.8] mb-6">
-                      A no-code platform for building autonomous AI agents that listen to real-world triggers — email, Slack, cron schedules — and act through a community-built integration library. No code. No prompting. Just outcomes.
-                    </p>
-                    <div className="flex flex-wrap gap-2 mb-8">
-                      {["Node.js", "React", "PostgreSQL", "LLMs"].map(t => (
-                        <span key={t} className="text-[12px] text-gray-500 border border-gray-200 px-3 py-1 rounded-full">{t}</span>
-                      ))}
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <button
-                        onClick={() => { setProjectView("aegent"); scrollRef.current?.scrollTo({ top: 0, behavior: "smooth" }); }}
-                        className="inline-flex items-center gap-2 bg-gray-900 text-white px-5 py-2.5 rounded-full text-[13px] hover:bg-gray-700 transition-colors"
-                      >
-                        Case Study <ArrowUpRight size={13} />
-                      </button>
-                      <a href="https://aegent.akakai.com" target="_blank" rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 text-[13px] text-gray-500 border border-gray-200 px-5 py-2.5 rounded-full hover:border-gray-400 hover:text-gray-900 transition-colors">
-                        aegent.akakai.com <ArrowUpRight size={13} />
-                      </a>
-                    </div>
-                  </div>
-                </Card>
-
-                {/* Email Card */}
-                <Card className="border border-gray-100 rounded-2xl overflow-hidden">
-                  <div className="bg-white px-8 py-10 border-b border-gray-100">
-                    <p className="text-[11px] uppercase tracking-[0.2em] text-gray-400 mb-3">02 — Autonomous Email Agent</p>
-                    <h2 className="text-[26px] sm:text-[38px] text-gray-900 leading-none mb-2" style={{ fontWeight: 500, fontStyle: "italic" }}>Email.</h2>
-                    <p className="text-[14px] text-gray-400">by akakAI</p>
-                  </div>
-                  <div className="px-8 py-8">
-                    <p className="text-[16px] text-gray-600 leading-[1.8] mb-6">
-                      An AI agent that integrates directly with Gmail and Outlook, drafting autonomous email replies without prompts, commands, or a separate app. It reads your inbox, understands context, and responds — before you even open the thread.
-                    </p>
-                    <div className="flex flex-wrap gap-2 mb-8">
-                      {["LLMs", "Gmail API", "Outlook API", "OAuth"].map(t => (
-                        <span key={t} className="text-[12px] text-gray-500 border border-gray-200 px-3 py-1 rounded-full">{t}</span>
-                      ))}
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <button
-                        onClick={() => { setProjectView("email"); scrollRef.current?.scrollTo({ top: 0, behavior: "smooth" }); }}
-                        className="inline-flex items-center gap-2 bg-gray-900 text-white px-5 py-2.5 rounded-full text-[13px] hover:bg-gray-700 transition-colors"
-                      >
-                        Case Study <ArrowUpRight size={13} />
-                      </button>
-                      <a href="https://email.akakai.com" target="_blank" rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 text-[13px] text-gray-500 border border-gray-200 px-5 py-2.5 rounded-full hover:border-gray-400 hover:text-gray-900 transition-colors">
-                        email.akakai.com <ArrowUpRight size={13} />
-                      </a>
-                    </div>
-                  </div>
-                </Card>
-
-              </div>
-            </Section>
-            <HiringCTA root={scrollRef} />
-          </div>
-        )}
-
-        {/* ═══ AEGENT CASE STUDY ═══ */}
-        {activeTab === "projects" && projectView === "aegent" && (
-          <div className="px-4 sm:px-8">
-            {/* Back + meta header */}
-            <div className="py-10 border-b border-gray-100">
-              <button onClick={() => { setProjectView(null); scrollRef.current?.scrollTo({ top: 0, behavior: "smooth" }); }}
-                className="inline-flex items-center gap-2 text-[13px] text-gray-400 hover:text-gray-900 transition-colors mb-10">
-                ← Back to Projects
-              </button>
-              <div className="grid grid-cols-1 sm:grid-cols-[2fr_1fr] gap-6 sm:gap-12 items-start">
-                <div>
-                  <h2 className="text-[28px] sm:text-[56px] text-gray-900 leading-none mb-3" style={{ fontWeight: 500, fontStyle: "italic" }}>Aegent.</h2>
-                  <p className="text-[18px] text-gray-400">Autonomous AI Agent Platform</p>
-                </div>
-                <div className="grid grid-cols-2 gap-x-6 gap-y-4">
-                  {[
-                    { label: "Timeline", value: "2025 – 2026" },
-                    { label: "Company", value: "akakAI — $1.5M Pre-Seed" },
-                    { label: "Type", value: "Full-Stack AI Platform" },
-                    { label: "Tech", value: "Node.js, React, PostgreSQL, LLMs" },
-                    { label: "Status", value: "Live — Early Access" },
-                  ].map(({ label, value }) => (
-                    <div key={label}>
-                      <p className="text-[11px] uppercase tracking-[0.15em] text-gray-400 mb-1">{label}</p>
-                      <p className="text-[14px] text-gray-700">{value}</p>
-                    </div>
-                  ))}
-                </div>
+                <h1 className={`text-[30px] sm:text-[62px] leading-[1.05] sm:leading-[1.0] tracking-tight ${TEXT} mb-3 sm:mb-6`} style={{ fontWeight: 500 }}>
+                  {activeTab === "about" && <>AI that acts,<br /><span className="text-[#2a2a2a]">not just reacts.</span></>}
+                  {activeTab === "mission" && <>Action is the<br /><span className="text-[#2a2a2a]">default.</span></>}
+                  {activeTab === "team" && <>The people<br /><span className="text-[#2a2a2a]">building it.</span></>}
+                  {activeTab === "investments" && <>Backing the<br /><span className="text-[#2a2a2a]">next wave.</span></>}
+                  {activeTab === "projects" && <>What we&apos;ve<br /><span className="text-[#2a2a2a]">built.</span></>}
+                  {activeTab === "contact" && <>Let&apos;s build<br /><span className="text-[#2a2a2a]">together.</span></>}
+                </h1>
+                <p className={`text-[15px] sm:text-[19px] ${MUTED} leading-[1.6] sm:leading-[1.7] max-w-2xl`}>
+                  {activeTab === "about" && "Autonomous agents built to navigate complexity, make decisions, and deliver outcomes with minimal human intervention."}
+                  {activeTab === "mission" && "Close the gap between intention and execution. Every system we build pushes toward AI that makes action the rule, not the exception."}
+                  {activeTab === "team" && "akakAI was started with a simple conviction. Here is the team putting in the work to prove it."}
+                  {activeTab === "investments" && "akakAI is building the infrastructure for autonomous AI action. For investment inquiries, reach us at investments@akakai.com."}
+                  {activeTab === "projects" && "Many products. One conviction. Agents that understand, decide, and act."}
+                  {activeTab === "contact" && "If you believe AI should move first and deliver without hand-holding, we want to talk."}
+                </p>
               </div>
             </div>
+          )}
 
-            {/* Overview */}
-            <Section first root={scrollRef}>
-              <SectionLabel>📋 Overview</SectionLabel>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-12">
-                <div>
-                  <h3 className="text-[26px] text-gray-900 leading-tight mb-6" style={{ fontWeight: 500 }}>
-                    A no-code platform for building agents that act on real-world events.
-                  </h3>
-                  <p className="text-[17px] text-gray-600 leading-[1.85] mb-5">
-                    Aegent is akakAI's no-code autonomous AI agent platform. It lets anyone build agents that listen to real-world triggers — email inboxes, cron schedules, Slack channels — and act autonomously through integrations, without writing a single line of code.
-                  </p>
-                  <p className="text-[17px] text-gray-600 leading-[1.85]">
-                    Agents on Aegent are driven by listeners — event sources that wake the agent when something happens — and respond by executing tools from a community-built integration library. Every run is evaluated, summarized, and stored for monitoring and improvement.
-                  </p>
+          {/* ABOUT */}
+          {activeTab === "about" && (
+            <div className="px-4 sm:px-8">
+              <Section first root={scrollRef}>
+                <SectionLabel>What We Are</SectionLabel>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-12">
+                  <div>
+                    <h2 className={`text-[32px] leading-tight ${TEXT} mb-6`} style={{ fontWeight: 500 }}>
+                      A new class of intelligent systems.
+                    </h2>
+                    <p className={`text-[18px] ${MUTED} leading-[1.8]`}>
+                      akakAI is building AI agents that don&apos;t just respond to instructions. They think independently, take initiative, and execute tasks with purpose. Not assistants. Not autocomplete. Agents.
+                    </p>
+                  </div>
+                  <div>
+                    <p className={`text-[18px] ${MUTED} leading-[1.8] mb-6`}>
+                      These are entities that understand what needs to happen, decide how to make it happen, and then do it — operating at a level of autonomy that changes what&apos;s possible.
+                    </p>
+                    <p className={`text-[18px] ${MUTED} leading-[1.8]`}>
+                      They navigate real-world complexity, make informed decisions without hand-holding, and carry out objectives from start to finish with minimal oversight.
+                    </p>
+                  </div>
                 </div>
-                <div className="flex flex-col justify-center border-l border-gray-200 pl-12 gap-5">
-                  <p className="text-[17px] text-gray-600 leading-[1.85]">
-                    akakAI closed $1.5M in pre-seed funding on the strength of Aegent's architecture and vision — demonstrating that production-grade autonomous AI doesn't require a team of engineers.
-                  </p>
-                  <a href="https://aegent.akakai.com" target="_blank" rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-[13px] text-gray-500 border border-gray-200 px-5 py-2.5 rounded-full hover:border-gray-400 hover:text-gray-900 transition-colors w-fit">
-                    Visit Aegent <ArrowUpRight size={13} />
-                  </a>
-                </div>
-              </div>
-            </Section>
+              </Section>
 
-            {/* Challenge */}
-            <Section root={scrollRef} delay={60}>
-              <SectionLabel>🧩 The Challenge</SectionLabel>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-12 mb-10">
-                <div>
-                  <h3 className="text-[24px] text-gray-900 leading-tight mb-5" style={{ fontWeight: 500 }}>
-                    Building AI agents today requires significant engineering.
-                  </h3>
-                  <p className="text-[17px] text-gray-600 leading-[1.85]">
-                    LLM orchestration, tool calling, event listeners, integration management, and evaluation all need to be wired together manually. No platform made this accessible without code while still being powerful enough for production workflows.
+              <Section root={scrollRef} delay={60}>
+                <div className="border-l-2 border-[#2a2a2a] pl-8 py-2">
+                  <p className={`text-[26px] ${TEXT} leading-[1.4]`} style={{ fontWeight: 400 }}>
+                    &ldquo;AI shouldn&apos;t wait for direction. It should anticipate, adapt, and act.&rdquo;
                   </p>
+                  <p className={`text-[13px] uppercase tracking-[0.15em] ${LABEL_TEXT} mt-5`}>The core belief driving everything we build</p>
                 </div>
-                <div className="flex flex-col justify-center sm:border-l sm:border-gray-200 sm:pl-12">
-                  <p className="text-[17px] text-gray-600 leading-[1.85]">
-                    Non-technical users needed to configure complex agentic behavior — listeners, scripts, memory, escalation — without touching code. And every agent run needed to be fully observable, not a black box.
-                  </p>
-                </div>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                {[
-                  { emoji: "🌐", label: "Diverse event sources", desc: "Agents needed to listen to emails, schedules, and webhooks — not just chat inputs." },
-                  { emoji: "🔍", label: "Full observability", desc: "Every run needed step-by-step traces, integration call logs, success evaluation, and key learnings." },
-                  { emoji: "🤝", label: "Open integration ecosystem", desc: "Integrations had to be community-contributed and shareable, not locked to one vendor." },
-                  { emoji: "🧩", label: "No-code complexity", desc: "Non-technical users needed to configure listeners, scripts, memory, and escalation without code." },
-                ].map((c, i) => (
-                  <Reveal key={i} root={scrollRef} delay={i * 40}>
-                    <Card className="bg-gray-50 rounded-xl p-6 cursor-default">
-                      <div className="text-xl mb-3">{c.emoji}</div>
-                      <p className="text-[15px] text-gray-900 mb-2" style={{ fontWeight: 500 }}>{c.label}</p>
-                      <p className="text-[14px] text-gray-500 leading-[1.75]">{c.desc}</p>
-                    </Card>
-                  </Reveal>
-                ))}
-              </div>
-            </Section>
+              </Section>
 
-            {/* Solution — Agent Builder */}
-            <Section root={scrollRef} delay={60}>
-              <SectionLabel>🛠️ Solution</SectionLabel>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-12 mb-10">
-                <div>
-                  <h3 className="text-[24px] text-gray-900 leading-tight mb-5" style={{ fontWeight: 500 }}>
-                    Agent Builder
-                  </h3>
-                  <p className="text-[17px] text-gray-600 leading-[1.85] mb-4">
-                    Each agent has a configurable identity, behavior profile, and additional context that shapes how the underlying LLM responds. Agents are structured around a sidebar — Identity, Behavior, Additional Info — with separate tabs for Connections, Monitoring, and Developer tools.
-                  </p>
-                  <p className="text-[17px] text-gray-600 leading-[1.85]">
-                    The agent builder is fully no-code and persists all configuration to a per-agent database, giving users complete control over how their agent behaves without writing a line of code.
-                  </p>
+              <Section root={scrollRef} delay={60}>
+                <SectionLabel>The Technology</SectionLabel>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-12">
+                  <div>
+                    <h2 className={`text-[28px] leading-tight ${TEXT} mb-6`} style={{ fontWeight: 500 }}>
+                      Built from first principles for autonomous execution.
+                    </h2>
+                    <p className={`text-[18px] ${MUTED} leading-[1.8]`}>
+                      akakAI&apos;s technology is not a chatbot with extra steps. It&apos;s a purpose-built architecture designed around a single question: what does a system need in order to act, not just respond?
+                    </p>
+                  </div>
+                  <div>
+                    <p className={`text-[18px] ${MUTED} leading-[1.8] mb-6`}>
+                      The answer requires more than a better model. Goal comprehension. Dynamic planning. Real-time adaptation. Multi-system coordination. We built each layer deliberately as the core of what these agents are.
+                    </p>
+                    <p className={`text-[18px] ${MUTED} leading-[1.8]`}>
+                      The result: agents that become active participants in how work gets done, pushing through to completion without constant direction.
+                    </p>
+                  </div>
                 </div>
-                <div className="flex flex-col justify-center sm:border-l sm:border-gray-200 sm:pl-12">
-                  <Image src="/aegent-thread.png" alt="Aegent thread monitoring" width={900} height={600}
-                    className="w-full rounded-xl border border-gray-100 object-cover" />
-                </div>
-              </div>
-            </Section>
+              </Section>
 
-            {/* Solution — Listeners */}
-            <Section root={scrollRef} delay={60}>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-12 mb-8">
-                <div>
-                  <h3 className="text-[24px] text-gray-900 leading-tight mb-5" style={{ fontWeight: 500 }}>
-                    Listeners
-                  </h3>
-                  <p className="text-[17px] text-gray-600 leading-[1.85] mb-4">
-                    Listeners are the trigger layer — they define when an agent runs. Aegent's listener architecture is extensible — you can code and connect an infinite number of listener types to any agent.
-                  </p>
-                  <div className="flex flex-col gap-4 mt-6">
-                    {[
-                      { emoji: "⏰", label: "Cron Job", desc: "Triggers the agent on a schedule defined by a cron expression. Only fires when the schedule matches — saving API calls for time-sensitive recurring tasks." },
-                      { emoji: "🪝", label: "Webhook", desc: "Listens for incoming HTTP requests and triggers the agent the moment a payload arrives. Ideal for real-time event-driven workflows from any external system." },
-                      { emoji: "🔄", label: "Polling", desc: "Continuously checks an external source — an inbox, API endpoint, or data feed — at a configurable interval and triggers the agent when new data is detected." },
-                    ].map((item) => (
-                      <Card key={item.label} className="bg-gray-50 rounded-xl p-5 cursor-default">
-                        <div className="text-lg mb-2">{item.emoji}</div>
-                        <p className="text-[14px] text-gray-900 mb-1.5" style={{ fontWeight: 500 }}>{item.label}</p>
-                        <p className="text-[14px] text-gray-500 leading-[1.75]">{item.desc}</p>
+              <HiringCTA root={scrollRef} />
+            </div>
+          )}
+
+          {/* MISSION */}
+          {activeTab === "mission" && (
+            <div className="px-4 sm:px-8">
+              <Section first root={scrollRef}>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-12">
+                  <div>
+                    <SectionLabel>The Mission</SectionLabel>
+                    <h2 className={`text-[34px] leading-[1.2] ${TEXT} mb-7`} style={{ fontWeight: 500 }}>
+                      &ldquo;Make action the default, not the exception.&rdquo;
+                    </h2>
+                    <p className={`text-[18px] ${MUTED} leading-[1.8]`}>
+                      We exist at the intersection of ambition and execution, building the systems that let ideas become outcomes without the human bottleneck that kills most of them.
+                    </p>
+                  </div>
+                  <div className="sm:pt-14">
+                    <p className={`text-[18px] ${MUTED} leading-[1.8] mb-6`}>
+                      Every product decision, every line of code, every system we ship is in service of one thing: closing the gap between what you want done and what actually gets done.
+                    </p>
+                    <p className={`text-[18px] ${MUTED} leading-[1.8]`}>
+                      No intermediary. No endless iteration. No prompting. Just outcomes delivered by agents that understand what matters and move without being told twice.
+                    </p>
+                  </div>
+                </div>
+              </Section>
+
+              <Section root={scrollRef} delay={60}>
+                <SectionLabel>Four Principles</SectionLabel>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  {[
+                    { word: "Anticipate", desc: "The most powerful move isn't reacting. It's already being in motion before the problem is named. Our agents see what's coming and act before anyone asks." },
+                    { word: "Adapt", desc: "The world doesn't hold still. Conditions change, systems fail, goals shift. Agents that can only follow scripts break the moment reality deviates. Ours don't." },
+                    { word: "Act", desc: "Thinking without doing is noise. Our agents close the loop from high-level intent to real-world outcome, without waiting for permission or clarification." },
+                    { word: "Scale", desc: "Human attention is finite. Intelligent action shouldn't be. As complexity grows, the agents grow with it, compounding capability without compounding cost." },
+                  ].map((p, i) => (
+                    <Reveal key={i} root={scrollRef} delay={i * 50}>
+                      <Card className={`border ${BORDER} rounded-xl p-8 cursor-default`}>
+                        <p className={`text-[32px] ${TEXT} mb-4`} style={{ fontWeight: 500 }}>{p.word}</p>
+                        <p className={`text-[16px] ${MUTED} leading-[1.8]`}>{p.desc}</p>
                       </Card>
-                    ))}
-                  </div>
-                </div>
-                <div className="flex flex-col gap-5 justify-center border-l border-gray-200 pl-12">
-                  <Image src="/aegent-listener-email.png" alt="Email inbox listener" width={900} height={500}
-                    className="w-full rounded-xl border border-gray-100 object-cover" />
-                  <Image src="/aegent-listener-cron.png" alt="Cron job listener" width={900} height={500}
-                    className="w-full rounded-xl border border-gray-100 object-cover" />
-                </div>
-              </div>
-            </Section>
-
-            {/* Solution — Integration Library */}
-            <Section root={scrollRef} delay={60}>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-12">
-                <div>
-                  <h3 className="text-[24px] text-gray-900 leading-tight mb-5" style={{ fontWeight: 500 }}>
-                    Community Integration Library
-                  </h3>
-                  <p className="text-[17px] text-gray-600 leading-[1.85] mb-4">
-                    Integrations are the action layer — tools agents can call during a run. Aegent's community library includes integrations built and published by akakAI and contributors: Email Send, Slack, Database (SQL), Microsoft Teams, Twilio SMS, PayPal, Google Calendar, and more.
-                  </p>
-                  <p className="text-[17px] text-gray-600 leading-[1.85]">
-                    Each integration has a structured parameter schema and can be added to any agent with one click. The community model enables the platform to scale capabilities without central engineering bottlenecks.
-                  </p>
-                </div>
-                <div className="flex flex-col justify-center sm:border-l sm:border-gray-200 sm:pl-12">
-                  <Image src="/aegent-integrations.png" alt="Community integration library" width={900} height={600}
-                    className="w-full rounded-xl border border-gray-100 object-cover" />
-                </div>
-              </div>
-            </Section>
-
-            {/* Solution — Thread Monitoring & Evaluation */}
-            <Section root={scrollRef} delay={60}>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-12">
-                <div>
-                  <h3 className="text-[24px] text-gray-900 leading-tight mb-5" style={{ fontWeight: 500 }}>
-                    Thread Monitoring & Evaluation
-                  </h3>
-                  <p className="text-[17px] text-gray-600 leading-[1.85] mb-4">
-                    Every agent run produces a full thread: a timestamped, step-by-step trace of every event received, agent action taken, integration called, and interaction concluded.
-                  </p>
-                  <p className="text-[17px] text-gray-600 leading-[1.85]">
-                    Each thread is evaluated automatically — the agent receives a success score, keyword tags, a step pattern summary, conversation summary, and key learnings. This makes every run observable, auditable, and improvable over time.
-                  </p>
-                </div>
-                <div className="flex flex-col justify-center sm:border-l sm:border-gray-200 sm:pl-12">
-                  <Image src="/aegent-evaluation.png" alt="Thread evaluation" width={900} height={700}
-                    className="w-full rounded-xl border border-gray-100 object-cover" />
-                </div>
-              </div>
-            </Section>
-
-            {/* Key Features */}
-            <Section root={scrollRef} delay={60}>
-              <SectionLabel>⚡ Key Features</SectionLabel>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                {[
-                  { emoji: "🏗️", label: "No-Code Agent Builder", desc: "Full agent configuration — identity, behavior, memory, escalation — without writing code." },
-                  { emoji: "📬", label: "Email Inbox Listener", desc: "IMAP-based inbox monitoring that triggers agents on new messages with configurable polling." },
-                  { emoji: "⏰", label: "Cron Job Listener", desc: "Schedule-based triggers using cron expressions for recurring autonomous tasks." },
-                  { emoji: "🔗", label: "Community Integration Library", desc: "Shared, versioned integrations (Email, Slack, SQL, Twilio, PayPal, Teams, Calendar) addable to any agent." },
-                  { emoji: "🧵", label: "Live Thread Monitoring", desc: "Full step-by-step traces of every agent run with timestamps and integration call results." },
-                  { emoji: "📊", label: "Automatic Evaluation", desc: "Per-run success scoring, keyword tagging, step pattern analysis, conversation summaries, and key learnings." },
-                  { emoji: "🧠", label: "Master Memory & Knowledge Base", desc: "Persistent agent memory and a structured knowledge base for context-aware responses." },
-                  { emoji: "🚨", label: "Escalation System", desc: "Configurable escalation rules and logs for when agents need human review." },
-                  { emoji: "🔓", label: "Open API", desc: "Developer access to agent internals for programmatic control and custom integrations." },
-                ].map((c, i) => (
-                  <Reveal key={i} root={scrollRef} delay={i * 30}>
-                    <Card className="bg-gray-50 rounded-xl p-6 cursor-default">
-                      <div className="text-xl mb-3">{c.emoji}</div>
-                      <p className="text-[15px] text-gray-900 mb-2" style={{ fontWeight: 500 }}>{c.label}</p>
-                      <p className="text-[14px] text-gray-500 leading-[1.75]">{c.desc}</p>
-                    </Card>
-                  </Reveal>
-                ))}
-              </div>
-            </Section>
-
-            {/* Impact */}
-            <Section root={scrollRef} delay={60}>
-              <SectionLabel>📈 Impact</SectionLabel>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-12 mb-10">
-                <div>
-                  <h3 className="text-[24px] text-gray-900 leading-tight mb-5" style={{ fontWeight: 500 }}>
-                    Aegent proves that autonomous AI doesn't require a team of engineers.
-                  </h3>
-                  <p className="text-[17px] text-gray-600 leading-[1.85]">
-                    By separating listeners, integrations, and evaluation into composable primitives, Aegent makes production-grade AI agents accessible to anyone. The right abstraction layer is all it takes.
-                  </p>
-                </div>
-                <div className="flex flex-col justify-center sm:border-l sm:border-gray-200 sm:pl-12">
-                  <p className="text-[17px] text-gray-600 leading-[1.85]">
-                    The evaluation framework transforms opaque agent behavior into observable, improvable workflows — and the community integration model means the platform scales capabilities without central engineering bottlenecks.
-                  </p>
-                </div>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                {[
-                  { emoji: "💰", label: "$1.5M Pre-Seed Closed", desc: "akakAI closed $1.5M in pre-seed funding on the strength of Aegent's architecture and vision." },
-                  { emoji: "🏛️", label: "End-to-End Platform", desc: "Built the entire platform — from agent runtime and LLM orchestration to the community integration library and evaluation framework." },
-                  { emoji: "📈", label: "Scalable Integration Model", desc: "Community integration library model enables the platform to scale capabilities without central engineering bottlenecks." },
-                  { emoji: "🔭", label: "Observable Agent Behavior", desc: "Evaluation framework transforms opaque agent behavior into observable, improvable workflows." },
-                ].map((c, i) => (
-                  <Reveal key={i} root={scrollRef} delay={i * 40}>
-                    <Card className="border border-gray-100 rounded-xl p-6 cursor-default">
-                      <div className="text-xl mb-3">{c.emoji}</div>
-                      <p className="text-[15px] text-gray-900 mb-2" style={{ fontWeight: 500 }}>{c.label}</p>
-                      <p className="text-[14px] text-gray-500 leading-[1.75]">{c.desc}</p>
-                    </Card>
-                  </Reveal>
-                ))}
-              </div>
-            </Section>
-          </div>
-        )}
-
-        {/* ═══ EMAIL CASE STUDY ═══ */}
-        {activeTab === "projects" && projectView === "email" && (
-          <div className="px-4 sm:px-8">
-            {/* Back + meta header */}
-            <div className="py-10 border-b border-gray-100">
-              <button onClick={() => { setProjectView(null); scrollRef.current?.scrollTo({ top: 0, behavior: "smooth" }); }}
-                className="inline-flex items-center gap-2 text-[13px] text-gray-400 hover:text-gray-900 transition-colors mb-10">
-                ← Back to Projects
-              </button>
-              <div className="grid grid-cols-1 sm:grid-cols-[2fr_1fr] gap-6 sm:gap-12 items-start">
-                <div>
-                  <h2 className="text-[28px] sm:text-[56px] text-gray-900 leading-none mb-3" style={{ fontWeight: 500, fontStyle: "italic" }}>Email.</h2>
-                  <p className="text-[18px] text-gray-400">Autonomous AI Email Agent</p>
-                </div>
-                <div className="grid grid-cols-2 gap-x-6 gap-y-4">
-                  {[
-                    { label: "Timeline", value: "2025" },
-                    { label: "Company", value: "akakAI" },
-                    { label: "Type", value: "AI Email Agent" },
-                    { label: "Tech", value: "LLMs, Gmail API, Outlook API, OAuth" },
-                    { label: "Status", value: "Live — Early Access" },
-                  ].map(({ label, value }) => (
-                    <div key={label}>
-                      <p className="text-[11px] uppercase tracking-[0.15em] text-gray-400 mb-1">{label}</p>
-                      <p className="text-[14px] text-gray-700">{value}</p>
-                    </div>
+                    </Reveal>
                   ))}
                 </div>
-              </div>
+              </Section>
+
+              <HiringCTA root={scrollRef} />
             </div>
+          )}
 
-            {/* Overview */}
-            <Section first root={scrollRef}>
-              <SectionLabel>📋 Overview</SectionLabel>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-12">
-                <div>
-                  <h3 className="text-[26px] text-gray-900 leading-tight mb-3" style={{ fontWeight: 500 }}>
-                    Zero Inbox. Zero Stress.
-                  </h3>
-                  <p className="text-[14px] uppercase tracking-[0.12em] text-gray-400 mb-6">Intelligent Context Awareness + Cognitive Routing + Smart Response Filtering</p>
-                  <p className="text-[17px] text-gray-600 leading-[1.85] mb-5">
-                    akakAI Email is an autonomous AI agent that integrates directly with Gmail and Outlook. It reads incoming emails, understands context, and drafts replies autonomously — no prompts, no commands, no separate app.
-                  </p>
-                  <p className="text-[17px] text-gray-600 leading-[1.85]">
-                    The agent operates silently in the background, monitoring your inbox and composing context-aware replies based on your identity, communication style, and the substance of each thread.
-                  </p>
+          {/* TEAM */}
+          {activeTab === "team" && (
+            <div className="px-4 sm:px-8">
+              <Section first root={scrollRef}>
+                <div className="grid grid-cols-1 sm:grid-cols-[2fr_3fr] gap-8">
+                  <div>
+                    <div className="mb-8">
+                      <Image src="/zayd.png" alt="Zayd Malik" width={96} height={96}
+                        className="w-24 h-24 rounded-full object-cover object-top" />
+                    </div>
+                    <p className={`text-[14px] uppercase tracking-[0.18em] ${LABEL_TEXT} mb-4`}>Co-founder & CEO</p>
+                    <h2 className={`text-[26px] sm:text-[42px] leading-none ${TEXT} mb-3`} style={{ fontWeight: 500 }}>Zayd Malik</h2>
+                    <p className={`text-[22px] ${TEXT} leading-[1.4] mb-4`} style={{ fontWeight: 400 }}>
+                      &ldquo;AI should act, not just react.&rdquo;
+                    </p>
+                  </div>
+                  <div className={`flex flex-col justify-center sm:border-l sm:border-[#222] sm:pl-8`}>
+                    <p className={`text-[18px] ${MUTED} leading-[1.8] mb-6`}>
+                      Zayd started akakAI after observing that every AI tool people were using was passive. They waited. They asked for input. They responded. They never moved first.
+                    </p>
+                    <p className={`text-[18px] ${MUTED} leading-[1.8]`}>
+                      Frustrated with passive tools and overhyped tech, he set out to build something fundamentally different: AI that takes initiative, understands context, and actually follows through.
+                    </p>
+                  </div>
                 </div>
-                <div className="flex flex-col justify-center border-l border-gray-200 pl-12 gap-6">
-                  <Image src="/email-hero.png" alt="akakAI Email" width={900} height={600}
-                    className="w-full rounded-xl border border-gray-100 object-cover" />
-                  <a href="https://email.akakai.com" target="_blank" rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-[13px] text-gray-500 border border-gray-200 px-5 py-2.5 rounded-full hover:border-gray-400 hover:text-gray-900 transition-colors w-fit">
-                    Visit Email <ArrowUpRight size={13} />
-                  </a>
-                </div>
-              </div>
-            </Section>
+              </Section>
 
-            {/* Three Pillars */}
-            <Section root={scrollRef} delay={60}>
-              <SectionLabel>🧠 How It Works</SectionLabel>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">
-                {[
-                  { emoji: "🗓️", label: "Intelligent Context Awareness", desc: "The agent uses information from your calendar and previous emails to craft personalized, contextually appropriate responses — not generic templates." },
-                  { emoji: "🧭", label: "Cognitive Routing", desc: "Incoming emails are intelligently analyzed and routed to the most suitable language model based on message type, complexity, and intent." },
-                  { emoji: "🛡️", label: "Smart Response Filtering", desc: "Promotional emails are automatically ignored, ensuring auto-responses are only sent to relevant, meaningful messages — no unwanted noise." },
-                ].map((c, i) => (
-                  <Reveal key={i} root={scrollRef} delay={i * 40}>
-                    <Card className="bg-gray-50 rounded-xl p-7 cursor-default">
-                      <div className="text-xl mb-3">{c.emoji}</div>
-                      <p className="text-[16px] text-gray-900 mb-3" style={{ fontWeight: 500 }}>{c.label}</p>
-                      <p className="text-[14px] text-gray-500 leading-[1.8]">{c.desc}</p>
-                    </Card>
-                  </Reveal>
-                ))}
-              </div>
-            </Section>
-
-            {/* Stat callout */}
-            <Section root={scrollRef} delay={60}>
-              <SectionLabel>📊 Why It Matters</SectionLabel>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-12 mb-10">
-                <div>
-                  <h3 className="text-[24px] text-gray-900 leading-tight mb-5" style={{ fontWeight: 500 }}>
-                    Americans spend the equivalent of nearly 4 months a year just on email — more than they get for vacation.
-                  </h3>
-                  <p className="text-[17px] text-gray-600 leading-[1.85]">
-                    Stop worrying about hundreds of unread emails. akakAI Email is a personal email assistant that handles responses for you, so you can focus on what matters.
-                  </p>
+              <Section root={scrollRef} delay={60}>
+                <div className="grid grid-cols-1 sm:grid-cols-[2fr_3fr] gap-8">
+                  <div>
+                    <div className="mb-8">
+                      <Image src="/abhi.jpg" alt="Abhiram Vishnubhotla" width={96} height={96}
+                        className="w-24 h-24 rounded-full object-cover object-top" />
+                    </div>
+                    <p className={`text-[14px] uppercase tracking-[0.18em] ${LABEL_TEXT} mb-4`}>Co-founder & Agent Developer</p>
+                    <h2 className={`text-[26px] sm:text-[42px] leading-none ${TEXT} mb-3`} style={{ fontWeight: 500 }}>Abhiram Vishnubhotla</h2>
+                    <p className={`text-[22px] ${TEXT} leading-[1.4] mb-4`} style={{ fontWeight: 400 }}>
+                      &ldquo;Agents that don&apos;t just execute. They understand.&rdquo;
+                    </p>
+                    <a href="https://abhiramv09.replit.app/" target="_blank" rel="noopener noreferrer"
+                      className={`inline-flex items-center gap-2 text-[13px] ${MUTED} border ${BORDER} px-4 py-1.5 rounded-full hover:border-[#444] hover:text-white transition-colors duration-150 w-fit`}>
+                      abhiramv09.replit.app <ArrowUpRight size={12} />
+                    </a>
+                  </div>
+                  <div className={`flex flex-col justify-center sm:border-l sm:border-[#222] sm:pl-8`}>
+                    <p className={`text-[18px] ${MUTED} leading-[1.8] mb-6`}>
+                      Abhiram brings the technical depth to turn akakAI&apos;s vision into working systems. His focus is on the hardest problem in the space: building agents that don&apos;t just run through steps, but genuinely reason about what needs to happen next.
+                    </p>
+                    <p className={`text-[18px] ${MUTED} leading-[1.8]`}>
+                      He architects the core agent runtime, the layer responsible for goal comprehension, dynamic planning, and real-time decision-making across complex, multi-system environments.
+                    </p>
+                  </div>
                 </div>
-                <div className="flex flex-col justify-center sm:border-l sm:border-gray-200 sm:pl-12">
-                  <div className="grid grid-cols-2 gap-4">
+              </Section>
+
+              <HiringCTA root={scrollRef} />
+            </div>
+          )}
+
+          {/* INVESTMENTS */}
+          {activeTab === "investments" && (
+            <div className="px-4 sm:px-8">
+              <Section first root={scrollRef}>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-12">
+                  <div>
+                    <SectionLabel>Investment Inquiries</SectionLabel>
+                    <h2 className={`text-[32px] leading-tight ${TEXT} mb-6`} style={{ fontWeight: 500 }}>
+                      Interested in backing the next wave?
+                    </h2>
+                    <p className={`text-[18px] ${MUTED} leading-[1.8]`}>
+                      akakAI is building the infrastructure for autonomous AI action. Agents that think independently, take initiative, and deliver outcomes without hand-holding.
+                    </p>
+                  </div>
+                  <div className="sm:pt-14">
+                    <p className={`text-[18px] ${MUTED} leading-[1.8] mb-8`}>
+                      We are early, intentional, and moving fast. If you are interested in partnering with us on this mission, we would love to connect.
+                    </p>
+                    <a href="mailto:investments@akakai.com"
+                      className="inline-flex items-center gap-2 bg-white text-black px-6 py-3 rounded-full text-[14px] hover:bg-zinc-200 transition-colors">
+                      investments@akakai.com <ArrowUpRight size={14} />
+                    </a>
+                  </div>
+                </div>
+              </Section>
+
+              <Section root={scrollRef} delay={60}>
+                <SectionLabel>Press</SectionLabel>
+                <div className="space-y-4">
+                  <PressEntry
+                    title="akakAI Secures Pre-Seed Funding, Valued at $1.5 Million"
+                    date="July 7, 2025"
+                    location="Dallas, TX"
+                  >
+                    <div className="space-y-6">
+                      <p className={`text-[17px] ${MUTED} leading-[1.85]`}>
+                        akakAI, the AI startup building autonomous agents that proactively get work done, announced today that it has secured a pre-seed funding round from an undisclosed investor, bringing the company&apos;s valuation to <span className="text-white" style={{ fontWeight: 500 }}>$1.5 million</span>.
+                      </p>
+                      <p className={`text-[17px] ${MUTED} leading-[1.85]`}>
+                        Founded by Zayd Malik, akakAI&apos;s first product is an AI email agent that integrates directly with Gmail and Outlook, drafting email replies autonomously without requiring prompts, commands, or a separate app.
+                      </p>
+                      <div className={`border-l-2 border-[#2a2a2a] pl-6 py-1`}>
+                        <p className={`text-[18px] text-[#aaa] leading-[1.7] italic`}>
+                          &ldquo;This investment allows us to deepen our technical capabilities and grow our team as we continue building agents that work for people, not just with them.&rdquo;
+                        </p>
+                        <p className={`text-[13px] ${LABEL_TEXT} mt-3 uppercase tracking-[0.12em]`}>Zayd Malik, Founder, akakAI</p>
+                      </div>
+                      <p className={`text-[17px] ${MUTED} leading-[1.85]`}>
+                        akakAI officially launched on July 3, 2025, and is currently onboarding early users.
+                      </p>
+                      <div className={`grid grid-cols-1 sm:grid-cols-2 gap-8 border-t ${BORDER} pt-6`}>
+                        <div>
+                          <p className={`text-[13px] uppercase tracking-[0.15em] ${LABEL_TEXT} mb-2`}>Website</p>
+                          <a href="https://akakai.com" className={`text-[15px] ${MUTED} hover:text-white transition-colors`}>akakai.com</a>
+                        </div>
+                        <div>
+                          <p className={`text-[13px] uppercase tracking-[0.15em] ${LABEL_TEXT} mb-2`}>Media Contact</p>
+                          <a href="mailto:media@akakai.com" className={`text-[15px] ${MUTED} hover:text-white transition-colors`}>media@akakai.com</a>
+                        </div>
+                      </div>
+                    </div>
+                  </PressEntry>
+                </div>
+              </Section>
+
+              <HiringCTA root={scrollRef} />
+            </div>
+          )}
+
+          {/* PROJECTS LIST */}
+          {activeTab === "projects" && projectView === null && (
+            <div className="px-4 sm:px-8">
+              <Section first root={scrollRef}>
+                <SectionLabel>Products</SectionLabel>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+
+                  <Card className={`border ${BORDER} rounded-2xl overflow-hidden`}>
+                    <div className={`px-8 py-10 border-b ${BORDER}`}>
+                      <p className={`text-[11px] uppercase tracking-[0.2em] ${LABEL_TEXT} mb-3`}>01 — Autonomous Agent Platform</p>
+                      <h2 className={`text-[26px] sm:text-[38px] ${TEXT} leading-none mb-2`} style={{ fontWeight: 500, fontStyle: "italic" }}>Aegent.</h2>
+                      <p className={`text-[14px] ${LABEL_TEXT}`}>by akakAI</p>
+                    </div>
+                    <div className="px-8 py-8">
+                      <p className={`text-[16px] ${MUTED} leading-[1.8] mb-6`}>
+                        A no-code platform for building autonomous AI agents that listen to real-world triggers and act through a community-built integration library. No code. No prompting. Just outcomes.
+                      </p>
+                      <div className="flex flex-wrap gap-2 mb-8">
+                        {["Node.js", "React", "PostgreSQL", "LLMs"].map(t => (
+                          <span key={t} className={`text-[12px] ${MUTED} border ${BORDER} px-3 py-1 rounded-full`}>{t}</span>
+                        ))}
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <button
+                          onClick={() => { setProjectView("aegent"); scrollRef.current?.scrollTo({ top: 0, behavior: "smooth" }); }}
+                          className="inline-flex items-center gap-2 bg-white text-black px-5 py-2.5 rounded-full text-[13px] hover:bg-zinc-200 transition-colors">
+                          Case Study <ArrowUpRight size={13} />
+                        </button>
+                        <a href="https://aegent.akakai.com" target="_blank" rel="noopener noreferrer"
+                          className={`inline-flex items-center gap-2 text-[13px] ${MUTED} border ${BORDER} px-5 py-2.5 rounded-full hover:border-[#444] hover:text-white transition-colors`}>
+                          aegent.akakai.com <ArrowUpRight size={13} />
+                        </a>
+                      </div>
+                    </div>
+                  </Card>
+
+                  <Card className={`border ${BORDER} rounded-2xl overflow-hidden`}>
+                    <div className={`px-8 py-10 border-b ${BORDER}`}>
+                      <p className={`text-[11px] uppercase tracking-[0.2em] ${LABEL_TEXT} mb-3`}>02 — Autonomous Email Agent</p>
+                      <h2 className={`text-[26px] sm:text-[38px] ${TEXT} leading-none mb-2`} style={{ fontWeight: 500, fontStyle: "italic" }}>Email.</h2>
+                      <p className={`text-[14px] ${LABEL_TEXT}`}>by akakAI</p>
+                    </div>
+                    <div className="px-8 py-8">
+                      <p className={`text-[16px] ${MUTED} leading-[1.8] mb-6`}>
+                        An AI agent that integrates directly with Gmail and Outlook, drafting autonomous email replies without prompts or commands. It reads your inbox, understands context, and responds before you even open the thread.
+                      </p>
+                      <div className="flex flex-wrap gap-2 mb-8">
+                        {["LLMs", "Gmail API", "Outlook API", "OAuth"].map(t => (
+                          <span key={t} className={`text-[12px] ${MUTED} border ${BORDER} px-3 py-1 rounded-full`}>{t}</span>
+                        ))}
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <button
+                          onClick={() => { setProjectView("email"); scrollRef.current?.scrollTo({ top: 0, behavior: "smooth" }); }}
+                          className="inline-flex items-center gap-2 bg-white text-black px-5 py-2.5 rounded-full text-[13px] hover:bg-zinc-200 transition-colors">
+                          Case Study <ArrowUpRight size={13} />
+                        </button>
+                        <a href="https://email.akakai.com" target="_blank" rel="noopener noreferrer"
+                          className={`inline-flex items-center gap-2 text-[13px] ${MUTED} border ${BORDER} px-5 py-2.5 rounded-full hover:border-[#444] hover:text-white transition-colors`}>
+                          email.akakai.com <ArrowUpRight size={13} />
+                        </a>
+                      </div>
+                    </div>
+                  </Card>
+
+                </div>
+              </Section>
+              <HiringCTA root={scrollRef} />
+            </div>
+          )}
+
+          {/* AEGENT CASE STUDY */}
+          {activeTab === "projects" && projectView === "aegent" && (
+            <div className="px-4 sm:px-8">
+              <div className={`py-10 border-b ${BORDER}`}>
+                <button onClick={() => { setProjectView(null); scrollRef.current?.scrollTo({ top: 0, behavior: "smooth" }); }}
+                  className={`inline-flex items-center gap-2 text-[13px] ${MUTED} hover:text-white transition-colors mb-10`}>
+                  Back to Projects
+                </button>
+                <div className="grid grid-cols-1 sm:grid-cols-[2fr_1fr] gap-6 sm:gap-12 items-start">
+                  <div>
+                    <h2 className={`text-[28px] sm:text-[56px] ${TEXT} leading-none mb-3`} style={{ fontWeight: 500, fontStyle: "italic" }}>Aegent.</h2>
+                    <p className={`text-[18px] ${MUTED}`}>Autonomous AI Agent Platform</p>
+                  </div>
+                  <div className="grid grid-cols-2 gap-x-6 gap-y-4">
                     {[
-                      "Automatic response drafting",
-                      "Stay focused, not buried",
-                      "Eliminate repetitive work",
-                      "Stress-free inbox",
-                      "Calendar contextual awareness",
-                      "Unlimited inboxes (500 email cap)",
-                    ].map((item) => (
-                      <div key={item} className="flex items-start gap-2">
-                        <span className="text-gray-300 mt-1 flex-none">—</span>
-                        <p className="text-[14px] text-gray-600 leading-[1.6]">{item}</p>
+                      { label: "Timeline", value: "2025 – 2026" },
+                      { label: "Funding", value: "$1.5M Pre-Seed" },
+                      { label: "Type", value: "Full-Stack AI Platform" },
+                      { label: "Tech", value: "Node.js, React, PostgreSQL, LLMs" },
+                      { label: "Status", value: "Live — Early Access" },
+                    ].map(({ label, value }) => (
+                      <div key={label}>
+                        <p className={`text-[11px] uppercase tracking-[0.15em] ${LABEL_TEXT} mb-1`}>{label}</p>
+                        <p className={`text-[14px] ${MUTED}`}>{value}</p>
                       </div>
                     ))}
                   </div>
                 </div>
               </div>
-            </Section>
 
-            {/* Core Features */}
-            <Section root={scrollRef} delay={60}>
-              <SectionLabel>⚡ Core Features</SectionLabel>
-              <div className="mb-6">
-                <h3 className="text-[22px] text-gray-900 leading-tight" style={{ fontWeight: 500 }}>Focus on the things that matter.</h3>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                {[
-                  { emoji: "⚡", label: "Real-Time Response Generation", desc: "Instantly produces high-quality email drafts tailored to the incoming message — no delays, no templates, just fast, accurate replies." },
-                  { emoji: "🌍", label: "Multi-Language Support", desc: "Generate responses in multiple languages with native-level fluency, so your team can handle global communication without breaking a sweat." },
-                  { emoji: "🗓️", label: "Calendar Integration", desc: "Uses information from your calendar to understand availability and context, ensuring responses are timely and relevant." },
-                  { emoji: "✏️", label: "Easy Human Editing", desc: "Every AI-generated draft is editable — review, tweak, or add a human touch before sending. You're always in control." },
-                  { emoji: "🧵", label: "Email Thread Awareness", desc: "Remembers the context of ongoing threads, so responses stay coherent, avoid repetition, and feel like part of a natural conversation." },
-                  { emoji: "🔌", label: "Lightweight, No-Code Integration", desc: "No engineering headache — get started in minutes with simple setup and seamless compatibility with your existing tools." },
-                ].map((c, i) => (
-                  <Reveal key={i} root={scrollRef} delay={i * 30}>
-                    <Card className="bg-gray-50 rounded-xl p-6 cursor-default">
-                      <div className="text-xl mb-3">{c.emoji}</div>
-                      <p className="text-[15px] text-gray-900 mb-2" style={{ fontWeight: 500 }}>{c.label}</p>
-                      <p className="text-[14px] text-gray-500 leading-[1.75]">{c.desc}</p>
-                    </Card>
-                  </Reveal>
-                ))}
-              </div>
-            </Section>
-          </div>
-        )}
+              <Section first root={scrollRef}>
+                <SectionLabel>Overview</SectionLabel>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-12">
+                  <div>
+                    <h3 className={`text-[26px] ${TEXT} leading-tight mb-6`} style={{ fontWeight: 500 }}>
+                      A no-code platform for building agents that act on real-world events.
+                    </h3>
+                    <p className={`text-[17px] ${MUTED} leading-[1.85]`}>
+                      Aegent lets anyone build agents that listen to real-world triggers — email inboxes, cron schedules, Slack channels — and act autonomously through integrations, without writing a single line of code.
+                    </p>
+                  </div>
+                  <div className={`flex flex-col justify-center sm:border-l sm:border-[#222] sm:pl-12 gap-5`}>
+                    <p className={`text-[17px] ${MUTED} leading-[1.85]`}>
+                      akakAI closed $1.5M in pre-seed funding on the strength of Aegent&apos;s architecture and vision, demonstrating that production-grade autonomous AI doesn&apos;t require a team of engineers.
+                    </p>
+                    <a href="https://aegent.akakai.com" target="_blank" rel="noopener noreferrer"
+                      className={`inline-flex items-center gap-2 text-[13px] ${MUTED} border ${BORDER} px-5 py-2.5 rounded-full hover:border-[#444] hover:text-white transition-colors w-fit`}>
+                      Visit Aegent <ArrowUpRight size={13} />
+                    </a>
+                  </div>
+                </div>
+              </Section>
 
-        {/* ═══ CONTACT ═══ */}
-        {activeTab === "contact" && (
-          <div className="px-4 sm:px-8">
-            <Section first root={scrollRef}>
-              <div className="border border-gray-200 rounded-xl p-6 sm:p-10">
-                <p className="text-[14px] uppercase tracking-[0.18em] text-gray-400 mb-5">🚀 We're Hiring</p>
-                <h3 className="text-[24px] sm:text-[34px] text-gray-900 leading-tight mb-4" style={{ fontWeight: 500 }}>
-                  Build what comes after passive AI.
-                </h3>
-                <p className="text-[16px] sm:text-[18px] text-gray-500 leading-[1.75] mb-8 max-w-lg">
-                  If you believe AI should move first, think independently, and deliver without hand-holding — we want to talk.
-                </p>
-                <a href="mailto:media@akakai.com" className="inline-flex items-center gap-2 bg-gray-900 text-white px-6 py-3 rounded-full text-[14px] hover:bg-gray-700 transition-colors">
-                  Get in touch <ArrowUpRight size={14} />
+              <Section root={scrollRef} delay={60}>
+                <SectionLabel>The Challenge</SectionLabel>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-12">
+                  <div>
+                    <h3 className={`text-[24px] ${TEXT} leading-tight mb-5`} style={{ fontWeight: 500 }}>
+                      Building AI agents today requires significant engineering.
+                    </h3>
+                    <p className={`text-[17px] ${MUTED} leading-[1.85]`}>
+                      LLM orchestration, tool calling, event listeners, integration management, and evaluation all need to be wired together manually. No platform made this accessible without code while still being powerful enough for production workflows.
+                    </p>
+                  </div>
+                  <div className={`flex flex-col justify-center sm:border-l sm:border-[#222] sm:pl-12`}>
+                    <p className={`text-[17px] ${MUTED} leading-[1.85]`}>
+                      Non-technical users needed to configure complex agentic behavior — listeners, scripts, memory, escalation — without touching code. And every agent run needed to be fully observable.
+                    </p>
+                  </div>
+                </div>
+              </Section>
+
+              <Section root={scrollRef} delay={60}>
+                <SectionLabel>Solution — Agent Builder</SectionLabel>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-12">
+                  <div>
+                    <p className={`text-[17px] ${MUTED} leading-[1.85] mb-4`}>
+                      Each agent has a configurable identity, behavior profile, and additional context. Agents are structured around a sidebar with separate tabs for Connections, Monitoring, and Developer tools.
+                    </p>
+                    <p className={`text-[17px] ${MUTED} leading-[1.85]`}>
+                      The agent builder is fully no-code and persists all configuration to a per-agent database, giving users complete control without writing a line of code.
+                    </p>
+                  </div>
+                  <div className={`flex flex-col justify-center sm:border-l sm:border-[#222] sm:pl-12`}>
+                    <Image src="/aegent-thread.png" alt="Aegent thread monitoring" width={900} height={600}
+                      className="w-full rounded-xl border border-[#222] object-cover" />
+                  </div>
+                </div>
+              </Section>
+
+              <Section root={scrollRef} delay={60}>
+                <SectionLabel>Solution — Listeners</SectionLabel>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-12">
+                  <div>
+                    <p className={`text-[17px] ${MUTED} leading-[1.85] mb-6`}>
+                      Listeners are the trigger layer — they define when an agent runs. Aegent&apos;s listener architecture is extensible, allowing an infinite number of listener types to be connected to any agent.
+                    </p>
+                    <div className="flex flex-col gap-4">
+                      {[
+                        { label: "Cron Job", desc: "Triggers the agent on a schedule defined by a cron expression." },
+                        { label: "Webhook", desc: "Listens for incoming HTTP requests and triggers the agent the moment a payload arrives." },
+                        { label: "Polling", desc: "Continuously checks an external source at a configurable interval and triggers on new data." },
+                      ].map((item) => (
+                        <Card key={item.label} className={`${CARD} rounded-xl p-5 cursor-default`}>
+                          <p className={`text-[14px] ${TEXT} mb-1.5`} style={{ fontWeight: 500 }}>{item.label}</p>
+                          <p className={`text-[14px] ${MUTED} leading-[1.75]`}>{item.desc}</p>
+                        </Card>
+                      ))}
+                    </div>
+                  </div>
+                  <div className={`flex flex-col gap-5 justify-center sm:border-l sm:border-[#222] sm:pl-12`}>
+                    <Image src="/aegent-listener-email.png" alt="Email inbox listener" width={900} height={500}
+                      className="w-full rounded-xl border border-[#222] object-cover" />
+                    <Image src="/aegent-listener-cron.png" alt="Cron job listener" width={900} height={500}
+                      className="w-full rounded-xl border border-[#222] object-cover" />
+                  </div>
+                </div>
+              </Section>
+
+              <Section root={scrollRef} delay={60}>
+                <SectionLabel>Solution — Integration Library</SectionLabel>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-12">
+                  <div>
+                    <p className={`text-[17px] ${MUTED} leading-[1.85] mb-4`}>
+                      Integrations are the action layer. Aegent&apos;s community library includes integrations built by akakAI and contributors: Email Send, Slack, Database, Microsoft Teams, Twilio SMS, PayPal, Google Calendar, and more.
+                    </p>
+                    <p className={`text-[17px] ${MUTED} leading-[1.85]`}>
+                      Each integration has a structured parameter schema and can be added to any agent with one click. The community model enables the platform to scale capabilities without central engineering bottlenecks.
+                    </p>
+                  </div>
+                  <div className={`flex flex-col justify-center sm:border-l sm:border-[#222] sm:pl-12`}>
+                    <Image src="/aegent-integrations.png" alt="Community integration library" width={900} height={600}
+                      className="w-full rounded-xl border border-[#222] object-cover" />
+                  </div>
+                </div>
+              </Section>
+
+              <Section root={scrollRef} delay={60}>
+                <SectionLabel>Solution — Thread Monitoring</SectionLabel>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-12">
+                  <div>
+                    <p className={`text-[17px] ${MUTED} leading-[1.85] mb-4`}>
+                      Every agent run produces a full thread: a timestamped, step-by-step trace of every event received, action taken, integration called, and interaction concluded.
+                    </p>
+                    <p className={`text-[17px] ${MUTED} leading-[1.85]`}>
+                      Each thread is evaluated by a secondary LLM that rates success, identifies what went right or wrong, and extracts key learnings that feed back into the agent&apos;s improvement loop.
+                    </p>
+                  </div>
+                  <div className={`flex flex-col justify-center sm:border-l sm:border-[#222] sm:pl-12`}>
+                    <Image src="/aegent-evaluation.png" alt="Thread evaluation" width={900} height={600}
+                      className="w-full rounded-xl border border-[#222] object-cover" />
+                  </div>
+                </div>
+              </Section>
+            </div>
+          )}
+
+          {/* EMAIL CASE STUDY */}
+          {activeTab === "projects" && projectView === "email" && (
+            <div className="px-4 sm:px-8">
+              <div className={`py-10 border-b ${BORDER}`}>
+                <button onClick={() => { setProjectView(null); scrollRef.current?.scrollTo({ top: 0, behavior: "smooth" }); }}
+                  className={`inline-flex items-center gap-2 text-[13px] ${MUTED} hover:text-white transition-colors mb-10`}>
+                  Back to Projects
+                </button>
+                <div className="grid grid-cols-1 sm:grid-cols-[2fr_1fr] gap-6 sm:gap-12 items-start">
+                  <div>
+                    <h2 className={`text-[28px] sm:text-[56px] ${TEXT} leading-none mb-3`} style={{ fontWeight: 500, fontStyle: "italic" }}>Email.</h2>
+                    <p className={`text-[18px] ${MUTED}`}>Autonomous Email Agent</p>
+                  </div>
+                  <div className="grid grid-cols-2 gap-x-6 gap-y-4">
+                    {[
+                      { label: "Timeline", value: "2025" },
+                      { label: "Type", value: "Autonomous Email Agent" },
+                      { label: "Tech", value: "LLMs, Gmail API, Outlook API, OAuth" },
+                      { label: "Status", value: "Live" },
+                    ].map(({ label, value }) => (
+                      <div key={label}>
+                        <p className={`text-[11px] uppercase tracking-[0.15em] ${LABEL_TEXT} mb-1`}>{label}</p>
+                        <p className={`text-[14px] ${MUTED}`}>{value}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <Section first root={scrollRef}>
+                <div className="mb-8 rounded-2xl overflow-hidden border border-[#222]">
+                  <Image src="/email-hero.png" alt="Email Agent" width={1200} height={600}
+                    className="w-full object-cover" />
+                </div>
+                <SectionLabel>Overview</SectionLabel>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-12">
+                  <div>
+                    <h3 className={`text-[26px] ${TEXT} leading-tight mb-6`} style={{ fontWeight: 500 }}>
+                      Your inbox, handled autonomously.
+                    </h3>
+                    <p className={`text-[17px] ${MUTED} leading-[1.85]`}>
+                      The Email Agent integrates directly with Gmail and Outlook, monitoring your inbox in real time and drafting contextually appropriate replies without requiring prompts, commands, or a separate app.
+                    </p>
+                  </div>
+                  <div className={`flex flex-col justify-center sm:border-l sm:border-[#222] sm:pl-12`}>
+                    <p className={`text-[17px] ${MUTED} leading-[1.85]`}>
+                      It uses your calendar data and email history to craft personalized responses, intelligently routes messages to the right language model, and filters out promotional noise so only meaningful emails get auto-replied.
+                    </p>
+                  </div>
+                </div>
+              </Section>
+
+              <Section root={scrollRef} delay={60}>
+                <SectionLabel>How It Works</SectionLabel>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">
+                  {[
+                    { label: "Intelligent Context Awareness", desc: "The agent uses information from your calendar and previous emails to craft personalized, contextually appropriate responses." },
+                    { label: "Cognitive Routing", desc: "Incoming emails are analyzed and routed to the most suitable language model based on message type, complexity, and intent." },
+                    { label: "Smart Response Filtering", desc: "Promotional emails are automatically ignored. Auto-responses are only sent to relevant, meaningful messages." },
+                  ].map((c, i) => (
+                    <Reveal key={i} root={scrollRef} delay={i * 30}>
+                      <Card className={`${CARD} rounded-xl p-6 cursor-default`}>
+                        <p className={`text-[15px] ${TEXT} mb-2`} style={{ fontWeight: 500 }}>{c.label}</p>
+                        <p className={`text-[14px] ${MUTED} leading-[1.75]`}>{c.desc}</p>
+                      </Card>
+                    </Reveal>
+                  ))}
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-12">
+                  <div>
+                    <h3 className={`text-[24px] ${TEXT} leading-tight mb-5`} style={{ fontWeight: 500 }}>
+                      Why It Matters
+                    </h3>
+                    <p className={`text-[17px] ${MUTED} leading-[1.85]`}>
+                      Email is one of the highest-friction surfaces in professional work. The Email Agent eliminates that friction entirely — not by helping you write faster, but by handling the work before you even see it.
+                    </p>
+                  </div>
+                  <div className={`flex flex-col justify-center sm:border-l sm:border-[#222] sm:pl-12`}>
+                    <p className={`text-[17px] ${MUTED} leading-[1.85]`}>
+                      This is what agentic AI looks like in practice: not a tool you use, but a system that works while you focus on what only you can do.
+                    </p>
+                  </div>
+                </div>
+              </Section>
+
+              <Section root={scrollRef} delay={60}>
+                <SectionLabel>Core Features</SectionLabel>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                  {[
+                    { label: "Gmail & Outlook Integration", desc: "Native OAuth-based integration with both major email platforms." },
+                    { label: "Context-Aware Replies", desc: "Responses are informed by calendar events, email history, and user preferences." },
+                    { label: "Multi-Model Routing", desc: "Each email is routed to the optimal LLM based on complexity and intent." },
+                    { label: "Promotional Filtering", desc: "Newsletters, marketing, and automated messages are automatically skipped." },
+                    { label: "Zero Interface Required", desc: "No app to open. No prompt to write. The agent works in the background." },
+                    { label: "Lightweight Setup", desc: "Get started in minutes with simple setup and seamless compatibility with existing tools." },
+                  ].map((c, i) => (
+                    <Reveal key={i} root={scrollRef} delay={i * 30}>
+                      <Card className={`${CARD} rounded-xl p-6 cursor-default`}>
+                        <p className={`text-[15px] ${TEXT} mb-2`} style={{ fontWeight: 500 }}>{c.label}</p>
+                        <p className={`text-[14px] ${MUTED} leading-[1.75]`}>{c.desc}</p>
+                      </Card>
+                    </Reveal>
+                  ))}
+                </div>
+              </Section>
+            </div>
+          )}
+
+          {/* CONTACT */}
+          {activeTab === "contact" && (
+            <div className="px-4 sm:px-8">
+              <Section first root={scrollRef}>
+                <div className={`border ${BORDER} rounded-xl p-6 sm:p-10`}>
+                  <p className={`text-[13px] uppercase tracking-[0.18em] ${LABEL_TEXT} mb-5`}>We are Hiring</p>
+                  <h3 className={`text-[24px] sm:text-[34px] ${TEXT} leading-tight mb-4`} style={{ fontWeight: 500 }}>
+                    Build what comes after passive AI.
+                  </h3>
+                  <p className={`text-[16px] sm:text-[18px] ${MUTED} leading-[1.75] mb-8 max-w-lg`}>
+                    If you believe AI should move first and deliver without hand-holding, we want to talk.
+                  </p>
+                  <a href="mailto:media@akakai.com" className="inline-flex items-center gap-2 bg-white text-black px-6 py-3 rounded-full text-[14px] hover:bg-zinc-200 transition-colors">
+                    Get in touch <ArrowUpRight size={14} />
+                  </a>
+                </div>
+              </Section>
+            </div>
+          )}
+
+          {/* Footer */}
+          <div className={`border-t ${BORDER} px-4 sm:px-8 py-4 sm:py-6 flex items-center justify-between gap-4 flex-wrap`}>
+            <Image src="/logo-horizontal.png" alt="akakAI" width={80} height={20}
+              style={{ filter: "brightness(0) invert(1)" }} className="h-5 w-auto opacity-20" />
+            <div className={`flex items-center gap-7 text-[13px] ${MUTED}`}>
+              <a href="mailto:investments@akakai.com" className="hover:text-white transition-colors">Investments</a>
+              <a href="mailto:media@akakai.com" className="hover:text-white transition-colors">Press</a>
+              <span className="text-[#2a2a2a]">|</span>
+              {socials.map((s) => (
+                <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer"
+                  className="hover:text-white transition-colors" aria-label={s.label}>
+                  {s.icon}
                 </a>
-              </div>
-            </Section>
+              ))}
+              <span className="text-[#2a2a2a]">|</span>
+              <span>2026 akakAI</span>
+            </div>
           </div>
-        )}
 
-        {/* FOOTER */}
-        <div className="border-t border-gray-100 px-4 sm:px-8 py-4 sm:py-6 flex items-center justify-between gap-4 flex-wrap">
-          <Image src="/logo-horizontal.png" alt="akakAI" width={80} height={20}
-            style={{ filter: "invert(1) brightness(0)" }} className="h-5 w-auto opacity-20" />
-          <div className="flex items-center gap-7 text-[13px] text-gray-400">
-            <a href="mailto:investments@akakai.com" className="hover:text-gray-600 transition-colors">Investments</a>
-            <a href="mailto:media@akakai.com" className="hover:text-gray-600 transition-colors">Press</a>
-            <span className="text-gray-200">|</span>
-            {socials.map((s) => (
-              <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer"
-                className="hover:text-gray-700 transition-colors" aria-label={s.label}>
-                {s.icon}
-              </a>
-            ))}
-            <span className="text-gray-200">|</span>
-            <span>© 2026 akakAI</span>
-          </div>
         </div>
-      </div>
       </div>
     </>
   );

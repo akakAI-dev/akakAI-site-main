@@ -802,6 +802,9 @@ video {
   -webkit-background-clip: text;
           background-clip: text;
 }
+.fill-current {
+  fill: currentColor;
+}
 .object-contain {
   -o-object-fit: contain;
      object-fit: contain;
@@ -1036,16 +1039,12 @@ video {
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity, 1));
 }
-.text-gray-900 {
-  --tw-text-opacity: 1;
-  color: rgb(17 24 39 / var(--tw-text-opacity, 1));
+.text-transparent {
+  color: transparent;
 }
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
-}
-.text-transparent {
-  color: transparent;
 }
 .antialiased {
   -webkit-font-smoothing: antialiased;

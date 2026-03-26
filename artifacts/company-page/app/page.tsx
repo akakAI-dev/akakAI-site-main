@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
-import { ArrowUpRight, Youtube, Instagram, Twitter, ChevronDown, Menu, X } from "lucide-react";
+import { ArrowUpRight, Youtube, Instagram, ChevronDown, Menu, X, X as CloseIcon } from "lucide-react";
 
 type Tab = "about" | "mission" | "team" | "investments" | "projects" | "contact";
 type ProjectView = null | "aegent" | "email";
@@ -146,7 +146,7 @@ export default function CompanyPage() {
   const socials = [
     { href: "https://www.youtube.com/@real.akakAI", icon: <Youtube size={16} />, label: "YouTube" },
     { href: "https://www.instagram.com/real.akakai/", icon: <Instagram size={16} />, label: "Instagram" },
-    { href: "https://x.com/real_akakAI", icon: <Twitter size={16} />, label: "X" },
+    { href: "https://x.com/akakAIhq", icon: <svg width="16" height="16" viewBox="0 0 24 24" className="fill-current"><path d="M14.095479,10.316482L22.286354,1h-1.940718l-7.115352,8.087682L7.551414,1H1l8.589488,12.231093L1,23h1.940717  l7.509372-8.542861L16.448587,23H23L14.095479,10.316482z M11.436522,13.338465l-0.871624-1.218704l-6.924311-9.68815h2.981339  l5.58978,7.82155l0.867949,1.218704l7.26506,10.166271h-2.981339L11.436522,13.338465z" /></svg>, label: "X" },
   ];
 
   return (
@@ -158,7 +158,7 @@ export default function CompanyPage() {
             <Image src="/logo-horizontal.png" alt="akakAI" width={100} height={24}
               style={{ filter: "brightness(0) invert(1)" }} className="h-5 w-auto" priority />
             <button onClick={() => setNavOpen(false)} className={`${MUTED} hover:text-white transition-colors p-1`}>
-              <X size={20} />
+              <CloseIcon size={20} />
             </button>
           </div>
           <div className="flex-1 flex flex-col justify-center px-8 gap-1">
@@ -363,7 +363,7 @@ export default function CompanyPage() {
                       <Image src="/zayd.png" alt="Zayd Malik" width={96} height={96}
                         className="w-24 h-24 rounded-full object-cover object-top" />
                     </div>
-                    <p className={`text-[14px] uppercase tracking-[0.18em] ${LABEL_TEXT} mb-4`}>Co-founder & CEO</p>
+                    <p className={`text-[14px] uppercase tracking-[0.18em] ${LABEL_TEXT} mb-4`}>Founder & CEO</p>
                     <h2 className={`text-[26px] sm:text-[42px] leading-none ${TEXT} mb-3`} style={{ fontWeight: 500 }}>Zayd Malik</h2>
                     <p className={`text-[22px] ${TEXT} leading-[1.4] mb-4`} style={{ fontWeight: 400 }}>
                       &ldquo;AI should act, not just react.&rdquo;
@@ -371,7 +371,7 @@ export default function CompanyPage() {
                   </div>
                   <div className={`flex flex-col justify-center sm:border-l sm:border-[#222] sm:pl-8`}>
                     <p className={`text-[18px] ${MUTED} leading-[1.8] mb-6`}>
-                      Zayd started akakAI after observing that every AI tool people were using was passive. They waited. They asked for input. They responded. They never moved first.
+                      Zayd didn't start akakAI because AI was exciting. He started it because it was disappointing. They waited. They asked for input. They responded. They never moved first.
                     </p>
                     <p className={`text-[18px] ${MUTED} leading-[1.8]`}>
                       Frustrated with passive tools and overhyped tech, he set out to build something fundamentally different: AI that takes initiative, understands context, and actually follows through.
@@ -387,15 +387,11 @@ export default function CompanyPage() {
                       <Image src="/abhi.jpg" alt="Abhiram Vishnubhotla" width={96} height={96}
                         className="w-24 h-24 rounded-full object-cover object-top" />
                     </div>
-                    <p className={`text-[14px] uppercase tracking-[0.18em] ${LABEL_TEXT} mb-4`}>Co-founder & Agent Developer</p>
+                    <p className={`text-[14px] uppercase tracking-[0.18em] ${LABEL_TEXT} mb-4`}>Founding Engineer & Agent Developer</p>
                     <h2 className={`text-[26px] sm:text-[42px] leading-none ${TEXT} mb-3`} style={{ fontWeight: 500 }}>Abhiram Vishnubhotla</h2>
                     <p className={`text-[22px] ${TEXT} leading-[1.4] mb-4`} style={{ fontWeight: 400 }}>
                       &ldquo;Agents that don&apos;t just execute. They understand.&rdquo;
                     </p>
-                    <a href="https://abhiramv09.replit.app/" target="_blank" rel="noopener noreferrer"
-                      className={`inline-flex items-center gap-2 text-[13px] ${MUTED} border ${BORDER} px-4 py-1.5 rounded-full hover:border-[#444] hover:text-white transition-colors duration-150 w-fit`}>
-                      abhiramv09.replit.app <ArrowUpRight size={12} />
-                    </a>
                   </div>
                   <div className={`flex flex-col justify-center sm:border-l sm:border-[#222] sm:pl-8`}>
                     <p className={`text-[18px] ${MUTED} leading-[1.8] mb-6`}>
@@ -499,7 +495,7 @@ export default function CompanyPage() {
                         A no-code platform for building autonomous AI agents that listen to real-world triggers and act through a community-built integration library. No code. No prompting. Just outcomes.
                       </p>
                       <div className="flex flex-wrap gap-2 mb-8">
-                        {["Node.js", "React", "PostgreSQL", "LLMs"].map(t => (
+                        {["Recursive Learning", "Unlimited Connections", "Always On"].map(t => (
                           <span key={t} className={`text-[12px] ${MUTED} border ${BORDER} px-3 py-1 rounded-full`}>{t}</span>
                         ))}
                       </div>
@@ -528,7 +524,7 @@ export default function CompanyPage() {
                         An AI agent that integrates directly with Gmail and Outlook, drafting autonomous email replies without prompts or commands. It reads your inbox, understands context, and responds before you even open the thread.
                       </p>
                       <div className="flex flex-wrap gap-2 mb-8">
-                        {["LLMs", "Gmail API", "Outlook API", "OAuth"].map(t => (
+                        {["Gmail", "Outlook", "Calendar", "Cognitive Context"].map(t => (
                           <span key={t} className={`text-[12px] ${MUTED} border ${BORDER} px-3 py-1 rounded-full`}>{t}</span>
                         ))}
                       </div>

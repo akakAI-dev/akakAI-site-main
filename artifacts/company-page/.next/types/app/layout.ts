@@ -1,4 +1,4 @@
-// File: /home/runner/workspace/artifacts/company-page/app/layout.tsx
+// File: /Users/zmalik/Desktop/akakAI-site-main/artifacts/company-page/app/layout.tsx
 import * as entry from '../../../app/layout.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

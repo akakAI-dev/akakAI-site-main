@@ -216,93 +216,99 @@ export default function CompanyPage() {
 
           {/* Hero */}
           {projectView === null && (
-            <div className={`px-4 sm:px-8 border-b ${BORDER} flex items-stretch min-h-[140px] sm:min-h-[220px]`}>
-              <div className={`hidden sm:flex flex-none items-center pr-10 py-10 border-r ${BORDER} mr-10`}>
-                <Image src="/logo-badge.png" alt="akakAI badge" width={240} height={240}
-                  className="w-[200px] h-[200px] object-contain opacity-80" />
-              </div>
-              <div className="flex-1 flex flex-col justify-center py-7 sm:py-10">
-                <p className={`text-[11px] sm:text-[14px] uppercase tracking-[0.18em] ${LABEL_TEXT} mb-3 sm:mb-5`}>
-                  {activeTab === "about" ? "Company Overview" : activeTab === "mission" ? "Our Mission" : activeTab === "team" ? "The Team" : activeTab === "investments" ? "Investments" : activeTab === "projects" ? "Our Products" : "Contact"}
-                </p>
-                <h1 className={`text-[30px] sm:text-[62px] leading-[1.05] sm:leading-[1.0] tracking-tight ${TEXT} mb-3 sm:mb-6`} style={{ fontWeight: 500 }}>
-                  {activeTab === "about" && <>AI that acts,<br /><span className="bg-gradient-to-r from-orange-500 via-pink-500 to-rose-500 bg-clip-text text-transparent">not just reacts.</span></>}
-                  {activeTab === "mission" && <>Action is the<br /><span className="bg-gradient-to-r from-orange-500 via-pink-500 to-rose-500 bg-clip-text text-transparent">default.</span></>}
-                  {activeTab === "team" && <>The people<br /><span className="bg-gradient-to-r from-orange-500 via-pink-500 to-rose-500 bg-clip-text text-transparent">building it.</span></>}
-                  {activeTab === "investments" && <>Backing the<br /><span className="bg-gradient-to-r from-orange-500 via-pink-500 to-rose-500 bg-clip-text text-transparent">next wave.</span></>}
-                  {activeTab === "projects" && <>What we&apos;ve<br /><span className="bg-gradient-to-r from-orange-500 via-pink-500 to-rose-500 bg-clip-text text-transparent">built.</span></>}
-                  {activeTab === "contact" && <>Let&apos;s build<br /><span className="bg-gradient-to-r from-orange-500 via-pink-500 to-rose-500 bg-clip-text text-transparent">together.</span></>}
-                </h1>
-                <p className={`text-[15px] sm:text-[19px] ${MUTED} leading-[1.6] sm:leading-[1.7] max-w-2xl`}>
-                  {activeTab === "about" && "Autonomous agents built to navigate complexity, make decisions, and deliver outcomes with minimal human intervention."}
-                  {activeTab === "mission" && "Close the gap between intention and execution. Every system we build pushes toward AI that makes action the rule, not the exception."}
-                  {activeTab === "team" && "akakAI was started with a simple conviction. Here is the team putting in the work to prove it."}
-                  {activeTab === "investments" && "akakAI is building the infrastructure for autonomous AI action. For investment inquiries, reach us at investments@akakai.com."}
-                  {activeTab === "projects" && "Many products. One conviction. Agents that understand, decide, and act."}
-                  {activeTab === "contact" && "If you believe AI should move first and deliver without hand-holding, we want to talk."}
-                </p>
-              </div>
-            </div>
-          )}
-
-          {/* ABOUT */}
-          {activeTab === "about" && (
-            <div className="px-4 sm:px-8">
-              <Section first root={scrollRef}>
-                <SectionLabel>What We Are</SectionLabel>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-12">
-                  <div>
-                    <h2 className={`text-[32px] leading-tight ${TEXT} mb-6`} style={{ fontWeight: 500 }}>
-                      A new class of intelligent systems.
-                    </h2>
-                    <p className={`text-[18px] ${MUTED} leading-[1.8]`}>
-                      akakAI is building AI agents that don&apos;t just respond to instructions. They think independently, take initiative, and execute tasks with purpose. Not assistants. Not autocomplete. Agents.
-                    </p>
-                  </div>
-                  <div>
-                    <p className={`text-[18px] ${MUTED} leading-[1.8] mb-6`}>
-                      These are entities that understand what needs to happen, decide how to make it happen, and then do it — operating at a level of autonomy that changes what&apos;s possible.
-                    </p>
-                    <p className={`text-[18px] ${MUTED} leading-[1.8]`}>
-                      They navigate real-world complexity, make informed decisions without hand-holding, and carry out objectives from start to finish with minimal oversight.
-                    </p>
-                  </div>
+            <>
+              <div className={`px-4 sm:px-8 border-b ${BORDER} flex items-stretch min-h-[140px] sm:min-h-[220px]`}>
+                <div className={`hidden sm:flex flex-none items-center pr-10 py-10 border-r ${BORDER} mr-10`}>
+                  <Image src="/logo-badge.png" alt="akakAI badge" width={240} height={240}
+                    className="w-[200px] h-[200px] object-contain opacity-80" />
                 </div>
-              </Section>
-
-              <Section root={scrollRef} delay={60}>
-                <div className="border-l-2 border-[#2a2a2a] pl-8 py-2">
-                  <p className={`text-[26px] ${TEXT} leading-[1.4]`} style={{ fontWeight: 400 }}>
-                    &ldquo;AI shouldn&apos;t wait for direction. It should anticipate, adapt, and act.&rdquo;
+                <div className="flex-1 flex flex-col justify-center py-7 sm:py-10">
+                  <p className={`text-[11px] sm:text-[14px] uppercase tracking-[0.18em] ${LABEL_TEXT} mb-3 sm:mb-5`}>
+                    {activeTab === "about" ? "Company Overview" : activeTab === "mission" ? "Our Mission" : activeTab === "team" ? "The Team" : activeTab === "investments" ? "Investments" : activeTab === "projects" ? "Our Products" : "Contact"}
                   </p>
-                  <p className={`text-[13px] uppercase tracking-[0.15em] ${LABEL_TEXT} mt-5`}>The core belief driving everything we build</p>
-                </div>
-              </Section>
-
-              <Section root={scrollRef} delay={60}>
-                <SectionLabel>The Technology</SectionLabel>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-12">
-                  <div>
-                    <h2 className={`text-[28px] leading-tight ${TEXT} mb-6`} style={{ fontWeight: 500 }}>
-                      Built from first principles for autonomous execution.
-                    </h2>
-                    <p className={`text-[18px] ${MUTED} leading-[1.8]`}>
-                      akakAI&apos;s technology is not a chatbot with extra steps. It&apos;s a purpose-built architecture designed around a single question: what does a system need in order to act, not just respond?
-                    </p>
+                  <h1 className={`text-[30px] sm:text-[62px] leading-[1.05] sm:leading-[1.0] tracking-tight ${TEXT} mb-3 sm:mb-6`} style={{ fontWeight: 500 }}>
+                    {activeTab === "about" && <>AI that acts,<br /><span className="bg-gradient-to-r from-orange-500 via-pink-500 to-rose-500 bg-clip-text text-transparent">not just reacts.</span></>}
+                    {activeTab === "mission" && <>Action is the<br /><span className="bg-gradient-to-r from-orange-500 via-pink-500 to-rose-500 bg-clip-text text-transparent">default.</span></>}
+                    {activeTab === "team" && <>The people<br /><span className="bg-gradient-to-r from-orange-500 via-pink-500 to-rose-500 bg-clip-text text-transparent">building it.</span></>}
+                    {activeTab === "investments" && <>Backing the<br /><span className="bg-gradient-to-r from-orange-500 via-pink-500 to-rose-500 bg-clip-text text-transparent">next wave.</span></>}
+                    {activeTab === "projects" && <>What we&apos;ve<br /><span className="bg-gradient-to-r from-orange-500 via-pink-500 to-rose-500 bg-clip-text text-transparent">built.</span></>}
+                    {activeTab === "contact" && <>Let&apos;s build<br /><span className="bg-gradient-to-r from-orange-500 via-pink-500 to-rose-500 bg-clip-text text-transparent">together.</span></>}
+                  </h1>
+                  <p className={`text-[15px] sm:text-[19px] ${MUTED} leading-[1.6] sm:leading-[1.7] max-w-2xl`}>
+                    {activeTab === "about" && "Autonomous agents built to navigate complexity, make decisions, and deliver outcomes with minimal human intervention."}
+                    {activeTab === "mission" && "Close the gap between intention and execution. Every system we build pushes toward AI that makes action the rule, not the exception."}
+                    {activeTab === "team" && "akakAI was started with a simple conviction. Here is the team putting in the work to prove it."}
+                    {activeTab === "investments" && "akakAI is building the infrastructure for autonomous AI action. For investment inquiries, reach us at investments@akakai.com."}
+                    {activeTab === "projects" && "Many products. One conviction. Agents that understand, decide, and act."}
+                    {activeTab === "contact" && "If you believe AI should move first and deliver without hand-holding, we want to talk."}
+                  </p>
+                  <div className="mt-6">
+                    <button onClick={() => switchTab("projects")}
+                      className="inline-flex items-center gap-2 bg-gradient-to-r from-orange-500 via-pink-500 to-rose-500 text-black px-5 py-3 rounded-full text-[14px] font-medium hover:opacity-90 transition-opacity">
+                      View products
+                      <ArrowUpRight size={14} />
+                    </button>
                   </div>
-                  <div>
-                    <p className={`text-[18px] ${MUTED} leading-[1.8] mb-6`}>
-                      The answer requires more than a better model. Goal comprehension. Dynamic planning. Real-time adaptation. Multi-system coordination. We built each layer deliberately as the core of what these agents are.
-                    </p>
-                    <p className={`text-[18px] ${MUTED} leading-[1.8]`}>
-                      The result: agents that become active participants in how work gets done, pushing through to completion without constant direction.
-                    </p>
-                  </div>
                 </div>
-              </Section>
+              </div>
 
-              <HiringCTA root={scrollRef} />
-            </div>
+              <div className="px-4 sm:px-8">
+                <Section first root={scrollRef}>
+                  <SectionLabel>What We Are</SectionLabel>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-12">
+                    <div>
+                      <h2 className={`text-[32px] leading-tight ${TEXT} mb-6`} style={{ fontWeight: 500 }}>
+                        A new class of intelligent systems.
+                      </h2>
+                      <p className={`text-[18px] ${MUTED} leading-[1.8]`}>
+                        akakAI is building AI agents that don&apos;t just respond to instructions. They think independently, take initiative, and execute tasks with purpose. Not assistants. Not autocomplete. Agents.
+                      </p>
+                    </div>
+                    <div>
+                      <p className={`text-[18px] ${MUTED} leading-[1.8] mb-6`}>
+                        These are entities that understand what needs to happen, decide how to make it happen, and then do it — operating at a level of autonomy that changes what&apos;s possible.
+                      </p>
+                      <p className={`text-[18px] ${MUTED} leading-[1.8]`}>
+                        They navigate real-world complexity, make informed decisions without hand-holding, and carry out objectives from start to finish with minimal oversight.
+                      </p>
+                    </div>
+                  </div>
+                </Section>
+
+                <Section root={scrollRef} delay={60}>
+                  <div className="border-l-2 border-[#2a2a2a] pl-8 py-2">
+                    <p className={`text-[26px] ${TEXT} leading-[1.4]`} style={{ fontWeight: 400 }}>
+                      &ldquo;AI shouldn&apos;t wait for direction. It should anticipate, adapt, and act.&rdquo;
+                    </p>
+                    <p className={`text-[13px] uppercase tracking-[0.15em] ${LABEL_TEXT} mt-5`}>The core belief driving everything we build</p>
+                  </div>
+                </Section>
+
+                <Section root={scrollRef} delay={60}>
+                  <SectionLabel>The Technology</SectionLabel>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-12">
+                    <div>
+                      <h2 className={`text-[28px] leading-tight ${TEXT} mb-6`} style={{ fontWeight: 500 }}>
+                        Built from first principles for autonomous execution.
+                      </h2>
+                      <p className={`text-[18px] ${MUTED} leading-[1.8]`}>
+                        akakAI&apos;s technology is not a chatbot with extra steps. It&apos;s a purpose-built architecture designed around a single question: what does a system need in order to act, not just respond?
+                      </p>
+                    </div>
+                    <div>
+                      <p className={`text-[18px] ${MUTED} leading-[1.8] mb-6`}>
+                        The answer requires more than a better model. Goal comprehension. Dynamic planning. Real-time adaptation. Multi-system coordination. We built each layer deliberately as the core of what these agents are.
+                      </p>
+                      <p className={`text-[18px] ${MUTED} leading-[1.8]`}>
+                        The result: agents that become active participants in how work gets done, pushing through to completion without constant direction.
+                      </p>
+                    </div>
+                  </div>
+                </Section>
+
+                <HiringCTA root={scrollRef} />
+              </div>
+            </>
           )}
 
           {/* MISSION */}
@@ -387,7 +393,7 @@ export default function CompanyPage() {
                       <Image src="/abhi.jpg" alt="Abhiram Vishnubhotla" width={96} height={96}
                         className="w-24 h-24 rounded-full object-cover object-top" />
                     </div>
-                    <p className={`text-[14px] uppercase tracking-[0.18em] ${LABEL_TEXT} mb-4`}>Founding Engineer & Agent Developer</p>
+                    <p className={`text-[14px] uppercase tracking-[0.18em] ${LABEL_TEXT} mb-4`}>Agent Developer</p>
                     <h2 className={`text-[26px] sm:text-[42px] leading-none ${TEXT} mb-3`} style={{ fontWeight: 500 }}>Abhiram Vishnubhotla</h2>
                     <p className={`text-[22px] ${TEXT} leading-[1.4] mb-4`} style={{ fontWeight: 400 }}>
                       &ldquo;Agents that don&apos;t just execute. They understand.&rdquo;

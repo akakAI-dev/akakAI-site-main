@@ -252,62 +252,64 @@ export default function CompanyPage() {
                 </div>
               </div>
 
-              <div className="px-4 sm:px-8">
-                <Section first root={scrollRef}>
-                  <SectionLabel>What We Are</SectionLabel>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-12">
-                    <div>
-                      <h2 className={`text-[32px] leading-tight ${TEXT} mb-6`} style={{ fontWeight: 500 }}>
-                        A new class of intelligent systems.
-                      </h2>
-                      <p className={`text-[18px] ${MUTED} leading-[1.8]`}>
-                        akakAI is building AI agents that don&apos;t just respond to instructions. They think independently, take initiative, and execute tasks with purpose. Not assistants. Not autocomplete. Agents.
-                      </p>
+              {activeTab === "about" && (
+                <div className="px-4 sm:px-8">
+                  <Section first root={scrollRef}>
+                    <SectionLabel>What We Are</SectionLabel>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-12">
+                      <div>
+                        <h2 className={`text-[32px] leading-tight ${TEXT} mb-6`} style={{ fontWeight: 500 }}>
+                          A new class of intelligent systems.
+                        </h2>
+                        <p className={`text-[18px] ${MUTED} leading-[1.8]`}>
+                          akakAI is building AI agents that don&apos;t just respond to instructions. They think independently, take initiative, and execute tasks with purpose. Not assistants. Not autocomplete. Agents.
+                        </p>
+                      </div>
+                      <div>
+                        <p className={`text-[18px] ${MUTED} leading-[1.8] mb-6`}>
+                          These are entities that understand what needs to happen, decide how to make it happen, and then do it — operating at a level of autonomy that changes what&apos;s possible.
+                        </p>
+                        <p className={`text-[18px] ${MUTED} leading-[1.8]`}>
+                          They navigate real-world complexity, make informed decisions without hand-holding, and carry out objectives from start to finish with minimal oversight.
+                        </p>
+                      </div>
                     </div>
-                    <div>
-                      <p className={`text-[18px] ${MUTED} leading-[1.8] mb-6`}>
-                        These are entities that understand what needs to happen, decide how to make it happen, and then do it — operating at a level of autonomy that changes what&apos;s possible.
-                      </p>
-                      <p className={`text-[18px] ${MUTED} leading-[1.8]`}>
-                        They navigate real-world complexity, make informed decisions without hand-holding, and carry out objectives from start to finish with minimal oversight.
-                      </p>
-                    </div>
-                  </div>
-                </Section>
+                  </Section>
 
-                <Section root={scrollRef} delay={60}>
-                  <div className="border-l-2 border-[#2a2a2a] pl-8 py-2">
-                    <p className={`text-[26px] ${TEXT} leading-[1.4]`} style={{ fontWeight: 400 }}>
-                      &ldquo;AI shouldn&apos;t wait for direction. It should anticipate, adapt, and act.&rdquo;
-                    </p>
-                    <p className={`text-[13px] uppercase tracking-[0.15em] ${LABEL_TEXT} mt-5`}>The core belief driving everything we build</p>
-                  </div>
-                </Section>
-
-                <Section root={scrollRef} delay={60}>
-                  <SectionLabel>The Technology</SectionLabel>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-12">
-                    <div>
-                      <h2 className={`text-[28px] leading-tight ${TEXT} mb-6`} style={{ fontWeight: 500 }}>
-                        Built from first principles for autonomous execution.
-                      </h2>
-                      <p className={`text-[18px] ${MUTED} leading-[1.8]`}>
-                        akakAI&apos;s technology is not a chatbot with extra steps. It&apos;s a purpose-built architecture designed around a single question: what does a system need in order to act, not just respond?
+                  <Section root={scrollRef} delay={60}>
+                    <div className="border-l-2 border-[#2a2a2a] pl-8 py-2">
+                      <p className={`text-[26px] ${TEXT} leading-[1.4]`} style={{ fontWeight: 400 }}>
+                        &ldquo;AI shouldn&apos;t wait for direction. It should anticipate, adapt, and act.&rdquo;
                       </p>
+                      <p className={`text-[13px] uppercase tracking-[0.15em] ${LABEL_TEXT} mt-5`}>The core belief driving everything we build</p>
                     </div>
-                    <div>
-                      <p className={`text-[18px] ${MUTED} leading-[1.8] mb-6`}>
-                        The answer requires more than a better model. Goal comprehension. Dynamic planning. Real-time adaptation. Multi-system coordination. We built each layer deliberately as the core of what these agents are.
-                      </p>
-                      <p className={`text-[18px] ${MUTED} leading-[1.8]`}>
-                        The result: agents that become active participants in how work gets done, pushing through to completion without constant direction.
-                      </p>
-                    </div>
-                  </div>
-                </Section>
+                  </Section>
 
-                <HiringCTA root={scrollRef} />
-              </div>
+                  <Section root={scrollRef} delay={60}>
+                    <SectionLabel>The Technology</SectionLabel>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-12">
+                      <div>
+                        <h2 className={`text-[28px] leading-tight ${TEXT} mb-6`} style={{ fontWeight: 500 }}>
+                          Built from first principles for autonomous execution.
+                        </h2>
+                        <p className={`text-[18px] ${MUTED} leading-[1.8]`}>
+                          akakAI&apos;s technology is not a chatbot with extra steps. It&apos;s a purpose-built architecture designed around a single question: what does a system need in order to act, not just respond?
+                        </p>
+                      </div>
+                      <div>
+                        <p className={`text-[18px] ${MUTED} leading-[1.8] mb-6`}>
+                          The answer requires more than a better model. Goal comprehension. Dynamic planning. Real-time adaptation. Multi-system coordination. We built each layer deliberately as the core of what these agents are.
+                        </p>
+                        <p className={`text-[18px] ${MUTED} leading-[1.8]`}>
+                          The result: agents that become active participants in how work gets done, pushing through to completion without constant direction.
+                        </p>
+                      </div>
+                    </div>
+                  </Section>
+
+                  <HiringCTA root={scrollRef} />
+                </div>
+              )}
             </>
           )}
 
@@ -354,8 +356,6 @@ export default function CompanyPage() {
                   ))}
                 </div>
               </Section>
-
-              <HiringCTA root={scrollRef} />
             </div>
           )}
 
@@ -409,8 +409,6 @@ export default function CompanyPage() {
                   </div>
                 </div>
               </Section>
-
-              <HiringCTA root={scrollRef} />
             </div>
           )}
 
@@ -478,8 +476,6 @@ export default function CompanyPage() {
                   </PressEntry>
                 </div>
               </Section>
-
-              <HiringCTA root={scrollRef} />
             </div>
           )}
 
@@ -550,7 +546,6 @@ export default function CompanyPage() {
 
                 </div>
               </Section>
-              <HiringCTA root={scrollRef} />
             </div>
           )}
 
@@ -825,16 +820,36 @@ export default function CompanyPage() {
             <div className="px-4 sm:px-8">
               <Section first root={scrollRef}>
                 <div className={`border ${BORDER} rounded-xl p-6 sm:p-10`}>
-                  <p className={`text-[13px] uppercase tracking-[0.18em] ${LABEL_TEXT} mb-5`}>We are Hiring</p>
+                  <p className={`text-[13px] uppercase tracking-[0.18em] ${LABEL_TEXT} mb-5`}>Get in touch</p>
                   <h3 className={`text-[24px] sm:text-[34px] ${TEXT} leading-tight mb-4`} style={{ fontWeight: 500 }}>
-                    Build what comes after passive AI.
+                    Let&apos;s build what comes after passive AI.
                   </h3>
                   <p className={`text-[16px] sm:text-[18px] ${MUTED} leading-[1.75] mb-8 max-w-lg`}>
-                    If you believe AI should move first and deliver without hand-holding, we want to talk.
+                    Whether you want to talk product, press, partnership, or hiring, we&apos;re ready to connect. Reach out to the right team below.
                   </p>
-                  <a href="mailto:media@akakai.com" className="inline-flex items-center gap-2 bg-white text-black px-6 py-3 rounded-full text-[14px] hover:bg-zinc-200 transition-colors">
-                    Get in touch <ArrowUpRight size={14} />
-                  </a>
+                  <div className="grid gap-4 sm:grid-cols-3">
+                    <div className={`rounded-3xl border ${BORDER} p-6 bg-[#101010]`}>
+                      <p className={`text-[13px] uppercase tracking-[0.18em] ${LABEL_TEXT} mb-3`}>General</p>
+                      <p className={`text-[18px] ${TEXT} mb-4`} style={{ fontWeight: 500 }}>hello@akakai.com</p>
+                      <p className={`text-[14px] ${MUTED} leading-[1.75]`}>
+                        Product questions, partnership inquiries, and general requests.
+                      </p>
+                    </div>
+                    <div className={`rounded-3xl border ${BORDER} p-6 bg-[#101010]`}>
+                      <p className={`text-[13px] uppercase tracking-[0.18em] ${LABEL_TEXT} mb-3`}>Press</p>
+                      <p className={`text-[18px] ${TEXT} mb-4`} style={{ fontWeight: 500 }}>media@akakai.com</p>
+                      <p className={`text-[14px] ${MUTED} leading-[1.75]`}>
+                        Media requests, story ideas, and interviews.
+                      </p>
+                    </div>
+                    <div className={`rounded-3xl border ${BORDER} p-6 bg-[#101010]`}>
+                      <p className={`text-[13px] uppercase tracking-[0.18em] ${LABEL_TEXT} mb-3`}>Investors</p>
+                      <p className={`text-[18px] ${TEXT} mb-4`} style={{ fontWeight: 500 }}>investments@akakai.com</p>
+                      <p className={`text-[14px] ${MUTED} leading-[1.75]`}>
+                        Funding inquiries, strategic partnerships, and investor relations.
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </Section>
             </div>

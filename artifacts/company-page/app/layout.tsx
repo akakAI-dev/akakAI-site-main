@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "akakAI — Company",
+  title: "akakAI",
   description:
-    "Pioneering the future of AI autonomy. AI agents that think independently, take initiative, and execute tasks with purpose.",
+    "Autonomous agents that navigate complexity, make decisions, and deliver outcomes.",
   icons: {
     icon: "/favicon-badge.png",
   },
@@ -17,7 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="font-sans antialiased bg-[#111] text-white">
+      <body className="bg-black text-white antialiased">
         {children}
       </body>
     </html>

@@ -9,36 +9,26 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["Inter", "system-ui", "sans-serif"],
+        sans: ["Inter", "Helvetica Neue", "system-ui", "sans-serif"],
+      },
+      fontSize: {
+        "display": ["clamp(4rem, 12vw, 14rem)", { lineHeight: "0.85", letterSpacing: "-0.04em", fontWeight: "800" }],
+        "headline": ["clamp(2.5rem, 6vw, 5.5rem)", { lineHeight: "0.9", letterSpacing: "-0.03em", fontWeight: "700" }],
+        "subhead": ["clamp(1.25rem, 2.5vw, 2rem)", { lineHeight: "1.2", letterSpacing: "-0.02em", fontWeight: "500" }],
+        "body-lg": ["clamp(1rem, 1.5vw, 1.25rem)", { lineHeight: "1.6", letterSpacing: "-0.01em" }],
+        "caption": ["0.6875rem", { lineHeight: "1.4", letterSpacing: "0.12em", fontWeight: "500" }],
+        "micro": ["0.5625rem", { lineHeight: "1.4", letterSpacing: "0.15em", fontWeight: "500" }],
       },
       colors: {
-        pink: {
-          500: "#ec4899",
-          400: "#f472b6",
-        },
-        orange: {
-          400: "#fb923c",
-          500: "#f97316",
-        },
+        surface: "#000",
+        panel: "#0a0a0a",
+        line: "#1a1a1a",
+        muted: "#666",
+        dim: "#333",
       },
-      animation: {
-        "fade-in": "fadeIn 0.6s ease-out forwards",
-        "slide-up": "slideUp 0.6s ease-out forwards",
-        float: "float 6s ease-in-out infinite",
-      },
-      keyframes: {
-        fadeIn: {
-          "0%": { opacity: "0" },
-          "100%": { opacity: "1" },
-        },
-        slideUp: {
-          "0%": { opacity: "0", transform: "translateY(20px)" },
-          "100%": { opacity: "1", transform: "translateY(0)" },
-        },
-        float: {
-          "0%, 100%": { transform: "translateY(0px)" },
-          "50%": { transform: "translateY(-8px)" },
-        },
+      spacing: {
+        "grid": "clamp(1rem, 3vw, 3rem)",
+        "section": "clamp(4rem, 10vh, 8rem)",
       },
     },
   },

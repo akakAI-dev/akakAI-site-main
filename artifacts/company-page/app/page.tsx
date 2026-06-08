@@ -283,6 +283,14 @@ function ProductsSection() {
   const products = [
     {
       num: "01",
+      name: "OPTIMAL",
+      subtitle: "Intelligent Model Router",
+      desc: "A revolutionary chatbot that routes your prompts to the best available AI model in real time, balancing capability, speed, and cost through an intelligent dispatch layer. Send a million messages a month. We won't flinch.",
+      tags: ["Multi-Model", "Real-Time Routing", "Unlimited Messages"],
+      url: "https://optimal.akakai.com",
+    },
+    {
+      num: "02",
       name: "AEGENT",
       subtitle: "Autonomous Agent Platform",
       desc: "A no-code platform for building autonomous AI agents that listen to real-world triggers and act through a community-built integration library.",
@@ -290,7 +298,7 @@ function ProductsSection() {
       url: "https://aegent.akakai.com",
     },
     {
-      num: "02",
+      num: "03",
       name: "EMAIL",
       subtitle: "Autonomous Email Agent",
       desc: "Integrates directly with Gmail and Outlook, drafting autonomous email replies without prompts or commands. It reads, understands, and responds.",

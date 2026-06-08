@@ -285,7 +285,7 @@ function ProductsSection() {
       num: "01",
       name: "OPTIMAL",
       subtitle: "Intelligent Model Router",
-      desc: "A revolutionary chatbot that routes your prompts to the best available AI model in real time, balancing capability, speed, and cost through an intelligent dispatch layer. Send a million messages a month. We won't flinch.",
+      desc: "Optimal is a series of proprietary routing models that intelligently direct each prompt to the best LLM, delivering top-tier performance at a fraction of the cost. One interface, a dozen models, near-unlimited access, through chat or API. Send us a gazillion requests, we won't flinch.",
       tags: ["Multi-Model", "Real-Time Routing", "Unlimited Messages"],
       url: "https://optimal.akakai.com",
     },

@@ -19,6 +19,7 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
   color: #fff;
   overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 
 ::selection {

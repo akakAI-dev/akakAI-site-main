@@ -1,11 +1,9 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence, useInView } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { ArrowUpRight, Youtube, Instagram } from "lucide-react";
-
-type Section = "index" | "mission" | "team" | "products" | "investments" | "contact";
 
 function Ruled({ className = "" }: { className?: string }) {
   return <div className={`h-px bg-line w-full ${className}`} />;
@@ -43,6 +41,99 @@ const socials = [
   { href: "https://www.instagram.com/real.akakai/", icon: <Instagram size={14} />, label: "Instagram" },
   { href: "https://x.com/akakAIhq", icon: <svg width="14" height="14" viewBox="0 0 24 24" className="fill-current"><path d="M14.095479,10.316482L22.286354,1h-1.940718l-7.115352,8.087682L7.551414,1H1l8.589488,12.231093L1,23h1.940717l7.509372-8.542861L16.448587,23H23L14.095479,10.316482z M11.436522,13.338465l-0.871624-1.218704l-6.924311-9.68815h2.981339l5.58978,7.82155l0.867949,1.218704l7.26506,10.166271h-2.981339L11.436522,13.338465z" /></svg>, label: "X" },
 ];
+
+const navLinks = [
+  { label: "Products", id: "products" },
+  { label: "About", id: "about" },
+  { label: "Mission", id: "mission" },
+  { label: "Team", id: "team" },
+  { label: "Contact", id: "contact" },
+];
+
+function NavBar() {
+  const [open, setOpen] = useState(false);
+
+  const scrollTo = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: "smooth" });
+    setOpen(false);
+  };
+
+  return (
+    <motion.nav
+      className="fixed top-5 inset-x-0 z-[60] mx-auto w-fit flex items-center gap-5 px-6 py-3"
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
+    >
+      <div className="hidden md:flex items-center gap-5">
+        {navLinks.map((link) => (
+          <button
+            key={link.id}
+            onClick={() => scrollTo(link.id)}
+            className="text-micro uppercase text-dim hover:text-white px-1 py-1 transition-colors duration-300"
+          >
+            {link.label}
+          </button>
+        ))}
+      </div>
+      <div className="hidden md:flex items-center gap-4">
+        {socials.map((s) => (
+          <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer"
+            className="text-dim hover:text-white transition-colors duration-300" aria-label={s.label}>
+            {s.icon}
+          </a>
+        ))}
+      </div>
+
+      <Image
+        src="/logo-horizontal.png" alt="akakAI" width={80} height={20}
+        style={{ filter: "brightness(0) invert(1)" }}
+        className="h-3 w-auto opacity-60 md:hidden"
+        priority
+      />
+      <button
+        onClick={() => setOpen(!open)}
+        className="md:hidden text-dim hover:text-white transition-colors"
+        aria-label="Menu"
+      >
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
+          {open
+            ? <path d="M4 4l8 8M12 4l-8 8" />
+            : <><path d="M2 4h12" /><path d="M2 8h12" /><path d="M2 12h12" /></>
+          }
+        </svg>
+      </button>
+
+      {open && (
+        <motion.div
+          className="absolute top-full left-0 right-0 mt-3 flex flex-col items-center gap-4 py-6 backdrop-blur-md bg-black/90"
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3 }}
+        >
+          {navLinks.map((link) => (
+            <button
+              key={link.id}
+              onClick={() => scrollTo(link.id)}
+              className="text-micro uppercase text-dim hover:text-white transition-colors duration-300"
+            >
+              {link.label}
+            </button>
+          ))}
+          <div className="flex items-center gap-4 mt-2">
+            {socials.map((s) => (
+              <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer"
+                className="text-dim hover:text-white transition-colors duration-300" aria-label={s.label}>
+                {s.icon}
+              </a>
+            ))}
+          </div>
+        </motion.div>
+      )}
+    </motion.nav>
+  );
+}
 
 function HeroSection() {
   return (
@@ -118,7 +209,7 @@ function TickerStrip() {
 
 function AboutSection() {
   return (
-    <section className="px-grid py-section">
+    <section id="about" className="px-grid py-section">
       <RevealBlock>
         <GridLabel num="02">What We Are</GridLabel>
       </RevealBlock>
@@ -174,7 +265,7 @@ function MissionSection() {
   ];
 
   return (
-    <section className="px-grid py-section border-t border-line">
+    <section id="mission" className="px-grid py-section border-t border-line">
       <RevealBlock>
         <GridLabel num="03">Mission</GridLabel>
       </RevealBlock>
@@ -234,7 +325,7 @@ function TeamSection() {
   ];
 
   return (
-    <section className="px-grid py-section border-t border-line">
+    <section id="team" className="px-grid py-section border-t border-line">
       <RevealBlock>
         <GridLabel num="04">Team</GridLabel>
       </RevealBlock>
@@ -308,7 +399,7 @@ function ProductsSection() {
   ];
 
   return (
-    <section className="px-grid py-section border-t border-line">
+    <section id="products" className="px-grid py-section border-t border-line">
       <RevealBlock>
         <GridLabel num="01">Products</GridLabel>
       </RevealBlock>
@@ -429,7 +520,7 @@ function ContactSection() {
   ];
 
   return (
-    <section className="px-grid py-section border-t border-line">
+    <section id="contact" className="px-grid py-section border-t border-line">
       <RevealBlock>
         <GridLabel num="06">Contact</GridLabel>
       </RevealBlock>
@@ -509,19 +600,8 @@ function Footer() {
 
 export default function CompanyPage() {
   return (
-    <main className="bg-surface min-h-screen page-scroll overflow-y-auto">
-      <nav className="fixed top-0 left-0 right-0 z-50 px-grid py-4 flex items-center justify-between mix-blend-difference">
-        <Image src="/logo-horizontal.png" alt="akakAI" width={100} height={24}
-          style={{ filter: "brightness(0) invert(1)" }} className="h-4 w-auto" priority />
-        <div className="hidden sm:flex items-center gap-8">
-          {socials.map((s) => (
-            <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer"
-              className="text-white/60 hover:text-white transition-colors duration-300 text-micro uppercase" aria-label={s.label}>
-              {s.icon}
-            </a>
-          ))}
-        </div>
-      </nav>
+    <main className="bg-surface min-h-screen page-scroll overflow-y-auto scroll-smooth">
+      <NavBar />
 
       <HeroSection />
       <TickerStrip />

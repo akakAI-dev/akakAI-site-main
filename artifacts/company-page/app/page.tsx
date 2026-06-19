@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 import { ArrowUpRight, Youtube, Instagram } from "lucide-react";
@@ -48,6 +48,12 @@ const navLinks = [
   { label: "Mission", id: "mission" },
   { label: "Team", id: "team" },
   { label: "Contact", id: "contact" },
+];
+
+const heroImages = [
+  'https://images.unsplash.com/photo-1620121692029-d088224ddc74?w=1800&q=80',
+  'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1800&q=80',
+  'https://images.unsplash.com/photo-1635776063328-153b13e3c245?q=80&w=1632'
 ];
 
 function NavBar() {
@@ -136,8 +142,34 @@ function NavBar() {
 }
 
 function HeroSection() {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % heroImages.length);
+    }, 8000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <section className="min-h-screen flex flex-col justify-between px-grid pt-6 pb-grid relative">
+    <section className="min-h-screen w-screen flex flex-col justify-between px-grid pt-6 pb-grid relative overflow-hidden">
+      {/* Background image carousel */}
+      <div className="absolute inset-0 w-full h-full">
+        {heroImages.map((img, idx) => (
+          <div
+            key={idx}
+            className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ${
+              idx === currentImageIndex ? 'opacity-20' : 'opacity-0'
+            }`}
+            style={{
+              backgroundImage: `url(${img})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+            }}
+          />
+        ))}
+      </div>
+
       <div className="absolute inset-0 grid-overlay pointer-events-none" />
 
       <div className="relative z-10 flex-1 flex flex-col justify-center">
@@ -166,7 +198,7 @@ function HeroSection() {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.5 }}
         >
-          <p className="text-body-lg text-muted leading-relaxed">
+          <p className="text-body-lg text-text-secondary leading-relaxed">
             Autonomous agents that navigate complexity, make decisions,
             and deliver outcomes. No prompting. No hand-holding. Just execution.
           </p>
@@ -222,15 +254,15 @@ function AboutSection() {
         </RevealBlock>
         <div className="lg:col-span-1" />
         <RevealBlock className="lg:col-span-6" delay={0.2}>
-          <p className="text-body-lg text-muted mb-6">
+          <p className="text-body-lg text-text-secondary mb-6">
             akakAI is building AI agents that don&apos;t just respond to instructions.
             They think independently, take initiative, and execute tasks with purpose.
           </p>
-          <p className="text-body-lg text-muted mb-6">
+          <p className="text-body-lg text-text-secondary mb-6">
             Not assistants. Not autocomplete. Agents that understand what needs to happen,
             decide how to make it happen, and then do it.
           </p>
-          <p className="text-body-lg text-muted">
+          <p className="text-body-lg text-text-secondary">
             Operating at a level of autonomy that changes what&apos;s possible.
           </p>
         </RevealBlock>
@@ -246,7 +278,7 @@ function AboutSection() {
           </div>
           <div className="lg:col-span-1" />
           <div className="lg:col-span-6 flex items-end">
-            <p className="text-caption uppercase text-dim">
+            <p className="text-caption uppercase text-text-secondary">
               The core belief driving everything we build
             </p>
           </div>
@@ -278,27 +310,27 @@ function MissionSection() {
 
       <RevealBlock delay={0.2} className="mb-section">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-grid max-w-4xl">
-          <p className="text-body-lg text-muted">
+          <p className="text-body-lg text-text-secondary">
             We exist at the intersection of ambition and execution, building
             systems that let ideas become outcomes without the human bottleneck.
           </p>
-          <p className="text-body-lg text-muted">
+          <p className="text-body-lg text-text-secondary">
             No intermediary. No endless iteration. No prompting.
             Just outcomes delivered by agents that understand what matters.
           </p>
         </div>
       </RevealBlock>
 
-      <Ruled />
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {principles.map((p, i) => (
-          <RevealBlock key={p.word} delay={0.1 * i} className="border-r border-line last:border-r-0 py-12 pr-grid">
-            <span className="text-micro text-dim block mb-6">{p.num}</span>
-            <h3 className="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-white uppercase tracking-tight mb-4">
-              {p.word}
-            </h3>
-            <p className="text-body-lg text-muted">{p.desc}</p>
+          <RevealBlock key={p.word} delay={0.1 * i}>
+            <div className="box-highlight px-6 py-12 h-full flex flex-col">
+              <span className="text-micro text-dim block mb-6">{p.num}</span>
+              <h3 className="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-white uppercase tracking-tight mb-4 flex-1">
+                {p.word}
+              </h3>
+              <p className="text-body-lg text-text-secondary">{p.desc}</p>
+            </div>
           </RevealBlock>
         ))}
       </div>
@@ -331,15 +363,15 @@ function TeamSection() {
       </RevealBlock>
 
       <RevealBlock delay={0.1}>
-        <h2 className="text-headline text-white mb-section">
+        <h2 className="text-headline text-white mb-12">
           The people<br />building it.
         </h2>
       </RevealBlock>
 
-      <div className="space-y-0">
+      <div className="space-y-5">
         {team.map((person, i) => (
           <RevealBlock key={person.name} delay={0.1 * i}>
-            <div className="border-t border-line py-12 grid grid-cols-1 lg:grid-cols-12 gap-grid items-start">
+            <div className="box-highlight py-12 px-6 grid grid-cols-1 lg:grid-cols-12 gap-grid items-start">
               <div className="lg:col-span-2">
                 <Image
                   src={person.img}
@@ -354,13 +386,13 @@ function TeamSection() {
                 <h3 className="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-white tracking-tight mb-4">
                   {person.name}
                 </h3>
-                <p className="text-subhead text-white/80 italic">
+                <p className="text-subhead text-white/90 italic">
                   &ldquo;{person.quote}&rdquo;
                 </p>
               </div>
               <div className="lg:col-span-1" />
               <div className="lg:col-span-5">
-                <p className="text-body-lg text-muted">{person.bio}</p>
+                <p className="text-body-lg text-text-secondary">{person.bio}</p>
               </div>
             </div>
           </RevealBlock>
@@ -408,15 +440,16 @@ function ProductsSection() {
         <h2 className="text-headline text-white mb-4">
           What we&apos;ve built.
         </h2>
-        <p className="text-body-lg text-muted mb-section max-w-xl">
+        <p className="text-body-lg text-text-secondary mb-section max-w-xl">
           Many products. One conviction. Agents that understand, decide, and act.
         </p>
       </RevealBlock>
 
+      <div className="space-y-4">
       {products.map((product, i) => (
-        <RevealBlock key={product.name} delay={0.15 * i}>
-          <div className="border-t border-line group">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-grid py-12 lg:py-16">
+        <RevealBlock className="border-0" key={product.name} delay={0.15 * i}>
+          <div className="box-highlight group px-6 py-12 lg:py-16">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-grid">
               <div className="lg:col-span-1">
                 <span className="text-micro text-dim">{product.num}</span>
               </div>
@@ -424,14 +457,14 @@ function ProductsSection() {
                 <h3 className="text-[clamp(2rem,5vw,4rem)] font-extrabold text-white uppercase tracking-tight leading-none mb-2">
                   {product.name}<span className="text-dim">.</span>
                 </h3>
-                <p className="text-caption uppercase text-muted mt-3">{product.subtitle}</p>
+                <p className="text-caption uppercase text-text-secondary mt-3">{product.subtitle}</p>
               </div>
               <div className="lg:col-span-1" />
               <div className="lg:col-span-4">
-                <p className="text-body-lg text-muted mb-6">{product.desc}</p>
+                <p className="text-body-lg text-text-secondary mb-6">{product.desc}</p>
                 <div className="flex flex-wrap gap-3">
                   {product.tags.map(t => (
-                    <span key={t} className="text-micro uppercase text-dim border border-line px-3 py-1.5">
+                    <span key={t} className="text-micro uppercase text-text-secondary border border-line px-3 py-1.5 bg-white/5 hover:bg-white/10 transition-colors">
                       {t}
                     </span>
                   ))}
@@ -442,7 +475,7 @@ function ProductsSection() {
                   href={product.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-caption uppercase text-white border border-white/20 px-5 py-3 hover:bg-white hover:text-black transition-all duration-300"
+                  className="inline-flex items-center gap-2 text-caption uppercase text-white border border-white/40 px-5 py-3 hover:bg-white hover:text-black transition-all duration-300"
                 >
                   Visit <ArrowUpRight size={12} />
                 </a>
@@ -451,6 +484,7 @@ function ProductsSection() {
           </div>
         </RevealBlock>
       ))}
+      </div>
     </section>
   );
 }
@@ -468,7 +502,7 @@ function InvestmentsSection() {
           <h2 className="text-headline text-white mb-8">
             Backing the<br />next wave.
           </h2>
-          <p className="text-body-lg text-muted mb-8">
+          <p className="text-body-lg text-text-secondary mb-8">
             akakAI is building the infrastructure for autonomous AI action.
             Early, intentional, and moving fast.
           </p>
@@ -481,12 +515,12 @@ function InvestmentsSection() {
         </RevealBlock>
         <div className="lg:col-span-1" />
         <RevealBlock className="lg:col-span-5" delay={0.2}>
-          <div className="border-l border-line pl-grid">
+          <div className="box-highlight px-6 py-8">
             <p className="text-micro uppercase text-dim mb-4">Press Release</p>
             <h3 className="text-subhead text-white mb-4">
               akakAI Secures Pre-Seed Funding
             </h3>
-            <p className="text-body-lg text-muted mb-4">
+            <p className="text-body-lg text-text-secondary mb-4">
               Valued at $1.5 million. Founded by Zayd Malik.
               First product: an AI email agent that integrates directly
               with Gmail and Outlook.
@@ -531,16 +565,18 @@ function ContactSection() {
         </h2>
       </RevealBlock>
 
-      <Ruled />
+      
 
-      <div className="grid grid-cols-1 sm:grid-cols-3">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {contacts.map((c, i) => (
-          <RevealBlock key={c.label} delay={0.1 * i} className="border-r border-line last:border-r-0 py-12 pr-grid">
-            <p className="text-micro uppercase text-dim mb-4">{c.label}</p>
-            <a href={`mailto:${c.email}`} className="text-subhead text-white hover:underline underline-offset-4 block mb-3">
-              {c.email}
-            </a>
-            <p className="text-body-lg text-muted">{c.desc}</p>
+          <RevealBlock key={c.label} delay={0.1 * i}>
+            <div className="box-highlight px-6 py-12 h-full flex flex-col border-t border-line border-white">
+              <p className="text-micro uppercase text-dim mb-4">{c.label}</p>
+              <a href={`mailto:${c.email}`} className="text-subhead text-white hover:underline underline-offset-4 block mb-3 flex-1">
+                {c.email}
+              </a>
+              <p className="text-body-lg text-text-secondary">{c.desc}</p>
+            </div>
           </RevealBlock>
         ))}
       </div>
@@ -560,7 +596,7 @@ function HiringStrip() {
           </div>
           <div className="lg:col-span-1" />
           <div className="lg:col-span-4">
-            <p className="text-body-lg text-muted mb-6">
+            <p className="text-body-lg text-text-secondary mb-6">
               If you believe AI should move first and deliver without hand-holding, we want to talk.
             </p>
             <a

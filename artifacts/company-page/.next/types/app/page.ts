@@ -1,4 +1,4 @@
-// File: C:\Users\yatri\Documents\akakAI-site-main\artifacts\company-page\app\page.tsx
+// File: /Users/zmalik/Documents/akakAI/Products/home-page/akakAI-site-main/artifacts/company-page/app/page.tsx
 import * as entry from '../../../app/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

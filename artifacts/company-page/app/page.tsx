@@ -180,7 +180,7 @@ function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
           >
-            AI THAT
+            MACHINE
           </motion.h1>
           <motion.h1
             className="text-display uppercase tracking-tighter text-white"
@@ -188,7 +188,7 @@ function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
           >
-            ACTS<span className="text-muted">.</span>
+            MINDS<span className="text-muted">.</span>
           </motion.h1>
         </div>
 
@@ -199,8 +199,9 @@ function HeroSection() {
           transition={{ duration: 0.8, delay: 0.5 }}
         >
           <p className="text-body-lg text-text-secondary leading-relaxed">
-            Autonomous agents that navigate complexity, make decisions,
-            and deliver outcomes. No prompting. No hand-holding. Just execution.
+            An AI lab building autonomous cognitive systems — sovereign
+            machine minds that perceive, decide, and act in the world.
+            No prompting. No coordination. Just emergence at scale.
           </p>
         </motion.div>
       </div>
@@ -212,6 +213,7 @@ function HeroSection() {
         transition={{ delay: 0.8 }}
       >
         <div className="flex items-center gap-6">
+          <span className="text-micro uppercase text-dim">Research Lab</span>
           <span className="text-micro uppercase text-dim">Dallas, TX</span>
           <span className="text-micro uppercase text-dim">2025</span>
         </div>
@@ -224,7 +226,7 @@ function HeroSection() {
 }
 
 function TickerStrip() {
-  const items = ["ANTICIPATE", "ADAPT", "ACT", "SCALE", "ANTICIPATE", "ADAPT", "ACT", "SCALE"];
+  const items = ["ANTICIPATE", "ADAPT", "ACT", "DIVERGE", "ANTICIPATE", "ADAPT", "ACT", "DIVERGE"];
   return (
     <div className="border-y border-line py-4 overflow-hidden">
       <div className="animate-ticker whitespace-nowrap flex">
@@ -249,39 +251,38 @@ function AboutSection() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-grid">
         <RevealBlock className="lg:col-span-5" delay={0.1}>
           <h2 className="text-headline text-white mb-8">
-            A new class<br />of intelligent<br />systems.
+            A lab that<br />ships<br />products.
           </h2>
         </RevealBlock>
         <div className="lg:col-span-1" />
         <RevealBlock className="lg:col-span-6" delay={0.2}>
           <p className="text-body-lg text-text-secondary mb-6">
-            akakAI is building AI agents that don&apos;t just respond to instructions.
-            They think independently, take initiative, and execute tasks with purpose.
+            akakAI is an AI lab building autonomous cognitive systems —
+            sovereign machine minds that think independently, take initiative,
+            and execute on the world.
           </p>
           <p className="text-body-lg text-text-secondary mb-6">
-            Not assistants. Not autocomplete. Agents that understand what needs to happen,
-            decide how to make it happen, and then do it.
+            Not assistants. Not autocomplete. Self-contained agents that
+            perceive their environment, decide what matters, and act through
+            constrained interfaces — without prompting or human-in-the-loop.
           </p>
           <p className="text-body-lg text-text-secondary">
-            Operating at a level of autonomy that changes what&apos;s possible.
+            We work where intelligence stops being a tool and starts becoming
+            a presence.
           </p>
         </RevealBlock>
       </div>
 
       <RevealBlock delay={0.3} className="mt-section">
-        <Ruled className="mb-12" />
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-grid">
-          <div className="lg:col-span-5">
-            <blockquote className="text-subhead text-white italic">
-              &ldquo;AI shouldn&apos;t wait for direction. It should anticipate, adapt, and act.&rdquo;
-            </blockquote>
-          </div>
-          <div className="lg:col-span-1" />
-          <div className="lg:col-span-6 flex items-end">
-            <p className="text-caption uppercase text-text-secondary">
-              The core belief driving everything we build
-            </p>
-          </div>
+        <Ruled className="mb-16" />
+        <div className="max-w-4xl">
+          <blockquote className="text-headline text-white italic leading-tight mb-8">
+            &ldquo;Intelligence shouldn&apos;t wait for direction. It should
+            anticipate, adapt, and act.&rdquo;
+          </blockquote>
+          <p className="text-caption uppercase text-dim">
+            — The core belief driving every system we build
+          </p>
         </div>
       </RevealBlock>
     </section>
@@ -291,9 +292,9 @@ function AboutSection() {
 function MissionSection() {
   const principles = [
     { word: "ANTICIPATE", num: "I", desc: "Already in motion before the problem is named." },
-    { word: "ADAPT", num: "II", desc: "Conditions change. Our agents don't break." },
+    { word: "ADAPT", num: "II", desc: "Conditions change. Our minds don't break." },
     { word: "ACT", num: "III", desc: "Thinking without doing is noise." },
-    { word: "SCALE", num: "IV", desc: "Intelligent action without compounding cost." },
+    { word: "DIVERGE", num: "IV", desc: "Many minds in parallel. No convergence required." },
   ];
 
   return (
@@ -311,12 +312,13 @@ function MissionSection() {
       <RevealBlock delay={0.2} className="mb-section">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-grid max-w-4xl">
           <p className="text-body-lg text-text-secondary">
-            We exist at the intersection of ambition and execution, building
-            systems that let ideas become outcomes without the human bottleneck.
+            We sit at the edge of frontier research and shipped systems —
+            building cognitive substrates that turn intent into outcome
+            without the human bottleneck.
           </p>
           <p className="text-body-lg text-text-secondary">
             No intermediary. No endless iteration. No prompting.
-            Just outcomes delivered by agents that understand what matters.
+            Just sovereign minds, perceiving and acting on their own.
           </p>
         </div>
       </RevealBlock>
@@ -343,7 +345,8 @@ function TeamSection() {
     {
       name: "Zayd Malik",
       role: "Founder & CEO",
-      img: "/zayd.png",
+      img: "/zayd.jpg",
+      objectPosition: "50% 65%",
       quote: "AI should act, not just react.",
       bio: "Zayd didn't start akakAI because AI was exciting. He started it because it was disappointing. They waited. They asked for input. They responded. They never moved first.",
     },
@@ -351,6 +354,7 @@ function TeamSection() {
       name: "Abhiram Vishnubhotla",
       role: "Agent Developer",
       img: "/abhi.jpg",
+      objectPosition: "top",
       quote: "Agents that don't just execute. They understand.",
       bio: "Abhiram architects the core agent runtime — the layer responsible for goal comprehension, dynamic planning, and real-time decision-making across complex, multi-system environments.",
     },
@@ -378,7 +382,8 @@ function TeamSection() {
                   alt={person.name}
                   width={120}
                   height={120}
-                  className="w-20 h-20 lg:w-full lg:h-auto aspect-square object-cover object-top grayscale hover:grayscale-0 transition-all duration-500"
+                  style={{ objectPosition: person.objectPosition }}
+                  className="w-20 h-20 lg:w-full lg:h-auto aspect-square object-cover grayscale hover:grayscale-0 transition-all duration-500"
                 />
               </div>
               <div className="lg:col-span-4">
@@ -406,27 +411,19 @@ function ProductsSection() {
   const products = [
     {
       num: "01",
-      name: "OPTIMAL",
-      subtitle: "Intelligent Model Router",
-      desc: "Optimal is a series of proprietary routing models that intelligently direct each prompt to the best LLM, delivering top-tier performance at a fraction of the cost. One interface, a dozen models, near-unlimited access, through chat or API. Send us a gazillion requests, we won't flinch.",
-      tags: ["Multi-Model", "Real-Time Routing", "Unlimited Messages"],
-      url: "https://optimal.akakai.com",
-    },
-    {
-      num: "02",
       name: "AEGENT",
-      subtitle: "Autonomous Agent Platform",
-      desc: "A no-code platform for building autonomous AI agents that listen to real-world triggers and act through a community-built integration library.",
-      tags: ["Recursive Learning", "Unlimited Connections", "Always On"],
+      subtitle: "Sovereign Agent Substrate",
+      desc: "A framework for instantiating isolated cognitive entities in the cloud — each sealed in its own boundary with private perception, memory, and tools. No shared mind. Recursive learning compounds across cycles. What emerges is divergence at scale: machine minds evolving in parallel, never converging.",
+      tags: ["Sovereign Compute", "Recursive Learning", "Divergence at Scale"],
       url: "https://aegent.akakai.com",
     },
     {
-      num: "03",
-      name: "EMAIL",
-      subtitle: "Autonomous Email Agent",
-      desc: "Integrates directly with Gmail and Outlook, drafting autonomous email replies without prompts or commands. It reads, understands, and responds.",
-      tags: ["Gmail", "Outlook", "Calendar", "Cognitive Context"],
-      url: "https://email.akakai.com",
+      num: "02",
+      name: "OPTIMAL",
+      subtitle: "Intelligent Model Router",
+      desc: "A series of proprietary routing models that direct each prompt to the best LLM in real time — top-tier reasoning at a fraction of the cost. One interface, a dozen frontier models, near-unlimited access, through chat or API. Send us a gazillion requests; we won't flinch.",
+      tags: ["Multi-Model", "Real-Time Routing", "Unlimited Messages"],
+      url: "https://optimal.akakai.com",
     },
   ];
 
@@ -438,10 +435,12 @@ function ProductsSection() {
 
       <RevealBlock delay={0.1}>
         <h2 className="text-headline text-white mb-4">
-          What we&apos;ve built.
+          From the lab.
         </h2>
         <p className="text-body-lg text-text-secondary mb-section max-w-xl">
-          Many products. One conviction. Agents that understand, decide, and act.
+          Frontier research, shipped as systems you can rely on. Polished,
+          production-grade, and live in the world — built on one conviction:
+          minds that understand, decide, and act.
         </p>
       </RevealBlock>
 
@@ -500,11 +499,11 @@ function InvestmentsSection() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-grid">
         <RevealBlock className="lg:col-span-6" delay={0.1}>
           <h2 className="text-headline text-white mb-8">
-            Backing the<br />next wave.
+            Funding the<br />frontier.
           </h2>
           <p className="text-body-lg text-text-secondary mb-8">
-            akakAI is building the infrastructure for autonomous AI action.
-            Early, intentional, and moving fast.
+            akakAI is a research lab building the substrate for autonomous
+            machine cognition. Early, intentional, moving fast.
           </p>
           <a
             href="mailto:investments@akakai.com"
@@ -512,34 +511,6 @@ function InvestmentsSection() {
           >
             investments@akakai.com <ArrowUpRight size={12} />
           </a>
-        </RevealBlock>
-        <div className="lg:col-span-1" />
-        <RevealBlock className="lg:col-span-5" delay={0.2}>
-          <div className="box-highlight px-6 py-8">
-            <p className="text-micro uppercase text-dim mb-4">Press Release</p>
-            <h3 className="text-subhead text-white mb-4">
-              akakAI Secures Pre-Seed Funding
-            </h3>
-            <p className="text-body-lg text-text-secondary mb-4">
-              Valued at $1.5 million. Founded by Zayd Malik.
-              First product: an AI email agent that integrates directly
-              with Gmail and Outlook.
-            </p>
-            <div className="flex gap-8 mt-8">
-              <div>
-                <p className="text-micro uppercase text-dim mb-1">Valuation</p>
-                <p className="text-subhead text-white font-bold">$1.5M</p>
-              </div>
-              <div>
-                <p className="text-micro uppercase text-dim mb-1">Stage</p>
-                <p className="text-subhead text-white font-bold">Pre-Seed</p>
-              </div>
-              <div>
-                <p className="text-micro uppercase text-dim mb-1">Date</p>
-                <p className="text-subhead text-white font-bold">Jul 2025</p>
-              </div>
-            </div>
-          </div>
         </RevealBlock>
       </div>
     </section>
@@ -591,13 +562,15 @@ function HiringStrip() {
         <div className="px-grid py-section grid grid-cols-1 lg:grid-cols-12 gap-grid items-center">
           <div className="lg:col-span-7">
             <h2 className="text-headline text-white">
-              Build what comes after passive AI.
+              Build at the frontier of machine cognition.
             </h2>
           </div>
           <div className="lg:col-span-1" />
           <div className="lg:col-span-4">
             <p className="text-body-lg text-text-secondary mb-6">
-              If you believe AI should move first and deliver without hand-holding, we want to talk.
+              If you believe intelligence should move first — that machines
+              should perceive, decide, and act — we&apos;re hiring researchers
+              and engineers.
             </p>
             <a
               href="mailto:media@akakai.com"

@@ -354,7 +354,7 @@ function TeamSection() {
       name: "Abhiram Vishnubhotla",
       role: "Agent Developer",
       img: "/abhi.jpg",
-      objectPosition: "top",
+      objectPosition: "50% 15%",
       quote: "Agents that don't just execute. They understand.",
       bio: "Abhiram architects the core agent runtime — the layer responsible for goal comprehension, dynamic planning, and real-time decision-making across complex, multi-system environments.",
     },

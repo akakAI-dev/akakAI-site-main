@@ -547,9 +547,6 @@ video {
   margin-left: auto;
   margin-right: auto;
 }
-.mb-1 {
-  margin-bottom: 0.25rem;
-}
 .mb-12 {
   margin-bottom: 3rem;
 }
@@ -582,9 +579,6 @@ video {
 }
 .mt-3 {
   margin-top: 0.75rem;
-}
-.mt-8 {
-  margin-top: 2rem;
 }
 .mt-section {
   margin-top: clamp(4rem, 10vh, 8rem);
@@ -789,10 +783,6 @@ video {
 .object-cover {
   -o-object-fit: cover;
      object-fit: cover;
-}
-.object-top {
-  -o-object-position: top;
-     object-position: top;
 }
 .px-1 {
   padding-left: 0.25rem;

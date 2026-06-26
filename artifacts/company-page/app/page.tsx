@@ -215,7 +215,7 @@ function HeroSection() {
         <div className="flex items-center gap-6">
           <span className="text-micro uppercase text-dim">Research Lab</span>
           <span className="text-micro uppercase text-dim">Dallas, TX</span>
-          <span className="text-micro uppercase text-dim">2025</span>
+          <span className="text-micro uppercase text-dim">2026</span>
         </div>
         <div className="text-micro uppercase text-dim">
           Scroll

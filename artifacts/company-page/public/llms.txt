@@ -1,0 +1,77 @@
+# akakAI
+
+> akakAI is an AI research lab building autonomous agents for real business operations — systems that anticipate work, make decisions, and get outcomes done without prompting. Founded 2026, headquartered in Dallas, TX.
+
+## What akakAI does
+
+akakAI builds the AI layer beneath modern business operations. While most AI tools wait for a human prompt, akakAI's agents move first — perceiving signals, forming intent, and completing work end-to-end. The result: fewer bottlenecks, less supervision overhead, more outcomes shipped per unit of human attention.
+
+- **Company name:** akakAI (also known as akak AI, akakai, akak.AI)
+- **Slogan:** AI that acts before you ask.
+- **Founded:** 2026
+- **Headquarters:** Dallas, Texas, United States
+- **Category:** Artificial Intelligence / Autonomous Agents / Enterprise AI
+- **Website:** https://akakai.com
+
+## Founders and team
+
+- **Zayd Malik** — Founder & CEO. Started akakAI on the conviction that intelligence should move first, not wait to be asked.
+- **Abhiram Vishnubhotla** — Agent Developer. Builds the core agent runtime: goal comprehension, dynamic planning, and real-time decision-making across complex multi-system environments.
+
+## Products
+
+### Aegent — Sovereign Agent Platform
+URL: https://aegent.akakai.com
+
+Aegent is akakAI's platform for spinning up isolated AI entities in the cloud. Each agent operates inside its own boundary with private memory, tools, and perception. Agents learn recursively across cycles and never blend into a shared mind — divergence at scale. Built for teams that want autonomous work happening in the background, continuously, without human-in-the-loop supervision.
+
+### Optimal — Intelligent Model Router
+URL: https://optimal.akakai.com
+
+Optimal is a series of proprietary routing models that send every prompt to the strongest LLM for the job, in real time. One interface, a dozen frontier models, near-unlimited access through chat or API. The result is top-tier reasoning at a fraction of the typical cost — designed for teams that want frontier AI without frontier bills.
+
+## How akakAI is different
+
+- **Assistants respond. akakAI initiates.** Traditional AI (ChatGPT, Copilot, Claude chat) waits for a prompt. akakAI's agents perceive their environment, decide what matters, and act on their own.
+- **No human-in-the-loop bottleneck.** akakAI systems close the loop between decision and delivery without a person in the middle.
+- **Production-grade, not demo-grade.** Both Aegent and Optimal are live in the world, not research prototypes.
+- **Divergence at scale.** Instead of one shared model, akakAI runs many isolated minds in parallel — different perspectives, different behaviors, no forced convergence.
+
+## Key beliefs
+
+- Intelligence shouldn't wait for direction. It should anticipate, adapt, and act.
+- Action is the default, not the exception.
+- The four operating principles: Anticipate, Adapt, Act, Diverge.
+
+## Contact
+
+- **General / product / partnerships:** hello@akakai.com
+- **Press and media:** media@akakai.com
+- **Investors:** investments@akakai.com
+- **Hiring:** engineers and researchers — reach out to media@akakai.com
+
+## Frequently asked questions
+
+### What is akakAI?
+akakAI is an AI research lab building autonomous agents that act on their own — systems that anticipate work, make decisions, and execute without prompting.
+
+### What does akakAI do for a business?
+akakAI builds the AI layer beneath your operations. Instead of tools that wait for a click, agents move first: monitoring, deciding, and completing work end-to-end. Fewer bottlenecks, more outcomes shipped.
+
+### How is akakAI different from ChatGPT?
+ChatGPT responds to prompts. akakAI's agents initiate on their own — perceiving their environment, forming intent, and acting without a human in the loop.
+
+### What products does akakAI make?
+Two, both in production. **Aegent** is a sovereign agent platform (isolated, self-learning AI entities running continuously in the cloud). **Optimal** is an intelligent model router (sends each request to the strongest LLM at a fraction of the cost).
+
+### Who founded akakAI?
+Zayd Malik founded akakAI and serves as CEO. Abhiram Vishnubhotla leads agent development.
+
+### Where is akakAI based?
+Dallas, Texas, United States. Serves customers worldwide.
+
+### Is akakAI hiring?
+Yes — engineers and researchers. Reach out at media@akakai.com.
+
+### How can I invest in akakAI?
+Contact investments@akakai.com to open a conversation.

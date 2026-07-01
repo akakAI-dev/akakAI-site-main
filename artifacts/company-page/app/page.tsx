@@ -47,6 +47,7 @@ const navLinks = [
   { label: "About", id: "about" },
   { label: "Mission", id: "mission" },
   { label: "Team", id: "team" },
+  { label: "FAQ", id: "faq" },
   { label: "Contact", id: "contact" },
 ];
 
@@ -180,7 +181,7 @@ function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
           >
-            MACHINE
+            <span className="sr-only">akakAI — </span>MACHINE
           </motion.h1>
           <motion.h1
             className="text-display uppercase tracking-tighter text-white"
@@ -193,7 +194,7 @@ function HeroSection() {
         </div>
 
         <motion.div
-          className="mt-12 max-w-xl"
+          className="mt-12 max-w-xl aeo-speakable"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.5 }}
@@ -347,7 +348,7 @@ function TeamSection() {
       role: "Founder & CEO",
       img: "/zayd.jpg",
       objectPosition: "50% 65%",
-      quote: "AI should act, not just react.",
+      quote: "We built akakAI for the same reason empires build roads: not to assist the present, but to define what comes after it. Everything else is maintenance.",
       bio: "Zayd didn't start akakAI because AI was exciting. He started it because it was disappointing. They waited. They asked for input. They responded. They never moved first.",
     },
     {
@@ -413,7 +414,7 @@ function ProductsSection() {
       num: "01",
       name: "AEGENT",
       subtitle: "Sovereign Agent Substrate",
-      desc: "A framework for instantiating isolated cognitive entities in the cloud — each sealed in its own boundary with private perception, memory, and tools. No shared mind. Recursive learning compounds across cycles. What emerges is divergence at scale: machine minds evolving in parallel, never converging.",
+      desc: "Autonomous AI agents deployed in the cloud, each dedicated to a role in your business — perceiving, deciding, and acting on your behalf. Recursive learning means every cycle sharpens their judgment, compounding into a workforce that grows more capable the longer it runs.",
       tags: ["Sovereign Compute", "Recursive Learning", "Divergence at Scale"],
       url: "https://aegent.akakai.com",
     },
@@ -517,6 +518,94 @@ function InvestmentsSection() {
   );
 }
 
+function FAQSection() {
+  const faqs = [
+    {
+      q: "What is akakAI?",
+      a: "akakAI is an AI research lab building autonomous agents that act on their own — systems that anticipate work, make decisions, and execute without prompting. Founded in 2026, headquartered in Dallas, Texas.",
+    },
+    {
+      q: "What does akakAI actually do for a business?",
+      a: "We build the AI layer beneath your operations. Instead of tools that wait for a human to click, our agents move first: monitoring signals, deciding what matters, and completing work end-to-end. Less supervision, fewer bottlenecks, more outcomes shipped.",
+    },
+    {
+      q: "How is this different from ChatGPT or other AI assistants?",
+      a: "Assistants respond. Our agents initiate. ChatGPT waits for a prompt; akakAI systems perceive their environment, form intent, and act — closing the loop between decision and delivery without a person in the middle.",
+    },
+    {
+      q: "What products does akakAI offer?",
+      a: "Two, both in production. Aegent is a sovereign agent platform — isolated, self-learning AI entities running continuously in the cloud. Optimal is an intelligent model router, sending each request to the strongest LLM for the job at a fraction of the cost.",
+    },
+    {
+      q: "Who founded akakAI?",
+      a: "Zayd Malik founded akakAI and serves as CEO. Abhiram Vishnubhotla leads agent development. akakAI operates as an independent research lab out of Dallas, Texas.",
+    },
+    {
+      q: "Where is akakAI headquartered?",
+      a: "Dallas, Texas, United States. We serve customers worldwide.",
+    },
+  ];
+
+  return (
+    <section
+      id="faq"
+      aria-labelledby="faq-heading"
+      className="px-grid py-section border-t border-line"
+      itemScope
+      itemType="https://schema.org/FAQPage"
+    >
+      <RevealBlock>
+        <GridLabel num="06">Frequently Asked</GridLabel>
+      </RevealBlock>
+
+      <RevealBlock delay={0.1}>
+        <h2
+          id="faq-heading"
+          className="text-headline text-white mb-16 aeo-speakable"
+        >
+          In plain terms.
+        </h2>
+      </RevealBlock>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        {faqs.map((f, i) => (
+          <RevealBlock key={f.q} delay={0.05 * i}>
+            <div
+              className="box-highlight px-6 py-10 h-full flex flex-col aeo-speakable"
+              itemScope
+              itemProp="mainEntity"
+              itemType="https://schema.org/Question"
+            >
+              <span className="text-micro text-dim block mb-4">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <h3
+                className="text-subhead text-white mb-4"
+                itemProp="name"
+              >
+                {f.q}
+              </h3>
+              <div
+                itemScope
+                itemProp="acceptedAnswer"
+                itemType="https://schema.org/Answer"
+                className="flex-1"
+              >
+                <p
+                  className="text-body-lg text-text-secondary"
+                  itemProp="text"
+                >
+                  {f.a}
+                </p>
+              </div>
+            </div>
+          </RevealBlock>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 function ContactSection() {
   const contacts = [
     { label: "General", email: "hello@akakai.com", desc: "Product, partnership, and general" },
@@ -527,7 +616,7 @@ function ContactSection() {
   return (
     <section id="contact" className="px-grid py-section border-t border-line">
       <RevealBlock>
-        <GridLabel num="06">Contact</GridLabel>
+        <GridLabel num="07">Contact</GridLabel>
       </RevealBlock>
 
       <RevealBlock delay={0.1}>
@@ -620,6 +709,7 @@ export default function CompanyPage() {
       <TeamSection />
       <InvestmentsSection />
       <HiringStrip />
+      <FAQSection />
       <ContactSection />
       <Footer />
     </main>

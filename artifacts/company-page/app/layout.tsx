@@ -142,7 +142,7 @@ const jsonLd = {
       description:
         "akakAI is an AI research lab building autonomous agents for business operations — systems that anticipate work, make decisions, and act on their own.",
       slogan: "AI that acts before you ask.",
-      foundingDate: "2026",
+      foundingDate: "2025",
       foundingLocation: {
         "@type": "Place",
         address: {
@@ -324,7 +324,7 @@ const jsonLd = {
           name: "What is akakAI?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "akakAI is an AI research lab building autonomous agents that act on their own — systems that anticipate work, make decisions, and execute without prompting. Founded in 2026, headquartered in Dallas, Texas.",
+            text: "akakAI is an AI research lab building autonomous agents that act on their own — systems that anticipate work, make decisions, and execute without prompting. Founded in 2025, headquartered in Dallas, Texas.",
           },
         },
         {
@@ -356,7 +356,7 @@ const jsonLd = {
           name: "Who founded akakAI?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "akakAI was founded by Zayd Malik, who serves as CEO. Abhiram Vishnubhotla leads agent development. The company operates as an independent research lab out of Dallas, Texas.",
+            text: "akakAI was founded by Zayd Malik, who serves as CEO. The company operates as an independent research lab out of Dallas, Texas.",
           },
         },
         {

@@ -216,7 +216,7 @@ function HeroSection() {
         <div className="flex items-center gap-6">
           <span className="text-micro uppercase text-dim">Research Lab</span>
           <span className="text-micro uppercase text-dim">Dallas, TX</span>
-          <span className="text-micro uppercase text-dim">2026</span>
+          <span className="text-micro uppercase text-dim">2025</span>
         </div>
         <div className="text-micro uppercase text-dim">
           Scroll
@@ -522,7 +522,7 @@ function FAQSection() {
   const faqs = [
     {
       q: "What is akakAI?",
-      a: "akakAI is an AI research lab building autonomous agents that act on their own — systems that anticipate work, make decisions, and execute without prompting. Founded in 2026, headquartered in Dallas, Texas.",
+      a: "akakAI is an AI research lab building autonomous agents that act on their own — systems that anticipate work, make decisions, and execute without prompting. Founded in 2025, headquartered in Dallas, Texas.",
     },
     {
       q: "What does akakAI actually do for a business?",
@@ -538,7 +538,7 @@ function FAQSection() {
     },
     {
       q: "Who founded akakAI?",
-      a: "Zayd Malik founded akakAI and serves as CEO. Abhiram Vishnubhotla leads agent development. akakAI operates as an independent research lab out of Dallas, Texas.",
+      a: "Zayd Malik founded akakAI and serves as CEO. akakAI operates as an independent research lab out of Dallas, Texas.",
     },
     {
       q: "Where is akakAI headquartered?",

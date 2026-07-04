@@ -181,7 +181,7 @@ function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
           >
-            <span className="sr-only">akakAI — </span>MACHINE
+            <span className="sr-only">akakAI — </span>YOUR AI
           </motion.h1>
           <motion.h1
             className="text-display uppercase tracking-tighter text-white"
@@ -189,7 +189,7 @@ function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
           >
-            MINDS<span className="text-muted">.</span>
+            WORKFORCE<span className="text-muted">.</span>
           </motion.h1>
         </div>
 
@@ -200,9 +200,9 @@ function HeroSection() {
           transition={{ duration: 0.8, delay: 0.5 }}
         >
           <p className="text-body-lg text-text-secondary leading-relaxed">
-            An AI lab building autonomous cognitive systems — sovereign
-            machine minds that perceive, decide, and act in the world.
-            No prompting. No coordination. Just emergence at scale.
+            AI is finally worth the hype. We build for a world where
+            software moves first — anticipating, adapting, acting —
+            instead of waiting around to be told what to do.
           </p>
         </motion.div>
       </div>
@@ -252,24 +252,25 @@ function AboutSection() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-grid">
         <RevealBlock className="lg:col-span-5" delay={0.1}>
           <h2 className="text-headline text-white mb-8">
-            A lab that<br />ships<br />products.
+            The AI you<br />were<br />promised.
           </h2>
         </RevealBlock>
         <div className="lg:col-span-1" />
         <RevealBlock className="lg:col-span-6" delay={0.2}>
           <p className="text-body-lg text-text-secondary mb-6">
-            akakAI is an AI lab building autonomous cognitive systems —
-            sovereign machine minds that think independently, take initiative,
-            and execute on the world.
+            akakAI is a research lab, but nothing ships here as a paper.
+            Everything we build is a product — live, in the world, doing
+            real work right now.
           </p>
           <p className="text-body-lg text-text-secondary mb-6">
-            Not assistants. Not autocomplete. Self-contained agents that
-            perceive their environment, decide what matters, and act through
-            constrained interfaces — without prompting or human-in-the-loop.
+            Aegent gives your business its own AI workforce — autonomous
+            workers that never sleep, learn as they go, and finish tasks
+            without being told. Optimal plugs you into every frontier AI
+            through a single chat — ChatGPT, Claude, Gemini and more,
+            with the best one picked for each question, automatically.
           </p>
           <p className="text-body-lg text-text-secondary">
-            We work where intelligence stops being a tool and starts becoming
-            a presence.
+            Same conviction behind both: AI you wield. Not AI you wrestle.
           </p>
         </RevealBlock>
       </div>
@@ -278,8 +279,8 @@ function AboutSection() {
         <Ruled className="mb-16" />
         <div className="max-w-4xl">
           <blockquote className="text-headline text-white italic leading-tight mb-8">
-            &ldquo;Intelligence shouldn&apos;t wait for direction. It should
-            anticipate, adapt, and act.&rdquo;
+            &ldquo;AI you wield.
+            Not AI you wrestle.&rdquo;
           </blockquote>
           <p className="text-caption uppercase text-dim">
             — The core belief driving every system we build
@@ -306,20 +307,21 @@ function MissionSection() {
 
       <RevealBlock delay={0.1}>
         <h2 className="text-headline text-white max-w-4xl mb-16">
-          Make action the default,<br />not the exception.
+          Make AI worth<br />the hype.
         </h2>
       </RevealBlock>
 
       <RevealBlock delay={0.2} className="mb-section">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-grid max-w-4xl">
           <p className="text-body-lg text-text-secondary">
-            We sit at the edge of frontier research and shipped systems —
-            building cognitive substrates that turn intent into outcome
-            without the human bottleneck.
+            AI got exciting. Then it got exhausting — a dozen tools,
+            four subscriptions, tabs full of copy-paste, prompt tricks
+            you have to Google. We&apos;re building the fix.
           </p>
           <p className="text-body-lg text-text-secondary">
-            No intermediary. No endless iteration. No prompting.
-            Just sovereign minds, perceiving and acting on their own.
+            A workforce that runs itself. Every frontier AI in one chat.
+            Two products, both live — built on the same wild idea:
+            AI should just work.
           </p>
         </div>
       </RevealBlock>
@@ -348,7 +350,7 @@ function TeamSection() {
       role: "Founder & CEO",
       img: "/zayd.jpg",
       objectPosition: "50% 65%",
-      quote: "We built akakAI for the same reason empires build roads: not to assist the present, but to define what comes after it. Everything else is maintenance.",
+      quote: "To reach the limits of the possible, you must try the impossible.",
       bio: "Zayd didn't start akakAI because AI was exciting. He started it because it was disappointing. They waited. They asked for input. They responded. They never moved first.",
     },
     {
@@ -413,17 +415,17 @@ function ProductsSection() {
     {
       num: "01",
       name: "AEGENT",
-      subtitle: "Sovereign Agent Substrate",
-      desc: "Autonomous AI agents deployed in the cloud, each dedicated to a role in your business — perceiving, deciding, and acting on your behalf. Recursive learning means every cycle sharpens their judgment, compounding into a workforce that grows more capable the longer it runs.",
-      tags: ["Sovereign Compute", "Recursive Learning", "Divergence at Scale"],
+      subtitle: "Truly Autonomous AI Workers.",
+      desc: "Give any role in your business its own AI worker. It clocks in 24/7, learns your business as it goes, and finishes real work — research, outreach, reports, follow-ups, whatever. Software that actually shows up. And the longer it runs, the sharper it gets.",
+      tags: ["Clocks In 24/7", "Learns As It Goes", "Finishes Real Work"],
       url: "https://aegent.akakai.com",
     },
     {
       num: "02",
       name: "OPTIMAL",
-      subtitle: "Intelligent Model Router",
-      desc: "A series of proprietary routing models that direct each prompt to the best LLM in real time — top-tier reasoning at a fraction of the cost. One interface, a dozen frontier models, near-unlimited access, through chat or API. Send us a gazillion requests; we won't flinch.",
-      tags: ["Multi-Model", "Real-Time Routing", "Unlimited Messages"],
+      subtitle: "Every Frontier AI. One Chat.",
+      desc: "Stop paying four AI subscriptions. Optimal puts ChatGPT, Claude, Gemini and every other frontier model in one chat, then instantly routes each question to whichever one answers best. Top-tier answers, near-unlimited messages, a fraction of the cost.",
+      tags: ["Every Frontier Model", "Auto-Picks the Best", "Fraction of the Cost"],
       url: "https://optimal.akakai.com",
     },
   ];
@@ -436,12 +438,11 @@ function ProductsSection() {
 
       <RevealBlock delay={0.1}>
         <h2 className="text-headline text-white mb-4">
-          From the lab.
+          Production<br />solutions.
         </h2>
         <p className="text-body-lg text-text-secondary mb-section max-w-xl">
-          Frontier research, shipped as systems you can rely on. Polished,
-          production-grade, and live in the world — built on one conviction:
-          minds that understand, decide, and act.
+          Two products, live in the wild. No demos, no waitlists — real
+          software doing real work right now. Try either one.
         </p>
       </RevealBlock>
 
@@ -503,8 +504,10 @@ function InvestmentsSection() {
             Funding the<br />frontier.
           </h2>
           <p className="text-body-lg text-text-secondary mb-8">
-            akakAI is a research lab building the substrate for autonomous
-            machine cognition. Early, intentional, moving fast.
+            We&apos;re an AI lab already shipping products people use —
+            and we&apos;re just warming up. Early, focused, moving fast.
+            If that&apos;s the kind of company you want to back, let&apos;s
+            talk.
           </p>
           <a
             href="mailto:investments@akakai.com"
@@ -522,19 +525,19 @@ function FAQSection() {
   const faqs = [
     {
       q: "What is akakAI?",
-      a: "akakAI is an AI research lab building autonomous agents that act on their own — systems that anticipate work, make decisions, and execute without prompting. Founded in 2025, headquartered in Dallas, Texas.",
+      a: "akakAI is a research lab that ships. Not papers — products. Aegent is a workforce of AI workers that finish tasks on their own. Optimal is one chat with every frontier AI in it. Both live today. Founded 2025 in Dallas, Texas.",
     },
     {
       q: "What does akakAI actually do for a business?",
-      a: "We build the AI layer beneath your operations. Instead of tools that wait for a human to click, our agents move first: monitoring signals, deciding what matters, and completing work end-to-end. Less supervision, fewer bottlenecks, more outcomes shipped.",
+      a: "Two levers. Aegent gives your team dedicated AI workers that finish tasks without supervision — research, outreach, reports, follow-ups. Optimal collapses ChatGPT, Claude, Gemini and every other frontier AI into one chat that automatically picks the best one for each question. Less busywork. Less tool sprawl. Way more shipped.",
     },
     {
       q: "How is this different from ChatGPT or other AI assistants?",
-      a: "Assistants respond. Our agents initiate. ChatGPT waits for a prompt; akakAI systems perceive their environment, form intent, and act — closing the loop between decision and delivery without a person in the middle.",
+      a: "ChatGPT is one model that waits for you to type. akakAI is two products in one lab: Aegent moves first and finishes work on its own. Optimal covers ChatGPT plus every other frontier AI in a single chat — automatically picking whichever answers best.",
     },
     {
       q: "What products does akakAI offer?",
-      a: "Two, both in production. Aegent is a sovereign agent platform — isolated, self-learning AI entities running continuously in the cloud. Optimal is an intelligent model router, sending each request to the strongest LLM for the job at a fraction of the cost.",
+      a: "Two, both live today. Aegent gives your business its own AI workforce — dedicated workers that clock in 24/7 and get sharper the longer they run. Optimal is one chat with every frontier AI in it — ChatGPT, Claude, Gemini and more — auto-picking the best one for each question. One bill, near-unlimited messages, a fraction of the cost.",
     },
     {
       q: "Who founded akakAI?",
@@ -651,15 +654,15 @@ function HiringStrip() {
         <div className="px-grid py-section grid grid-cols-1 lg:grid-cols-12 gap-grid items-center">
           <div className="lg:col-span-7">
             <h2 className="text-headline text-white">
-              Build at the frontier of machine cognition.
+              Build AI worth shipping.
             </h2>
           </div>
           <div className="lg:col-span-1" />
           <div className="lg:col-span-4">
             <p className="text-body-lg text-text-secondary mb-6">
-              If you believe intelligence should move first — that machines
-              should perceive, decide, and act — we&apos;re hiring researchers
-              and engineers.
+              If you&apos;d rather build the future than write about it,
+              we want you. Engineers, researchers — send us something
+              you&apos;ve made.
             </p>
             <a
               href="mailto:media@akakai.com"

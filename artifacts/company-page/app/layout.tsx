@@ -3,9 +3,9 @@ import "./globals.css";
 
 const SITE_URL = "https://akakai.com";
 const SITE_NAME = "akakAI";
-const TITLE = "akakAI — Autonomous AI Agents That Act Without Being Asked";
+const TITLE = "akakAI — The AI You Were Promised";
 const DESCRIPTION =
-  "akakAI builds autonomous AI agents for real business operations — systems that anticipate work, make decisions, and get outcomes done without prompting.";
+  "akakAI is a research lab that ships. Aegent: a workforce of AI workers that finish tasks on their own. Optimal: one chat with every frontier AI in it. Both live today.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -78,7 +78,7 @@ export const metadata: Metadata = {
         url: "/opengraph.jpg",
         width: 1200,
         height: 630,
-        alt: "akakAI — Autonomous AI Agents That Act Without Being Asked",
+        alt: "akakAI — The AI You Were Promised",
         type: "image/jpeg",
       },
     ],
@@ -140,8 +140,8 @@ const jsonLd = {
       },
       image: `${SITE_URL}/opengraph.jpg`,
       description:
-        "akakAI is an AI research lab building autonomous agents for business operations — systems that anticipate work, make decisions, and act on their own.",
-      slogan: "AI that acts before you ask.",
+        "akakAI is an AI research lab that ships. Aegent is a workforce of AI workers that finish tasks on their own. Optimal is one chat with every frontier AI in it. Both live today.",
+      slogan: "AI you wield. Not AI you wrestle.",
       foundingDate: "2025",
       foundingLocation: {
         "@type": "Place",
@@ -272,13 +272,13 @@ const jsonLd = {
       url: "https://aegent.akakai.com",
       publisher: { "@id": `${SITE_URL}#organization` },
       description:
-        "Aegent is akakAI's sovereign agent platform: isolated AI entities that run continuously in the cloud with private memory, tools, and perception. Each agent learns on its own and never blends into a shared mind — divergence at scale.",
+        "Aegent gives your business its own AI workforce — dedicated workers that clock in 24/7, learn your business as they go, and finish real work without supervision. Software that actually shows up.",
       featureList: [
-        "Sovereign agent instances with isolated memory",
-        "Continuous background operation",
-        "Recursive learning across cycles",
-        "Private tool and perception boundaries",
-        "Enterprise-ready autonomy without human-in-the-loop",
+        "Dedicated AI worker for any role in your business",
+        "Clocks in 24/7 in the cloud, no supervision needed",
+        "Learns your business as it goes",
+        "Finishes real work end-to-end",
+        "Gets sharper the longer it runs",
       ],
       offers: {
         "@type": "Offer",
@@ -298,13 +298,13 @@ const jsonLd = {
       url: "https://optimal.akakai.com",
       publisher: { "@id": `${SITE_URL}#organization` },
       description:
-        "Optimal is akakAI's intelligent model router — proprietary routing models that send every prompt to the strongest LLM for the job, in real time. Top-tier reasoning at a fraction of the cost, with near-unlimited access through chat or API.",
+        "Optimal puts ChatGPT, Claude, Gemini and every frontier AI in one chat, then instantly routes each question to whichever model answers best. One login, one bill, near-unlimited messages, a fraction of the cost.",
       featureList: [
-        "Real-time routing to the best frontier LLM per request",
-        "One interface across a dozen frontier models",
-        "Chat and API access",
-        "Cost-optimized without sacrificing reasoning quality",
-        "Near-unlimited message throughput",
+        "Every frontier AI in one chat",
+        "Auto-picks the best model for each question",
+        "One login, one bill",
+        "Near-unlimited messages",
+        "A fraction of the cost of stacking subscriptions",
       ],
       offers: {
         "@type": "Offer",
@@ -324,7 +324,7 @@ const jsonLd = {
           name: "What is akakAI?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "akakAI is an AI research lab building autonomous agents that act on their own — systems that anticipate work, make decisions, and execute without prompting. Founded in 2025, headquartered in Dallas, Texas.",
+            text: "akakAI is a research lab that ships. Not papers — products. Aegent is a workforce of AI workers that finish tasks on their own. Optimal is one chat with every frontier AI in it. Both live today. Founded 2025 in Dallas, Texas.",
           },
         },
         {
@@ -332,7 +332,7 @@ const jsonLd = {
           name: "What does akakAI actually do for a business?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "akakAI builds the AI layer beneath your operations. Instead of tools that wait for a human to click, our agents move first: monitoring signals, deciding what matters, and completing work end-to-end. Less supervision, fewer bottlenecks, more outcomes shipped.",
+            text: "Two levers. Aegent gives your team dedicated AI workers that finish tasks without supervision — research, outreach, reports, follow-ups. Optimal collapses ChatGPT, Claude, Gemini and every other frontier AI into one chat that automatically picks the best one for each question. Less busywork. Less tool sprawl. Way more shipped.",
           },
         },
         {
@@ -340,7 +340,7 @@ const jsonLd = {
           name: "How is akakAI different from ChatGPT or other AI assistants?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "Assistants respond. akakAI's agents initiate. ChatGPT waits for a prompt; akakAI systems perceive their environment, form intent, and act — closing the loop between decision and delivery without a person in the middle.",
+            text: "ChatGPT is one model that waits for you to type. akakAI is two products in one lab: Aegent moves first and finishes work on its own. Optimal covers ChatGPT plus every other frontier AI in a single chat — automatically picking whichever answers best.",
           },
         },
         {
@@ -348,7 +348,7 @@ const jsonLd = {
           name: "What products does akakAI offer?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "Two products, both live in production. Aegent is a sovereign agent platform — isolated, self-learning AI entities running continuously in the cloud. Optimal is an intelligent model router that sends each request to the strongest LLM for the job, at a fraction of the cost.",
+            text: "Two, both live today. Aegent gives your business its own AI workforce — dedicated workers that clock in 24/7 and get sharper the longer they run. Optimal is one chat with every frontier AI in it — ChatGPT, Claude, Gemini and more — auto-picking the best one for each question. One bill, near-unlimited messages, a fraction of the cost.",
           },
         },
         {

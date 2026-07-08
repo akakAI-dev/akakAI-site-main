@@ -181,7 +181,7 @@ function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
           >
-            <span className="sr-only">akakAI — </span>YOUR AI
+            <span className="sr-only">akakAI — </span>AUTONOMOUS
           </motion.h1>
           <motion.h1
             className="text-display uppercase tracking-tighter text-white"
@@ -189,7 +189,7 @@ function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
           >
-            WORKFORCE<span className="text-muted">.</span>
+            INTELLIGENCE<span className="text-muted">.</span>
           </motion.h1>
         </div>
 

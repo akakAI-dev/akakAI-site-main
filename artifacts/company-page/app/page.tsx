@@ -174,7 +174,7 @@ function HeroSection() {
       <div className="absolute inset-0 grid-overlay pointer-events-none" />
 
       <div className="relative z-10 flex-1 flex flex-col justify-center">
-        <div className="max-w-[90vw]">
+        <div className="w-full">
           <motion.h1
             className="text-display uppercase tracking-tighter text-white"
             initial={{ opacity: 0, y: 80 }}

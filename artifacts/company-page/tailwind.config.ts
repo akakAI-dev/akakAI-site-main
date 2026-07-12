@@ -12,7 +12,7 @@ const config: Config = {
         sans: ["Inter", "Helvetica Neue", "system-ui", "sans-serif"],
       },
       fontSize: {
-        "display": ["clamp(4rem, 12vw, 14rem)", { lineHeight: "0.85", letterSpacing: "-0.04em", fontWeight: "800" }],
+        "display": ["clamp(2rem, 11vw, 14rem)", { lineHeight: "0.85", letterSpacing: "-0.04em", fontWeight: "800" }],
         "headline": ["clamp(2.5rem, 6vw, 5.5rem)", { lineHeight: "1.1", letterSpacing: "-0.03em", fontWeight: "700" }],
         "subhead": ["clamp(1.25rem, 2.5vw, 2rem)", { lineHeight: "1.3", letterSpacing: "-0.02em", fontWeight: "600" }],
         "body-lg": ["clamp(1rem, 1.5vw, 1.25rem)", { lineHeight: "1.7", letterSpacing: "-0.005em" }],
